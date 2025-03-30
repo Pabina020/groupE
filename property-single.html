@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Rentup</title>
+
+  <link rel="stylesheet" type="text/css" href="css/vendor.css">
+
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+
+  <!-- Link Bootstrap's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts ================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- script ================================================== -->
+  <script src="js/modernizr.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+
+ <!-- nav bar start -->
+ <header class="site-header fixed-top ">
+  <nav class="navbar navbar-expand-lg py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <!-- Logo -->
+      <a class="navbar-brand" href="./index.html"><img src="images/logo.png" alt="image"></a>
+
+
+      <!-- Nav items -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation"><ion-icon
+        name="menu-outline" style="font-size: 30px;"></ion-icon></button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2"
+      aria-labelledby="offcanvasNavbar2Label">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
+          <li class="nav-item">
+            <a class="nav-link active me-md-4" href="#index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="#apartment">Apartments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="#residence">Properties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="#help">Help center</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="#contact-us">Contact Us</a>
+          </li>
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+              <span class="link-text">Pages</span>
+            </a>
+            
+            <ul class="dropdown-menu dropdown-menu-light">
+              <li><a href="about.html" class="dropdown-item">About </a>
+              </li>
+              <li><a href="properties.html" class="dropdown-item">Properties </a></li>
+              <li><a href="property-single.html" class="dropdown-item">Property-Single </a></li>
+              <li><a href="contact.html" class="dropdown-item">Contact </a></li>
+              <li><a href="reviews.html" class="dropdown-item">Review </a></li>
+              <li><a href="agents.html" class="dropdown-item">Agents </a>
+              </li>
+              <li><a href="faqs.html" class="dropdown-item">FAQs </a>
+              </li>
+              
+            </ul>
+          </li></ul>
+    
+      
+
+
+      <!-- Auth Buttons -->
+      <div class="d-flex gap-2">
+        <a href="#" class="btn btn-light rounded-pill px-3 py-2">Login</a>
+        <a href="#" class="btn btn-primary text-white rounded-pill px-3 py-2">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <section id="page-billboard" style="background-image: url(images/pattern.png);">
+    <div id="about" class="container py-5 ">
+      <div class="page-billboard-container">
+
+        <div class="my-3">
+          <h1 class=" text-capitalize mb-3">Aliva Priva Jalvin</h1>
+          <div class="d-flex ">
+            <p class="fs-5 text-black">1087 Pin Oak Drive, Clinton, USA </p>
+            <p style="color: #000000">&nbsp; | &nbsp;</p>
+            <p class="text-primary fs-5 fw-semibold"> For Rent </p>
+            <p style="color: #000000">&nbsp; | &nbsp;</p>
+            <p class="text-primary fs-5 fw-semibold"> Price : $90,000 / mo</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="post-wrap  no-padding-bottom">
+    <div class="container">
+
+      <div class="row g-5">
+        <main class="post-grid col-md-9">
+          <div class="row">
+            <article class="property">
+
+              <div class="row flex-column">
+                <div class="col-md-12">
+                  <!-- product-large-slider -->
+                  <div class="swiper product-large-slider">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <img src="images/item-large1.jpg" alt="product-large" class="img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large2.jpg" alt="product-large" class="img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large3.jpg" alt="product-large" class="img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large4.jpg" alt="product-large" class="img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large5.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large7.jpg" alt="product-large" class="img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large8.jpg" alt="product-large" class="img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item-large9.jpg" alt="product-large" class="img-fluid">
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- / product-large-slider -->
+                </div>
+                <div class="col-md-12 mt-2">
+                  <!-- product-thumbnail-slider -->
+                  <div thumbsSlider="" class="swiper product-thumbnail-slider">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <img src="images/item1.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item2.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item3.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item4.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item6.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item7.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item5.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="images/item8.jpg" alt="image" class="thumb-image img-fluid">
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- / product-thumbnail-slider -->
+                </div>
+
+              </div>
+
+              <div class="post-content py-5">
+
+                <div class="overview my-5">
+                  <h3 class="fs-2 mb-4">Property Overview</h3>
+
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-1">
+                    <div class="col d-flex align-items-start">
+                      <iconify-icon icon="material-symbols:bed-outline" class="property-icon border p-3"></iconify-icon>
+                      <div class="ms-4">
+                        <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Bedroom</h3>
+                        <p>7</p>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                      <iconify-icon icon="material-symbols:shower-outline"
+                        class="property-icon border p-3"></iconify-icon>
+                      <div class="ms-4">
+                        <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Bath</h3>
+                        <p>5</p>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                      <iconify-icon icon="fluent-mdl2:date-time-2" class="property-icon border p-3"></iconify-icon>
+                      <div class="ms-4">
+                        <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Year Built</h3>
+                        <p>2023</p>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                      <iconify-icon icon="material-symbols:garage-home-outline"
+                        class="property-icon border p-3"></iconify-icon>
+                      <div class="ms-4">
+                        <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Garage</h3>
+                        <p>2</p>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                      <iconify-icon icon="pixelarticons:drop-area" class="property-icon border p-3"></iconify-icon>
+                      <div class="ms-4">
+                        <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Sqft</h3>
+                        <p>1800</p>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                      <iconify-icon icon="teenyicons:search-property-outline"
+                        class="property-icon border p-3"></iconify-icon>
+                      <div class="ms-4">
+                        <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Property Type</h3>
+                        <p>Villa</p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+                <hr>
+                <div class="price my-5">
+                  <h3 class=" fs-2 mb-4">Price Details</h3>
+                  <p> <span class="fw-bold text-primary">Rent/Month :</span> 90,000 (negotiable)</p>
+                  <p> <span class="fw-bold text-primary">Service Charge :</span> 8,000/= Tk per month, subject to change
+                  </p>
+                  <p> <span class="fw-bold text-primary">Security Deposit :</span> 3 month’s rent</p>
+                  <p> <span class="fw-bold text-primary">Flat Release Policy :</span> 3 months earlier notice required</p>
+
+                </div>
+                <hr>
+                <div class="details my-5">
+                  <h3 class=" fs-2 mb-4">Property Details</h3>
+                  <p> <span class="fw-bold text-primary">Address & Area :</span> Los Angeles, Los Angeles, 10425 Tabor St
+                  </p>
+                  <p> <span class="fw-bold text-primary">Flat Size :</span> 3000 Sq Feet.</p>
+                  <p> <span class="fw-bold text-primary">Floor : </span> (6 storied Building ) (South Facing Unit)</p>
+                  <p> <span class="fw-bold text-primary">Room Category : </span>3 Large Bed Rooms with 3 Verandas,
+                    Spacious Drawing, Dining & Family Living Room, Highly Decorated Kitchen with Store Room and Servant
+                    room with attached Toilet.</p>
+                  <p> <span class="fw-bold text-primary">Facilities :</span> 1 Modern Lift, All Modern Amenities & Semi
+                    Furnished.</p>
+                  <p> <span class="fw-bold text-primary">Additional Facilities : </span> Electricity with full generator
+                    load, Central Gas Geyser, 2 Car Parking with 1 Driver’s Accommodation, Community Conference Hall,
+                    Roof Top Beautified Garden and Grassy Ground, Cloth Hanging facility with CC camera</p>
+
+                </div>
+                <hr>
+                <div class="feature my-5">
+                  <h3 class=" fs-2 mb-4">Features & Amenities</h3>
+                  <div class="d-flex">
+                    <ul class="ms-4 me-5">
+                      <li>Air Conditioning </li>
+                      <li>Barbeque </li>
+                      <li>Dryer </li>
+                      <li>Gym </li>
+                      <li>Lawn </li>
+                      <li>Microwave </li>
+                    </ul>
+                    <ul class="ms-5">
+                      <li>Outdoor Shower </li>
+                      <li>Refrigerator </li>
+                      <li>Swimming Pool </li>
+                      <li>TV Cable </li>
+                      <li>Washer </li>
+                      <li>WiFi6 </li>
+                    </ul>
+                  </div>
+
+                </div>
+                <hr>
+                <div class="address my-5">
+                  <h3 class=" fs-2 mb-4">Address</h3>
+                  <div class="d-flex">
+                    <div class="me-5">
+                      <p> <span class="fw-bold text-primary">Address :</span> 10425 Tabor St</p>
+                      <p> <span class="fw-bold text-primary">City :</span> Los Angeles</p>
+                      <p> <span class="fw-bold text-primary">State/county :</span> California</p>
+                    </div>
+                    <div class="ms-5">
+                      <p> <span class="fw-bold text-primary">Zip/Postal Code :</span> 90034</p>
+                      <p> <span class="fw-bold text-primary">Area :</span> Brookside</p>
+                      <p> <span class="fw-bold text-primary">Country :</span> United States</p>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+            </article>
+            <div id="post-author-info" class="border-top border-bottom py-5">
+              <div class="row d-flex align-items-center">
+                <div class="col-md-3">
+                  <div class="image-holder">
+                    <a itemprop="url" href="#">
+                      <img src="images/author-image.jpg" class="img-fluid" alt="author">
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="post-author-content">
+                    <div class="element-title text-uppercase">
+                      <a itemprop="url" href="#">Jenney Younes</a>
+                    </div>
+                    <span class="author-position">Owner</span>
+                    <p>Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
+                      nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero
+                      dolor. Porta ut diam lobortis eget leo, lectus. Tortor diam dignissim amet, in interdum aliquet.
+                      Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section id="post-comment">
+              <div class="container">
+                <div class="row my-5">
+                  <div class="comments-wrap">
+                    <h3 class="text-uppercase mb-5">
+                      <span class="count">3</span> Comments
+                    </h3>
+                    <div class="comment-list">
+                      <article class="comment-item pb-3 row">
+                        <div class="col-md-1">
+                          <img src="images/commentor-item1.jpg" alt="default"
+                            class="commentor-image img-fluid rounded-circle">
+                        </div>
+                        <div class="col-md-10">
+                          <div class="author-post mb-4">
+                            <div class="comment-meta text-uppercase d-flex gap-3 text-black">
+                              <div class="author-name text-white">Lufy carlson</div>
+                              <span class="meta-date text-white-50">Jul 10</span>
+                            </div>
+                            <p>Tristique tempis condimentum diam done ullancomroer sit element henddg sit he
+                              consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he
+                              consequert.</p>
+                            <div class="comments-reply border-animation">
+                              <a href="#">
+                                <i class="icon icon-mail-reply"></i>Reply </a>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="comment-item pb-3 row child-comments">
+                        <div class="col-md-1">
+                          <img src="images/commentor-item2.jpg" alt="default"
+                            class="commentor-image img-fluid rounded-circle">
+                        </div>
+                        <div class="col-md-10">
+                          <div class="author-post mb-4">
+                            <div class="comment-meta text-uppercase d-flex gap-3 text-black ">
+                              <div class="author-name text-white">Lora leigh</div>
+                              <span class="meta-date text-white-50">Jul 10</span>
+                            </div>
+                            <p>Tristique tempis condimentum diam done ullancomroer sit element henddg sit he
+                              consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he
+                              consequert.</p>
+                            <div class="comments-reply border-animation">
+                              <a href="#">
+                                <i class="icon icon-mail-reply"></i>Reply </a>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                      <article class="comment-item pb-3 row">
+                        <div class="col-md-1">
+                          <img src="images/commentor-item3.jpg" alt="default"
+                            class="commentor-image img-fluid rounded-circle">
+                        </div>
+                        <div class="col-md-10">
+                          <div class="author-post mb-4">
+                            <div class="comment-meta text-uppercase d-flex gap-3 text-black ">
+                              <div class="author-name text-white">Natalie dormer</div>
+                              <span class="meta-date text-white-50">Jul 10</span>
+                            </div>
+                            <p>Tristique tempis condimentum diam done ullancomroer sit element henddg sit he
+                              consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he
+                              consequert.</p>
+                            <div class="comments-reply border-animation">
+                              <a href="#">
+                                <i class="icon icon-mail-reply"></i>Reply </a>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                  <div class="comment-respond my-5">
+                    <h3 class="text-uppercase">Leave a Comment</h3>
+                    <p>Your email address will not be published. Required fields are marked *</p>
+                    <form method="post" class="form-group padding-small">
+                      <div class="row">
+                        <div class="col-lg-12 mb-3">
+                          <textarea class="form-control ps-3 pt-3" id="comment" name="comment"
+                            placeholder="Write your comment here *"></textarea>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                          <input class="form-control ps-3" type="text" name="author" id="author"
+                            placeholder="Write your full name here *">
+                        </div>
+                        <div class="col-lg-6">
+                          <input class="form-control ps-3" type="email" name="email" id="email"
+                            placeholder="Write your e-mail address *">
+                        </div>
+                        <div class="col-lg-12">
+                          <label class="d-flex align-items-center">
+                            <input type="checkbox" class="checked-box me-2">
+                            <span class="label-body">Save my name, email, and website in this browser for the next
+                              time.</span>
+                          </label>
+                        </div>
+                        <div class="col-lg-12 mt-3">
+                          <button class="btn btn-lg btn-primary text-uppercase rounded-pill w-100"
+                            type="submit">Post Comment</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </main>
+        <aside class="col-md-3">
+          <div class=" ">
+            <form id="form" class="form-group flex-wrap bg-light p-3 ">
+              <h2 class=" fs-2 text-uppercase text-black my-3">Book Now</h2>
+              <div class="form-input col-lg-12 my-4">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Full
+                  Name</label>
+                <input type="text" name="email" placeholder="Write Your Name Here" class="form-control ps-3">
+              </div>
+              <div class="form-input col-lg-12 my-4">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Email
+                  Address</label>
+                <input type="text" name="email" placeholder="Write Your Email Here" class="form-control ps-3">
+              </div>
+              <div class="col-lg-12 my-4">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Phone
+                  Number</label>
+                <input type="text" name="email" placeholder="Phone Number" class="form-control ps-3">
+              </div>
+              <div class="col-lg-12 my-4">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Family
+                  Members</label>
+                <input type="number" value="1" name="quantity" class="form-control ps-3">
+              </div>
+              <div class="col-lg-12 my-4">
+                <label for="exampleInputEmail1"
+                  class="form-label fs-6 text-uppercase fw-bold text-black">Children</label>
+                <input type="number" value="1" name="quantity" class="form-control ps-3">
+              </div>
+              <div class="col-lg-12 my-4">
+                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Your
+                  Message</label>
+                <textarea placeholder="Write Your Message Here" class="form-control ps-3" rows="8"></textarea>
+              </div>
+              <div class="d-grid mb-3">
+                <button class="btn btn-primary btn-lg text-uppercase rounded-pill">Book</button>
+              </div>
+            </form>
+            <div class="bg-light mt-5 p-3 ">
+              <h2 class=" fs-2 text-uppercase text-black mt-3 mb-4">Our Agents</h2>
+              <article class="comment-item align-items-center row mb-4 ">
+                <div class="col-md-3">
+                  <a href="agents.html"> <img src="images/team1.jpg" alt="default"
+                      class="commentor-image img-fluid rounded-circle"> </a>
+                </div>
+                <div class="col-md-9 ">
+                  <a href="agents.html">
+                    <h5 class="element-title text-black text-uppercase ">Sandey Opwers</h5>
+                  </a>
+                  <h6 class="heading-color text-black">Real estate broker</h6>
+                  <p class="text-black m-0">+1650-243-0000</p>
+                </div>
+              </article>
+              <article class="comment-item pb-3 align-items-center row mb-4">
+                <div class="col-md-3">
+                  <a href="agents.html"> <img src="images/team2.jpg" alt="default"
+                      class="commentor-image img-fluid rounded-circle"> </a>
+                </div>
+                <div class="col-md-9">
+                  <a href="agents.html">
+                    <h5 class="element-title text-black text-uppercase ">Lorey Denver</h5>
+                  </a>
+                  <h6 class="heading-color text-black">Sales Excutive</h6>
+                  <p class="text-black m-0">+1650-243-0000</p>
+                </div>
+              </article>
+              <div class="d-grid mb-3">
+                <a href="agents.html" class="btn btn-primary rounded-pill btn-lg text-uppercase btn-rounded-none">Contact Now</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <!-- Lets contact-us  -->
+  <section class="py-5" id="contact-us">
+    <div class="container">
+      <div class="row align-items-center">
+  
+        <!-- Left: Text + Form -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h5 class="fw-bold">Do You Have Any Question?</h5>
+          <h5 class="fw-bold">Get Help From Us</h5>
+  
+          <div class="d-flex align-items-center gap-3 my-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle"></i>
+              <small class="fw-semibold">Chat live with our support team</small>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle"></i>
+              <small class="fw-semibold">Browse our FAQ</small>
+            </div>
+          </div>
+  
+          <form class="d-flex align-items-center gap-3 mt-4">
+            <div class="input-group rounded-pill bg-primary overflow-hidden shadow-sm" style="max-width: 350px;">
+              <span class="input-group-text bg-primary border-0">
+                <i class="bi bi-envelope text-white"></i>
+              </span>
+              <input type="email" class="form-control bg-primary border-0 text-white" placeholder="Enter your email address...">
+            </div>
+
+            <a href="#" class="btn btn-primary rounded-pill px-4">Submit</a>
+          </form>
+        </div>
+  
+       <!-- Interactive Google Map -->
+<div class="col-lg-6 text-center text-lg-end">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d906778.5731543257!2d83.83550629505596!3d28.38004029629043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995936df2dc9fb3%3A0xc1b1a7f6a587c1b2!2sNepal!5e0!3m2!1sen!2snp!4v1711809038429!5m2!1sen!2snp"
+    width="100%"
+    height="510px"
+    style="border:0; border-radius: 1rem;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+  
+      </div>
+    </div>
+  </section>
+  <!-- Footer Start -->
+  <section id="footer">
+    <div class="container footer-container py-5">
+      <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5">
+  
+        <!-- Logo & Description -->
+        <div class="col-md-4 mb-4">
+          <h3><img src="images/logo-footer.png" alt="RentHub Logo" class="mb-3"></h3>
+          <p>Neque, vestibulum sed varius magna et at. Eu, adipiscing morbi augue.</p>
+          <div class="mt-3">
+            <i class="bi bi-facebook pe-3"></i>
+            <i class="bi bi-instagram pe-3"></i>
+            <i class="bi bi-twitter pe-3"></i>
+            <i class="bi bi-youtube pe-3"></i>
+          </div>
+        </div>
+  
+        <!-- Project Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Project</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Houses</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Rooms</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Flats</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Appartments</a></li>
+          </ul>
+        </div>
+  
+        <!-- Company Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Company</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">How we work?</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Capital</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Security</a></li>
+          </ul>
+        </div>
+  
+        <!-- Movement Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Movement</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Movement</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Support us</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Pricing</a></li>
+          </ul>
+        </div>
+  
+        <!-- Help Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Help</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Privacy</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Condition</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Blog</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">FAQs</a></li>
+          </ul>
+        </div>
+  
+      </footer>
+    </div>
+  
+    <!-- Bottom Footer -->
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
+        <div class="col-md-8 d-flex align-items-center">
+          <p class="mb-0 text-white">© 2025 AgileTech, Inc. All rights reserved.</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-end">
+          <p class="mb-0 text-white">HTML template by: <a href="" class="text-white text-decoration-underline" target="_blank">AgileTech</a></p>
+        </div>
+      </footer>
+    </div>
+  </section>
+  
+
+
+
+  <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+
+</body>
+
+</html>
