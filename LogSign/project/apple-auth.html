@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Sign In - Rentup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container auth-form-container">
+        <div class="auth-form-content">
+            <img src="https://api.iconify.design/ic:baseline-apple.svg" alt="Apple" class="auth-icon">
+            <h1>Sign in with Apple</h1>
+            <form id="appleAuthForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Enter your email" required 
+                           class="auth-input">
+                </div>
+                <button type="submit" class="primary-button">
+                    Continue with Apple
+                </button>
+            </form>
+            <button type="button" class="secondary-button" onclick="window.history.back()">
+                Go Back
+            </button>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-checkmark">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                </div>
+            </div>
+            <h2>Success!</h2>
+            <p>You have successfully signed in with Apple.</p>
+            <button onclick="closeModal()" class="primary-button">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            if (email) {
+                document.getElementById('successModal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            // Redirect to home or dashboard
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
