@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentUP Help Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <a class="navbar-brand" href="../../index.html"><img src="images/logo.png" alt="RentUP Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About Us</a>
+            <a href="./helpcenter.html">Help Center</a>
+            <a href="../../contact.html">Contact Us</a>
+            <a href="../../LogSign/project/login.html" class="login-btn">Login</a>
+            <a href="../../LogSign/project/Signup.html" class="signup-btn">Sign Up</a>  
+        </div>
+    </nav>
+
+    <!-- Help Center Header -->
+    <header class="help-header">
+        <img src="https://placehold.co/40x40" alt="Help Icon">
+        <h1>Help Center</h1>
+    </header>
+
+    <!-- Welcome Section -->
+    <section class="welcome">
+        <h2>Hi, How Can We Help?</h2>
+        <p>We Have Listed Various Things You Might Need Help With Feel Free To Look Through!</p>
+    </section>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-card">
+            <h3>We're Here For You</h3>
+            <p>Log In To Get Help With Your Reservations, Account, And More.</p>
+            <a href="../../LogSign/project/Signup.html">
+            <button id="loginSignupBtn" class="login-signup-btn">Login Or Sign Up</button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Help Categories -->
+    <section class="help-categories">
+        <div class="category-card">
+            <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDEwfHxob3RlbCUyMHJvb20lMjB8ZW58MHx8fHwxNzQzODQ2MjUzfDA&ixlib=rb-4.0.3&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450" alt="Getting Started">
+            <h3>Getting Started On Rentals</h3>
+        </div>
+        <div class="category-card">
+            <img src="https://plus.unsplash.com/premium_photo-1663047279809-245953282696?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDYxfHxjb25zdWx0aW5nfGVufDB8fHx8MTc0Mzg0NjQ0MHww&ixlib=rb-4.0.3&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450" alt="Account Access">
+            <h3>Accessing Your Account</h3>
+        </div>
+        <div class="category-card">
+            <img src="https://plus.unsplash.com/premium_photo-1664285864903-8f7daf0eb3a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDE3fHxzdHVkeWluZ3xlbnwwfHx8fDE3NDM3OTUxNTZ8MA&ixlib=rb-4.0.3&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450" alt="Rental Help">
+            <h3>Help With A Rental</h3>
+        </div>
+    </section>
+
+    <!-- Explore More -->
+    <section class="explore-more">
+        <h2>Explore more</h2>
+        <div class="explore-grid">
+            <div class="explore-card" onclick="window.location.href='community.html'">
+                <img src="https://images.unsplash.com/photo-1617080090911-91409e3496ad?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDQ3fHxjb21tdW5pdHl8ZW58MHx8fHwxNzQzNzQ3MTIwfDA&ixlib=rb-4.0.3&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450" alt="Community">
+                <div class="card-content">
+                    <h3>Our community policies</h3>
+                    <p>How we build a foundation of trust.</p>
+                </div>
+            </div>
+            <div class="explore-card" onclick="window.location.href='safety.html'">
+                <img src="https://images.unsplash.com/photo-1593812725955-6d89f01ded2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDI4N3x8c2FmZXR5fGVufDB8fHx8MTc0Mzg0OTAyOXww&ixlib=rb-4.0.3&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450" alt="Safety">
+                <div class="card-content">
+                    <h3>Safety tips and guidelines</h3>
+                    <p>Resources to help travelers stay safe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="contact-text">
+            <h2>Need To Get In Touch?</h2>
+            <p>We'll Start With Some Questions And Get You To The Right Place.</p>
+            <button onclick="showContactForm()" class="contact-btn">Contact us</button>
+        </div>
+    </section>
+
+    <!-- Question Section -->
+    <section class="question-section">
+        <div class="question-content">
+            <h2>Do You Have Any Question?</h2>
+            <h3>Get Help From Us</h3>
+            <div class="support-options">
+                <div class="option">
+                    <img src="https://placehold.co/20x20" alt="Chat">
+                    <small class="fw-semibold">Chat live with our support team</small>
+                </div>
+                <div class="option">
+                    <img src="https://placehold.co/20x20" alt="FAQ">
+                    <small class="fw-semibold">Browse our FAQ</small>
+                </div>
+            </div>
+            <form id="emailForm" onsubmit="handleSubmit(event)">
+                <input type="email" placeholder="Enter your email address..." required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="map">
+            <img src="https://sustainablereview.com//wp-content/uploads/2023/09/GoogleMapTA-1024x1024.jpg" alt="Map">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3><img src="images\logo-footer.png" alt="RentUP"></h3>
+                <p>Neque, vestibulum sed varius magna et at. Eu, adipiscing morbi augue.</p>
+                <div class="social-links">
+                    <a href="#"><img src="https://placehold.co/20x20" alt="Facebook"></a>
+                    <a href="#"><img src="https://placehold.co/20x20" alt="Instagram"></a>
+                    <a href="#"><img src="https://placehold.co/20x20" alt="Twitter"></a>
+                    <a href="#"><img src="https://placehold.co/20x20" alt="YouTube"></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="link-column">
+                    <h4>Project</h4>
+                    <a href="#">Houses</a>
+                    <a href="#">Rooms</a>
+                    <a href="#">Flats</a>
+                    <a href="#">Apartments</a>
+                </div>
+                <div class="link-column">
+                    <h4>Company</h4>
+                    <a href="#">How we work?</a>
+                    <a href="#">Capital</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="link-column">
+                    <h4>Movement</h4>
+                    <a href="#">Who are we</a>
+                    <a href="#">Support us</a>
+                </div>
+                <div class="link-column">
+                    <h4>Help</h4>
+                    <a href="#">Privacy</a>
+                    <a href="#">Condition</a>
+                    <a href="#">Blog</a>
+                    <a href="#">FAQs</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright ©AgileTech 2025. All right reserved</p>
+            <p>Design by: AgileTech</p>
+        </div>
+    </footer>
+
+    <!-- Modal for successful email submission -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h2>Thank You!</h2>
+            <p>Your email has been submitted successfully.</p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
