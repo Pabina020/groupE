@@ -461,41 +461,49 @@
         <aside class="col-md-3">
           <div class=" ">
             <form id="form" class="form-group flex-wrap bg-light p-3 ">
-              <h2 class=" fs-2 text-uppercase text-black my-3">Book Now</h2>
+              <h2 class="fs-2 text-uppercase text-black my-3">Book Now</h2>
+            
               <div class="form-input col-lg-12 my-4">
-                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Full
-                  Name</label>
-                <input type="text" name="email" placeholder="Write Your Name Here" class="form-control ps-3">
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Full Name</label>
+                <input type="text" name="name" placeholder="Write Your Name Here" class="form-control ps-3">
               </div>
+            
               <div class="form-input col-lg-12 my-4">
-                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Email
-                  Address</label>
-                <input type="text" name="email" placeholder="Write Your Email Here" class="form-control ps-3">
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Email Address</label>
+                <input type="email" name="email" placeholder="Write Your Email Here" class="form-control ps-3">
               </div>
+            
               <div class="col-lg-12 my-4">
-                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Phone
-                  Number</label>
-                <input type="text" name="email" placeholder="Phone Number" class="form-control ps-3">
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Phone Number</label>
+                <input type="text" name="phone" placeholder="Phone Number" class="form-control ps-3">
               </div>
+            
               <div class="col-lg-12 my-4">
-                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Family
-                  Members</label>
-                <input type="number" value="1" name="quantity" class="form-control ps-3">
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Family Members</label>
+                <input type="number" value="1" name="family_members" class="form-control ps-3">
               </div>
+            
               <div class="col-lg-12 my-4">
-                <label for="exampleInputEmail1"
-                  class="form-label fs-6 text-uppercase fw-bold text-black">Children</label>
-                <input type="number" value="1" name="quantity" class="form-control ps-3">
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Children</label>
+                <input type="number" value="1" name="children" class="form-control ps-3">
               </div>
+            
+              <!-- ✅ Booking Date Field -->
               <div class="col-lg-12 my-4">
-                <label for="exampleInputEmail1" class="form-label fs-6 text-uppercase fw-bold text-black">Your
-                  Message</label>
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Preferred Booking Date</label>
+                <input type="date" name="booking_date" class="form-control ps-3" required>
+              </div>
+            
+              <div class="col-lg-12 my-4">
+                <label class="form-label fs-6 text-uppercase fw-bold text-black">Your Message</label>
                 <textarea placeholder="Write Your Message Here" class="form-control ps-3" rows="8"></textarea>
               </div>
+            
               <div class="d-grid mb-3">
                 <button class="btn btn-primary btn-lg text-uppercase rounded-pill">Book</button>
               </div>
             </form>
+            
             <div class="bg-light mt-5 p-3 ">
               <h2 class=" fs-2 text-uppercase text-black mt-3 mb-4">Our Agents</h2>
               <article class="comment-item align-items-center row mb-4 ">
@@ -533,6 +541,7 @@
       </div>
     </div>
   </div>
+  
   <!-- Lets contact-us  -->
   <section class="py-5" id="contact-us">
     <div class="container">
