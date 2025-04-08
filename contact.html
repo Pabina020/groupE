@@ -56,7 +56,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
           <li class="nav-item">
-            <a class="nav-link active me-md-4" href="#index.html">Home</a>
+            <a class="nav-link me-md-4" href="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link me-md-4" href="#apartment">Apartments</a>
@@ -65,7 +65,7 @@
             <a class="nav-link me-md-4" href="#residence">Properties</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-md-4" href="HelpCenter/project/helpcenter.html">Help center</a>
+            <a class="nav-link me-md-4" href="#help">Help center</a>
           </li>
           <li class="nav-item">
             <a class="nav-link me-md-4" href="#contact-us">Contact Us</a>
@@ -95,8 +95,8 @@
 
       <!-- Auth Buttons -->
       <div class="d-flex gap-2">
-        <a href="LogSign/project/login.html" class="btn btn-light rounded-pill px-3 py-2">Login</a>
-        <a href="LogSign/project/Signup.html" class="btn btn-primary text-white rounded-pill px-3 py-2">Sign Up</a>
+        <a href="LogSign/LogSign/project/login.html" class="btn btn-light rounded-pill px-3 py-2">Login</a>
+        <a href="LogSign/LogSign/project/index.html" class="btn btn-primary text-white rounded-pill px-3 py-2">Sign Up</a>
       </div>
     </div>
   </nav>
@@ -127,8 +127,8 @@
                 <p>730 Glenstone Ave 65802, Springfield, US</p>
               </div>
               <div class="contact-number ">
-                <a href="#">+123 987 321 ,</a>
-                <a href="#">+123 123 654</a>
+                <a href="#">9846464363 ,</a>
+                <a href="#">4452562</a>
               </div>
               <div class="email-address">
                 <p>
@@ -144,8 +144,8 @@
                 <p>730 Glenstone Ave 65802, Springfield, US</p>
               </div>
               <div class="contact-number ">
-                <a href="#">+123 987 321 ,</a>
-                <a href="#">+123 123 654</a>
+                <a href="#">9734626784 ,</a>
+                <a href="#">4535466</a>
               </div>
               <div class="email-address">
                 <p>
@@ -230,8 +230,8 @@
           </div>
           <div class="contact-number">
             <p>
-              <a href="#">+123 987 321 ,</a>
-              <a href="#">+123 123 654</a>
+              <a href="#">9844575764,</a>
+              <a href="#">9744453564</a>
             </p>
           </div>
           <div class="email-address">
@@ -249,8 +249,8 @@
           </div>
           <div class="contact-number">
             <p>
-              <a href="#">+123 987 321 ,</a>
-              <a href="#">+123 123 654</a>
+              <a href="#">4453675,</a>
+              <a href="#">5133435</a>
             </p>
           </div>
           <div class="email-address">
@@ -268,8 +268,8 @@
           </div>
           <div class="contact-number">
             <p>
-              <a href="#">+123 987 321 ,</a>
-              <a href="#">+123 123 654</a>
+              <a href="#">9884364646,</a>
+              <a href="#">9736367555</a>
             </p>
           </div>
           <div class="email-address">
@@ -282,7 +282,39 @@
     </div>
   </div>
 </section>
-
+<!-- Contact Form for Agent or Landlord -->
+<section class="container my-5">
+  <h2 class="text-center text-uppercase mb-4">Message an Agent or Landlord</h2>
+  <form action="https://formspree.io/f/your-form-id" method="POST" class="row g-3 bg-light p-4 rounded shadow-sm">
+    <div class="col-md-6">
+      <label for="name" class="form-label">Your Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label">Your Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="col-md-6">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" id="phone" name="phone">
+    </div>
+    <div class="col-md-6">
+      <label for="receiver" class="form-label">Message To</label>
+      <select class="form-select" id="receiver" name="receiver">
+        <option selected disabled>Select Recipient</option>
+        <option value="agent">Agent</option>
+        <option value="landlord">Landlord</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <label for="message" class="form-label">Message</label>
+      <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+    </div>
+    <div class="col-12 d-grid">
+      <button type="submit" class="btn btn-primary btn-lg rounded-pill">Send Message</button>
+    </div>
+  </form>
+</section>
 <section class="google-map">
   <div class="mapouter">
     <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas"
