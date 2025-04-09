@@ -1,7 +1,7 @@
 /* Base styles */
 :root {
-    --primary-color: #C4976B;
-    --text-color: #333;
+    --primary-color: #D4A373;
+    --text-color: #D4A373;
     --background-color: #fff;
 }
 
@@ -53,7 +53,7 @@ nav {
 
 .signup-btn {
     background: var(--primary-color);
-    color: white;
+    color: white !important;
 }
 
 /* Help Header */
