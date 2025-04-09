@@ -13,3 +13,23 @@ function togglePassword(inputId) {
         toggleIcon.alt = 'Show password';
     }
 }
+
+function loginUser(event) {
+    event.preventDefault();
+  
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+  
+    const adminEmail = "admin@rentup.com";
+    const adminPassword = "admin123";
+  
+    if (email === adminEmail && password === adminPassword) {
+      // Admin login
+      window.location.href = "/groupE/admin/admin.html";
+    } else {
+      window.location.href = "index.html"; // rental website
+    }
+  
+    return false;
+  }
+  
