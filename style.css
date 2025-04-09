@@ -1025,3 +1025,20 @@ textarea.form-control { height: 120px; }
   font-weight: 600;
   margin-bottom: 1rem;
 }
+
+.img-container {
+  position: relative;
+}
+
+.magnifier {
+  position: absolute;
+  border: 3px solid #ccc;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: none;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 10;
+}
