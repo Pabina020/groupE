@@ -1,67 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Rentup</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Rentup</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="auth-container">
-            <div class="image-section">
-                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80" alt="House">
+  <div class="container">
+    <div class="auth-container">
+      <div class="image-section">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80" alt="House" />
+      </div>
+      <div class="form-section">
+        <h1>Welcome to Rentup</h1>
+        <form id="signupForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="username">Enter username</label>
+            <input type="text" id="username" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email here" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-input">
+              <input type="password" id="password" placeholder="Enter your password" required />
+              <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                <img src="https://api.iconify.design/lucide:eye.svg" alt="Show password" />
+              </button>
             </div>
-            <div class="form-section">
-                <h1>Welcome to Rentup</h1>
-                <form id="signupForm" onsubmit="return false;">
-                    <div class="form-group">
-                        <label for="username">Enter username</label>
-                        <input type="text" id="username" placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Enter you email here">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <div class="password-input">
-                            <input type="password" id="password" placeholder="Enter your password">
-                            <button type="button" class="toggle-password" onclick="togglePassword('password')">
-                                <img src="https://api.iconify.design/lucide:eye.svg" alt="Show password">
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group checkbox">
-                        <input type="checkbox" id="terms">
-                        <label for="terms">I agree to the <a href="terms.html">terms & policy</a></label>
-                    </div>
-                    <button type="button" class="primary-button" onclick="window.location.href='success.html'">
-                        Signup
-                    </button>
-                    <a href="../../property-upload-delete.html">
-                    <button type="button" class="primary-button" onclick="window.location.href='success.html'">
-                        Signup as Landlord
-                    </button>
-                    </a>
-                    <div class="divider">Or</div>
-                    <div class="social-buttons">
-                        <button type="button" class="social-button" onclick="window.location.href='google-auth.html'">
-                            <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google">
-                            Sign in with Google
-                        </button>
-                        <button type="button" class="social-button" onclick="window.location.href='apple-auth.html'">
-                            <img src="https://api.iconify.design/ic:baseline-apple.svg" alt="Apple">
-                            Sign in with Apple
-                        </button>
-                    </div>
-                    <p class="switch-auth">
-                        Already have an account? <a href="login.html">Log in</a>
-                    </p>
-                </form>
-            </div>
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="role">Select Role</label>
+            <select id="role" required>
+              <option value="">Choose a role</option>
+              <option value="tenant">Tenant</option>
+              <option value="landlord">Landlord</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+          <div class="form-group checkbox">
+            <input type="checkbox" id="terms" required />
+            <label for="terms">I agree to the <a href="terms.html">terms & policy</a></label>
+          </div>
+          <button type="button" class="primary-button" onclick="handleSignup()">Signup</button>
+          <div class="divider">Or</div>
+          <div class="social-buttons">
+            <button type="button" class="social-button" onclick="window.location.href='google-auth.html'">
+              <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google" />
+              Sign in with Google
+            </button>
+            <button type="button" class="social-button" onclick="window.location.href='apple-auth.html'">
+              <img src="https://api.iconify.design/ic:baseline-apple.svg" alt="Apple" />
+              Sign in with Apple
+            </button>
+          </div>
+          <p class="switch-auth">
+            Already have an account? <a href="login.html">Log in</a>
+          </p>
+        </form>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function handleSignup() {
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const role = document.getElementById("role").value;
+      const terms = document.getElementById("terms").checked;
+
+      if (!terms) {
+        alert("Please agree to the terms and policy.");
+        return;
+      }
+
+      fetch("http://localhost:3001/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password, role })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        if (data.message === "Signup successful") {
+          window.location.href = "success.html";
+        }
+      })
+      .catch(err => {
+        alert("Server error.");
+        console.error(err);
+      });
+    }
+  </script>
 </body>
 </html>
