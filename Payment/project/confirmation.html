@@ -32,7 +32,7 @@
             <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4">Booking Confirmation</h2>
+                        <h2 class="card-title text-center mb-4" style="color: #D4A373;">Booking Confirmation</h2>
                         <form id="confirmationForm" onsubmit="return validateForm()">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
@@ -56,6 +56,18 @@
                                 </div>
                             </div>
                             
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="termsCheckbox">
+                                    <label class="form-check-label" for="termsCheckbox">
+                                        I agree to <a href="terms.html">terms & policy</a>
+                                    </label>
+                                </div>
+                                <div class="invalid-feedback" id="termsError">
+                                    You must agree to the terms and policy
+                                </div>
+                            </div>
+
                             <div class="payment-section mb-4">
                                 <h4 class="mb-3">Choose Payment Method</h4>
                                 <div class="preferred-payment mb-3">
@@ -82,23 +94,6 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="termsCheckbox">
-                                    <label class="form-check-label" for="termsCheckbox">
-                                        I agree to <a href="terms.html">terms & policy</a>
-                                    </label>
-                                </div>
-                                <div class="invalid-feedback" id="termsError">
-                                    You must agree to the terms and policy
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    Confirm Payment
-                                </button>
                             </div>
                         </form>
                     </div>
