@@ -12,6 +12,39 @@ function togglePassword(inputId) {
     toggleIcon.alt = 'Show password';
   }
 }
+function handleSignup() {
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const role = document.getElementById("role").value;
+  const terms = document.getElementById("terms").checked;
+
+  if (!terms) {
+    alert("Please agree to the terms and policy.");
+    return;
+  }
+
+  fetch("http://localhost:3001/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, email, password, role })
+  })
+    .then(async (res) => {
+      const data = await res.json();
+      console.log("Signup response:", data);
+
+      if (res.ok && data.message === "Signup successful") {
+        // ✅ Instead of alert + redirect, try direct redirect
+        window.location.replace("success1.html");
+      } else {
+        alert(data.message || "Signup failed");
+      }
+    })
+    .catch(err => {
+      alert("Server error. Please try again later.");
+      console.error("Fetch error:", err);
+    });
+}
 
 function loginUser(event) {
   event.preventDefault();
@@ -19,17 +52,14 @@ function loginUser(event) {
   const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
 
-  // First, check if admin
   const adminEmail = "admin@rentup.com";
   const adminPassword = "admin123";
 
   if (email === adminEmail && password === adminPassword) {
-    // Redirect to admin dashboard
     window.location.href = "/groupE/admin/admin.html";
     return;
   }
 
-  // Else, check via backend
   fetch("http://localhost:3001/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -40,12 +70,13 @@ function loginUser(event) {
       if (data.message === "Login successful") {
         if (data.role === "landlord" || data.role === "both") {
           window.location.href = "../../property-upload-delete.html";
-        } else {
+        } else if (data.role === "tenant") {
           window.location.href = "../../index.html";
-
+        } else {
+          alert("Unknown user role.");
         }
       } else {
-        alert(data.message);
+        alert(data.message); // Invalid credentials
       }
     })
     .catch(err => {
@@ -53,3 +84,4 @@ function loginUser(event) {
       console.error(err);
     });
 }
+

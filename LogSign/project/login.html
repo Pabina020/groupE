@@ -32,7 +32,11 @@
             <input type="checkbox" id="remember-me" />
             <label for="remember-me">Remember Me</label>
           </div>
-          <button type="submit" class="primary-button">Log in</button>
+          <form id="loginForm" onsubmit="return loginUser(event);" autocomplete="on">
+            <!-- your inputs... -->
+            <button type="submit" class="primary-button">Login</button>
+          </form>
+          
 
           <div class="divider">Or</div>
 

@@ -1,14 +1,14 @@
 [
   {
-    "username": "pabs",
-    "email": "pabinashrestha1234@gmail.com",
-    "password": "pabs123",
+    "username": "khusi",
+    "email": "khusi@gmail.com",
+    "password": "$2b$10$.mdzYIIuRurEzHKe8AUu1ezHFeLnEpQ29TtLtkK.79N3bSNRa56uC",
     "role": "tenant"
   },
   {
-    "username": "Pabsss",
-    "email": "pabs12@gmail.com",
-    "password": "pabina1234",
+    "username": "john",
+    "email": "johny@gmail.com",
+    "password": "$2b$10$FYvSYnMCFntHALb54vOoI.4XK0vWwc/CkPHpnpYpHblbtecnmm/JC",
     "role": "landlord"
   }
 ]
