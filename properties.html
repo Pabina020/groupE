@@ -821,6 +821,62 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<!-- Add this script section right before the closing </body> tag -->
+<script>
+  // Fetch properties from backend
+  document.addEventListener('DOMContentLoaded', function() {
+      fetch('get_properties.php')
+      .then(response => response.json())
+      .then(properties => {
+          const container = document.querySelector('.row.g-5.my-5');
+          container.innerHTML = ''; // Clear existing static content
+  
+          properties.forEach(property => {
+              const col = document.createElement('div');
+              col.className = 'col-md-4 mb-5 product-item';
+              
+              col.innerHTML = `
+                  <div class="card">
+                      <a href="property-single.html?id=${property.property_id}">
+                          <div class="img-container">
+                              <img src="${property.main_image}" class="card-img-top magnify-image" alt="${property.name}">
+                              <div class="magnifier"></div>
+                          </div>
+                      </a>
+                      <div class="card-body p-0">
+                          <a href="property-single.html?id=${property.property_id}">
+                              <h5 class="card-title mt-4">${property.name}</h5>
+                          </a>
+                          <p class="card-text">${property.location}</p>
+                          <div class="card-text">
+                              <ul class="d-flex">
+                                  <li class="residence-list"> 
+                                      <img src="images/bed.png" alt="bed"> ${property.bedrooms} bed
+                                  </li>
+                                  <li class="residence-list"> 
+                                      <img src="images/bath.png" alt="bath"> ${property.bathrooms} bath
+                                  </li>
+                                  <li class="residence-list"> 
+                                      <img src="images/square.png" alt="sqft"> ${property.sqft} Sqft.
+                                  </li>
+                              </ul>
+                              <hr>
+                             <div class="d-flex justify-content-between">
+    <p class="text-dark">For ${property.type}</p>
+    <p class="text-dark">Price: $${property.price}/mo</p>
+</div>
+
+                          </div>
+                      </div>
+                  </div>
+              `;
+              
+              container.appendChild(col);
+          });
+      })
+      .catch(error => console.error('Error fetching properties:', error));
+  });
+  </script>
 
 
 
