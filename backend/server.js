@@ -47,25 +47,25 @@ app.post('/signup', async (req, res) => {
   res.status(201).json({ message: 'Signup successful' });
 });
 
-// ✅ Login Route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log("🔐 Login attempt:", email);
-
   const users = readUsers();
   const user = users.find(u => u.email === email);
 
+  console.log("🛠 Login attempt for:", email);
+  console.log("👉 Found user:", user);
+
   if (!user) {
-    console.log("❌ Email not found:", email);
-    return res.status(401).json({ message: 'Invalid email or password' });
+      console.log("❌ Email not found");
+      return res.status(401).json({ message: 'Invalid email or password' });
   }
 
   const match = await bcrypt.compare(password, user.password);
-  console.log("🧪 Password match:", match);
+  console.log("🔐 Password match:", match);
 
   if (!match) {
-    console.log("❌ Wrong password for:", email);
-    return res.status(401).json({ message: 'Invalid email or password' });
+      console.log("❌ Password mismatch");
+      return res.status(401).json({ message: 'Invalid email or password' });
   }
 
   console.log("✅ Login successful for:", email);
