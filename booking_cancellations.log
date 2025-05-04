@@ -1,0 +1,1 @@
+2025-05-03 23:42:17 - FAILURE - {"success":false,"message":"Only POST requests are allowed","debug":{"timestamp":"2025-05-03 23:42:17","request_method":"GET","content_type":"not set","input_validation":[],"error":{"message":"Only POST requests are allowed","code":405,"file":"C:\\xampp\\htdocs\\aman\\groupE\\cancel_booking.php","line":55}}}

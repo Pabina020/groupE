@@ -2,18 +2,21 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database config
+// Database configuration
 $host = "localhost";
 $user = "root";
 $password = "";
 $database = "property_db";
 
-// Connect to DB
+// Connect to database
 $conn = new mysqli($host, $user, $password, $database);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode([
+        'status' => 'error',
+        'message' => "Connection failed: " . $conn->connect_error
+    ]));
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,45 +33,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'property_description'
     ];
 
+    $errors = [];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
-            die("Error: Missing required field - $field");
+            $errors[] = "Missing required field: $field";
         }
     }
 
-    // Collect ALL form data
-    $property_id = $_POST['property_id'];
-    $property_name = $_POST['property_name'];
-    $location = $_POST['location'];
-    $bedrooms = $_POST['bedrooms'];
-    $bathrooms = $_POST['bathrooms'];
-    $sqft = $_POST['sqft'];
-    $property_type = $_POST['type'];
-    $price = $_POST['price'];
-    $property_description = $_POST['property_description'];
+    if (!empty($errors)) {
+        die(json_encode([
+            'status' => 'error',
+            'message' => implode("\n", $errors)
+        ]));
+    }
+
+    // Process and sanitize form data
+    $property_id = $conn->real_escape_string($_POST['property_id']);
+    $property_name = $conn->real_escape_string($_POST['property_name']);
+    $location = $conn->real_escape_string($_POST['location']);
+    $bedrooms = (int)$_POST['bedrooms'];
+    $bathrooms = (int)$_POST['bathrooms'];
+    $sqft = (int)$_POST['sqft'];
+    $property_type = $conn->real_escape_string($_POST['type']);
+    $property_description = $conn->real_escape_string($_POST['property_description']);
+
+    // Process price - clean and format
+    $rawPrice = $_POST['price'];
+    $cleanPrice = preg_replace('/[^0-9.]/', '', $rawPrice);
+    $price = is_numeric($cleanPrice) ? number_format($cleanPrice) . '/mo' : $rawPrice;
+    $price = $conn->real_escape_string($price);
 
     // File upload handling
     $upload_dir = "uploads/";
     if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0755, true);
+        if (!mkdir($upload_dir, 0755, true)) {
+            die(json_encode([
+                'status' => 'error',
+                'message' => 'Failed to create upload directory'
+            ]));
+        }
     }
 
-    // Main image handling
+    // Initialize file paths
+    $main_image_path = '';
+    $extra_images_serialized = json_encode([]);
+
+    // Validate and process main image
     if (empty($_FILES['main_image']['name'])) {
-        die("Error: Main image is required");
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'Main image is required'
+        ]));
     }
 
+    // Validate file type
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+    $file_type = $_FILES['main_image']['type'];
+    if (!in_array($file_type, $allowed_types)) {
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'Only JPG, PNG, and GIF images are allowed'
+        ]));
+    }
+
+    // Validate file size (5MB max)
+    $max_size = 5 * 1024 * 1024;
+    if ($_FILES['main_image']['size'] > $max_size) {
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'File too large. Maximum size is 5MB'
+        ]));
+    }
+
+    // Generate unique filename and move uploaded file
     $main_image_name = uniqid() . '_' . basename($_FILES['main_image']['name']);
     $main_image_path = $upload_dir . $main_image_name;
-
+    
     if (!move_uploaded_file($_FILES['main_image']['tmp_name'], $main_image_path)) {
-        die("Failed to upload main image");
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'Failed to upload main image'
+        ]));
     }
 
-    // Extra images handling
+    // Process extra images
     $extra_images = [];
     if (!empty($_FILES['extra_images']['name'][0])) {
         foreach ($_FILES['extra_images']['tmp_name'] as $index => $tmpName) {
+            // Validate each extra image
+            $current_type = $_FILES['extra_images']['type'][$index];
+            if (!in_array($current_type, $allowed_types)) {
+                continue;
+            }
+
+            if ($_FILES['extra_images']['size'][$index] > $max_size) {
+                continue;
+            }
+
             $filename = uniqid() . '_' . basename($_FILES['extra_images']['name'][$index]);
             $destination = $upload_dir . $filename;
 
@@ -76,43 +137,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $extra_images[] = $destination;
             }
         }
+        $extra_images_serialized = json_encode($extra_images);
     }
 
-    $extra_images_serialized = json_encode($extra_images);
+    // Begin database transaction
+    $conn->begin_transaction();
 
-    // Modified SQL query
-    $stmt = $conn->prepare("INSERT INTO properties 
-        (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    try {
+        // Prepare and execute SQL statement
+        $stmt = $conn->prepare("INSERT INTO properties 
+            (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sssiiissdss", 
-        $property_id, 
-        $property_name, 
-        $location,
-        $bedrooms,
-        $bathrooms,
-        $sqft,
-        $property_type,
-        $price,
-        $property_description,
-        $main_image_path,
-        $extra_images_serialized
-    );
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
 
-    if ($stmt->execute()) {
+        // Bind parameters (all as strings)
+        $stmt->bind_param("sssiissssss", 
+            $property_id, 
+            $property_name, 
+            $location,
+            $bedrooms,
+            $bathrooms,
+            $sqft,
+            $property_type,
+            $price,
+            $property_description,
+            $main_image_path,
+            $extra_images_serialized
+        );
+
+        if (!$stmt->execute()) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
+
+        // Commit transaction if everything succeeded
+        $conn->commit();
+
         echo json_encode([
             'status' => 'success',
-            'message' => 'Property uploaded successfully!'
+            'message' => 'Property uploaded successfully!',
+            'property_id' => $property_id
         ]);
-    } else {
+
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $conn->rollback();
+        
+        // Delete any uploaded files
+        if (file_exists($main_image_path)) {
+            unlink($main_image_path);
+        }
+        foreach ($extra_images as $img) {
+            if (file_exists($img)) {
+                unlink($img);
+            }
+        }
+
         echo json_encode([
             'status' => 'error',
-            'message' => 'Database error: ' . $stmt->error
+            'message' => 'Database error: ' . $e->getMessage()
         ]);
     }
 
     $stmt->close();
     $conn->close();
+
 } else {
     header("HTTP/1.1 405 Method Not Allowed");
     echo json_encode([
