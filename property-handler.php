@@ -60,7 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Process price - clean and format
     $rawPrice = $_POST['price'];
     $cleanPrice = preg_replace('/[^0-9.]/', '', $rawPrice);
-    $price = is_numeric($cleanPrice) ? number_format($cleanPrice) . '/mo' : $rawPrice;
+    
+    if ($_POST['type'] === 'Rent') {
+        $price = '$' . number_format($cleanPrice) . '/mo';
+    } else {
+        $price = '$' . number_format($cleanPrice);
+    }
+    
     $price = $conn->real_escape_string($price);
 
     // File upload handling

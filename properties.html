@@ -870,8 +870,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 </ul>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <p class="text-dark">For ${property.type || 'Rent'}</p>
-                    <p class="text-dark">Price: $${property.price || '0'}</p>
+               
+
+<p class="text-dark">Price: ${
+    property.type === 'Rent' 
+        ? '$' + property.price.replace(/^\$/, '').replace(/\/mo$/i, '') + '/mo'
+        : '$' + property.price.replace(/^\$/, '')
+}</p>
                 </div>
             </div>
             <div class="card-footer bg-transparent">
