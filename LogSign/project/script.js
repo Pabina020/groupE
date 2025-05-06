@@ -27,13 +27,12 @@ function handleSignup() {
   fetch("http://localhost:3001/signup", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    credentials: "include", // allow cookies
     body: JSON.stringify({ username, email, password, role })
   })
     .then(res => res.json())
     .then(data => {
       if (data.message === "Signup successful") {
-        // Store user name in cookie
-        document.cookie = `user=${encodeURIComponent(JSON.stringify({ name: username }))}; path=/`;
         window.location.replace("success1.html");
       } else {
         alert(data.message || "Signup failed");
@@ -51,7 +50,6 @@ function loginUser(event) {
   const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
 
-  // Admin shortcut
   if (email === "admin@rentup.com" && password === "admin123") {
     document.cookie = `user=${encodeURIComponent(JSON.stringify({ name: "Admin" }))}; path=/`;
     window.location.href = "/groupE/admin/admin.html";
@@ -61,15 +59,12 @@ function loginUser(event) {
   fetch("http://localhost:3001/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    credentials: "include", // allow server cookie
     body: JSON.stringify({ email, password })
   })
     .then(res => res.json())
     .then(data => {
       if (data.message === "Login successful") {
-        // Store user name in cookie
-        const name = email.split('@')[0];
-        document.cookie = `user=${encodeURIComponent(JSON.stringify({ name }))}; path=/`;
-
         if (data.role === "landlord" || data.role === "both") {
           window.location.href = "../../property-upload-delete.html";
         } else if (data.role === "tenant") {
@@ -87,26 +82,40 @@ function loginUser(event) {
     });
 }
 
-// Replace login/signup buttons with user info if logged in
+// On page load, update displayed username
 window.addEventListener("DOMContentLoaded", () => {
   const user = getCookie('user');
-  const authSection = document.getElementById('auth-buttons');
 
-  if (user && authSection) {
+  if (user) {
     try {
       const parsed = JSON.parse(decodeURIComponent(user));
-      authSection.innerHTML = `
-        <div class="d-flex align-items-center gap-3">
-          <img src="images/user-avatar.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
-          <span class="fw-semibold text-dark">Welcome, ${parsed.name}</span>
-          <a href="/logout" class="btn btn-outline-danger btn-sm rounded-pill">Logout</a>
-        </div>
-      `;
+
+      const nameSpan = document.getElementById('username');
+      if (nameSpan) {
+        nameSpan.textContent = parsed.name;
+      }
+
+      const authSection = document.getElementById('auth-buttons');
+      if (authSection) {
+        authSection.innerHTML = `
+          <div class="d-flex align-items-center gap-3">
+            <img src="images/user-avatar.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+            <span class="fw-semibold text-dark">Welcome, ${parsed.name}</span>
+            <a href="#" class="btn btn-outline-danger btn-sm rounded-pill" onclick="logoutUser()">Logout</a>
+          </div>
+        `;
+      }
     } catch (err) {
       console.error("Cookie parsing failed:", err);
     }
   }
 });
+
+// Logout: Clear cookie and redirect
+function logoutUser() {
+  document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+  window.location.href = "landingpage.html";
+}
 
 // Utility to get cookie value
 function getCookie(name) {
