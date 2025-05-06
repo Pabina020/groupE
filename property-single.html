@@ -666,32 +666,37 @@ document.getElementById('property_id').value = propertyId;
         throw new Error(property?.error || 'Property not found');
     }
     
-    // Format the price
-    let displayPrice;
-    if (property.price) {
-        displayPrice = property.price.toString();
-        if (!displayPrice.startsWith('$')) {
-            displayPrice = '$' + displayPrice;
-        }
-        //if (!displayPrice.endsWith('/mo')) {
-          //  displayPrice = displayPrice + '/mo';
-      //  }
-    } else {
-        displayPrice = 'Price not available';
+// Replace your price formatting code with this:
+// Format the price display based on property type
+let displayPrice;
+if (property.price) {
+    displayPrice = property.price.toString();
+    
+    // Only add /mo if it's a rental and doesn't already have it
+    if (property.type === 'Rent' && !displayPrice.endsWith('/mo')) {
+        displayPrice = displayPrice + '/mo';
     }
+    
+    // Ensure it starts with $ if not already
+    if (!displayPrice.startsWith('$')) {
+        displayPrice = '$' + displayPrice;
+    }
+} else {
+    displayPrice = 'Price not available';
+}
 
     // Update property details
     document.getElementById('property-name').textContent = property.name || 'Property';
     document.getElementById('property-location').textContent = property.location || 'Location not specified';
     document.getElementById('property-type').textContent = property.type ? `For ${property.type}` : 'For Rent';
     document.getElementById('property-price').textContent = `Price: ${displayPrice}`;
+    document.getElementById('price-rent').textContent = displayPrice;
     document.getElementById('property-bedrooms').textContent = property.bedrooms || '0';
     document.getElementById('property-bathrooms').textContent = property.bathrooms || '0';
     document.getElementById('property-sqft').textContent = property.sqft || '0';
     document.getElementById('property-type-text').textContent = property.type || 'Property';
     
     // Update price details
-    document.getElementById('price-rent').textContent = displayPrice;
     
     // Rest of your code remains the same...
     // Update main image slider
@@ -981,9 +986,9 @@ if (property.price) {
     if (!displayPrice.startsWith('$')) {
         displayPrice = '$' + displayPrice;
     }
-    //if (!displayPrice.endsWith('/mo')) {
-       // displayPrice = displayPrice + '/mo';
-  //  }
+    if (!displayPrice.endsWith('/mo')) {
+        displayPrice = displayPrice + '/mo';
+   }
 } else {
     displayPrice = 'Price not available';
 }
