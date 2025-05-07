@@ -29,6 +29,23 @@
   <script src="js/modernizr.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    .property-card {
+      transition: transform 0.3s ease;
+    }
+    .property-card:hover {
+      transform: translateY(-5px);
+    }
+    .loading-spinner {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .swiper-slide {
+      height: auto;
+    }
+  </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
@@ -193,9 +210,9 @@
 </section>
 
 <!-- apartment start -->
+
 <section class="apartment-types py-5" id="apartment">
   <div class="container">
-    <!-- Section Header -->
     <div class="text-center mb-4">
       <h2 class="featured-heading text-center m-0">
         <span class="fw-semibold">Explore Apartment</span> 
@@ -204,311 +221,51 @@
       <p class="text-grey text-center fw-semibold fs-6">Based On What The Customer Requires</p>
     </div>
 
-    <!-- Apartment Cards -->
-    <div class="row g-4 justify-content-center">
-
-      <!-- Card Template (Repeat this block) -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card apartment-card shadow-sm border-0 rounded-4 h-100 position-relative overflow-hidden">
-          <!-- Image with overlay -->
-          <div class="position-relative">
-            <img src="images/apartment1.jpg" class="card-img-top rounded-top-4" alt="Apartment">
-            <div class="hover-overlay d-flex justify-content-center align-items-center">
-              <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-2">View Properties</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="mb-0 fw-medium">Patan, Nepal</p>
-            <small class="text-muted d-block">Hosted by Yelos Raj</small>
-            <small class="text-muted d-block">Mar 20 – 25</small>
-            <p class="fw-semibold mt-1">$43 Night</p>
-          </div>
+    <div class="row g-4 justify-content-center" id="rent-properties-container">
+      <div class="col-12 text-center loading-spinner">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-
-      <!-- Repeat for other cards, just replace image src and text accordingly -->
-      <!-- Card 2 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card apartment-card shadow-sm border-0 rounded-4 h-100 position-relative overflow-hidden">
-          <div class="position-relative">
-            <img src="images/apartment2.jpg" class="card-img-top rounded-top-4" alt="Apartment">
-            <div class="hover-overlay d-flex justify-content-center align-items-center">
-              <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-2">View Properties</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="mb-0 fw-medium">Kathmandu, Nepal</p>
-            <small class="text-muted d-block">Hosted by Pasang</small>
-            <small class="text-muted d-block">Mar 20 – 25</small>
-            <p class="fw-semibold mt-1">$40 Night</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card apartment-card shadow-sm border-0 rounded-4 h-100 position-relative overflow-hidden">
-          <div class="position-relative">
-            <img src="images/apartment3.jpg" class="card-img-top rounded-top-4" alt="Apartment">
-            <div class="hover-overlay d-flex justify-content-center align-items-center">
-              <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-2">View Properties</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="mb-0 fw-medium">Lalitpur, Nepal</p>
-            <small class="text-muted d-block">Hosted by Jung</small>
-            <small class="text-muted d-block">Apr 11 – 16</small>
-            <p class="fw-semibold mt-1">$11 Night</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="card apartment-card shadow-sm border-0 rounded-4 h-100 position-relative overflow-hidden">
-          <div class="position-relative">
-            <img src="images/apartment4.jpg" class="card-img-top rounded-top-4" alt="Apartment">
-            <div class="hover-overlay d-flex justify-content-center align-items-center">
-              <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-2">View Properties</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="mb-0 fw-medium">Kathmandu, Nepal</p>
-            <small class="text-muted d-block">Hosted by Amrit</small>
-            <small class="text-muted d-block">Mar 19 – 24</small>
-            <p class="fw-semibold mt-1">$39 Night</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 
-  <!-- Feature start  -->
-  <section id="feature">
-    <div class="container py-5">
-      <div class="row">
-     <div class="text-center mb-4">
-      <h2 class="featured-heading text-center m-0">
-        <span class="fw-semibold">Explore Apartment</span> 
-        <span class="text-grey fw-semibold">Types</span>
-      </h2>
-      <p class="text-grey text-center fw-semibold fs-6">Based On What The Customer Requires</p>
-    </div>
-        
-      </div>
-      <div class="row d-flex justify-content-between">
-        <div class="col-md-2 ">
-          <div class="my-3" role="group" aria-label="3 / 7" style="width: 158.667px; margin-right: 20px;"><img
-              alt="image" src="images/logo1.png"></div>
-        </div>
-        <div class="col-md-2">
-          <div class="my-3" role="group" aria-label="3 / 7" style="width: 158.667px; margin-right: 20px;"><img
-              alt="image" src="images/logo2.png"></div>
-        </div>
-        <div class="col-md-2">
-          <div class="my-3" role="group" aria-label="3 / 7" style="width: 158.667px; margin-right: 20px;"><img
-              alt="image" src="images/logo3.png"></div>
-        </div>
-        <div class="col-md-2">
-          <div class="my-3" role="group" aria-label="3 / 7" style="width: 158.667px; margin-right: 20px;"><img
-              alt="image" src="images/logo4.png"></div>
-        </div>
-        <div class="col-md-2">
-          <div class="my-3" role="group" aria-label="3 / 7" style="width: 158.667px; margin-right: 20px;"><img
-              alt="image" src="images/logo5.png"></div>
-        </div>
-
-
-      </div>
-    </div>
-  </section>
 
    <!-- Residence start  -->
-  <section id="residence">
-    <div class="container  my-5 py-5">
-      <div class="text-center mb-4">
-        <h2 class="featured-heading text-center m-0">
-          <span class="fw-semibold">Homes For</span> 
-          <span class="text-grey fw-semibold">You</span>
-        </h2>
-        <p class="text-grey text-center fw-semibold fs-6">Choose Comfort And Peace</p>
-      <!-- Toggle Buttons + Search -->
-      <div class="d-flex justify-content-center align-items-center flex-wrap gap-2 my-3">
-        <button class="btn btn-outline-primary btn-sm rounded-pill px-3 active">Buy</button>
-        <button class="btn btn-outline-primary btn-sm rounded-pill px-3">Rent</button>
-        <button class="btn btn-outline-primary btn-sm rounded-pill px-3">Sold</button>
-        <div class="input-group ms-md-3 w-auto" style="max-width: 250px;">
-          <input type="text" class="form-control border-primary rounded-pill ps-3" placeholder="Search Here For Homes...">
-          <span class="input-group-text bg-primary rounded-5 border-0 position-absolute end-0">
-            <i class="bi bi-search text-white"></i>
-          </span>
-        </div>
-      </div>
-      </div>
 
-      <div class="swiper-button-next residence-swiper-next  residence-arrow"></div>
-      <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
-
-      <div class="swiper residence-swiper">
-        <div class="swiper-wrapper">
-
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item1.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item2.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item3.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item4.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item5.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item6.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item7.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-
-
-      </div>
-
-      <div class="residence-btn">
-        <a href="properties.html" class="btn btn-primary rounded-pill mt-5 px-4 py-3">View All Properties</a>
-      </div>
-
+<!-- Residence start -->
+<section id="residence">
+  <div class="container my-5 py-5">
+    <div class="text-center mb-4">
+      <h2 class="featured-heading text-center m-0">
+        <span class="fw-semibold">Homes For</span> 
+        <span class="text-grey fw-semibold">You</span>
+      </h2>
+      <p class="text-grey text-center fw-semibold fs-6">Choose Comfort And Peace</p>
     </div>
-  </section>
+
+    <div class="swiper residence-swiper">
+      <div class="swiper-wrapper" id="sale-properties-container">
+        <div class="swiper-slide">
+          <div class="card h-100 loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper-button-next residence-swiper-next residence-arrow"></div>
+    <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
+
+    <div class="residence-btn text-center mt-5">
+      <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-3">View All Properties</a>
+    </div>
+  </div>
+</section>
 
 
  <!-- Help start -->
@@ -739,6 +496,192 @@
         });
       }
     </script>
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load rent properties (first 4 rental properties)
+    loadProperties('Rent', 4, 'rent-properties-container', createRentCard);
+    
+    // Load sale properties (first 6 sale properties)
+    loadProperties('Sale', 6, 'sale-properties-container', createSaleCard);
+    
+    // Initialize swiper after sale properties are loaded
+    setTimeout(initSwiper, 1000);
+  });
+  
+  function loadProperties(type, limit, containerId, createCardFunction) {
+    fetch('get_properties.php')
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          showError(containerId, data.error);
+          return;
+        }
+        
+        // Filter properties by type and limit
+        const filtered = data
+          .filter(p => p.type === type)
+          .slice(0, limit);
+        
+        renderProperties(filtered, containerId, createCardFunction);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showError(containerId, 'Failed to load properties. Please try again later.');
+      });
+  }
+  
+  function renderProperties(properties, containerId, createCardFunction) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    
+    if (properties.length === 0) {
+      container.innerHTML = `
+        <div class="col-12 text-center py-4">
+          <p class="text-muted">No properties available at the moment.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    properties.forEach(property => {
+      const card = createCardFunction(property);
+      if (containerId === 'rent-properties-container') {
+        const col = document.createElement('div');
+        col.className = 'col-md-6 col-lg-3';
+        col.innerHTML = card;
+        container.appendChild(col);
+      } else {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = card;
+        container.appendChild(slide);
+      }
+    });
+    
+    // Reinitialize swiper for sale properties
+    if (containerId === 'sale-properties-container') {
+      initSwiper();
+    }
+  }
+  
+  function createRentCard(property) {
+  // Format price for rental properties
+  let price = property.price || '0';
+  
+  // Clean the price string
+  price = price.toString()
+    .replace(/[^\d.]/g, '')  // Remove all non-numeric characters except decimal point
+    .replace(/^0+/, '')      // Remove leading zeros
+    || '0';                  // Default to '0' if empty
+  
+  // Format with commas if it's a number
+  if (!isNaN(price)) {
+    price = Number(price).toLocaleString();
+  }
+  
+  return `
+    <div class="card property-card shadow-sm border-0 rounded-4 h-100 overflow-hidden">
+      <div class="position-relative">
+        <img src="${property.main_image || 'images/apartment1.jpg'}" 
+             class="card-img-top" 
+             alt="${property.name}"
+             style="height: 200px; object-fit: cover;">
+        <div class="hover-overlay d-flex justify-content-center align-items-center">
+          <a href="property-single.html?id=${property.property_id}" 
+             class="btn btn-primary rounded-pill px-4 py-2">
+            Book Now
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">${property.name || 'Property'}</h5>
+        <p class="text-muted mb-2">${property.location || 'Location not specified'}</p>
+        <div class="d-flex gap-2 mb-2">
+          <small class="text-muted"><i class="bi bi-house-door"></i> ${property.bedrooms || 0} bed</small>
+          <small class="text-muted"><i class="bi bi-droplet"></i> ${property.bathrooms || 0} bath</small>
+          <small class="text-muted"><i class="bi bi-arrows-angle-expand"></i> ${property.sqft || 0} sqft</small>
+        </div>
+        <p class="fw-bold text-primary mb-0">$${price}/mo</p>
+      </div>
+    </div>
+  `;
+}
+
+function createSaleCard(property) {
+  // Format price for sale properties
+  let price = property.price || '0';
+  
+  // Clean the price string
+  price = price.toString()
+    .replace(/[^\d.]/g, '')  // Remove all non-numeric characters except decimal point
+    .replace(/^0+/, '')      // Remove leading zeros
+    || '0';                  // Default to '0' if empty
+  
+  // Format with commas if it's a number
+  if (!isNaN(price)) {
+    price = Number(price).toLocaleString();
+  }
+  
+  return `
+    <div class="card property-card h-100">
+      <a href="property-single.html?id=${property.property_id}">
+        <img src="${property.main_image || 'images/item1.png'}" 
+             class="card-img-top" 
+             alt="${property.name}"
+             style="height: 200px; object-fit: cover;">
+      </a>
+      <div class="card-body">
+        <a href="property-single.html?id=${property.property_id}">
+          <h5 class="card-title">${property.name || 'Property'}</h5>
+        </a>
+        <p class="text-muted">${property.location || 'Location not specified'}</p>
+        <div class="d-flex gap-2 mb-3">
+          <small class="text-muted"><i class="bi bi-house-door"></i> ${property.bedrooms || 0} bed</small>
+          <small class="text-muted"><i class="bi bi-droplet"></i> ${property.bathrooms || 0} bath</small>
+          <small class="text-muted"><i class="bi bi-arrows-angle-expand"></i> ${property.sqft || 0} sqft</small>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="fw-bold text-primary mb-0">$${price}</p>
+          <a href="property-single.html?id=${property.property_id}" 
+             class="btn btn-sm btn-outline-primary rounded-pill">
+            Book
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+  
+  function initSwiper() {
+    if (document.querySelector('.residence-swiper')) {
+      new Swiper('.residence-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        navigation: {
+          nextEl: '.residence-swiper-next',
+          prevEl: '.residence-swiper-prev',
+        },
+        breakpoints: {
+          576: { slidesPerView: 2 },
+          768: { slidesPerView: 2 },
+          992: { slidesPerView: 3 },
+          1200: { slidesPerView: 3 }
+        }
+      });
+    }
+  }
+  
+  function showError(containerId, message) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = `
+      <div class="col-12 text-center py-4">
+        <div class="alert alert-danger">
+          ${message}
+        </div>
+      </div>
+    `;
+  }
+  </script>
     
 </body>
 
