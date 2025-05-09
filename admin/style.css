@@ -182,4 +182,47 @@ body {
     background-color: #0d6efd;
     border-color: #0d6efd;
   }
+
+  /* Bug Reports specific styles */
+#bugReportsTable td {
+  vertical-align: middle;
+}
+
+#bugReportsTable .badge {
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+#bugReportsTable .text-truncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Modal styles */
+#bugReportDetails img {
+  max-height: 400px;
+  object-fit: contain;
+  border: 1px solid #eee;
+}
+
+#bugReportDetails .badge {
+  padding: 0.35em 0.65em;
+  font-size: 0.9em;
+}
+
+#bugReportDetails h6 {
+  color: #dc8b44;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+#bugReportDetails p {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
   

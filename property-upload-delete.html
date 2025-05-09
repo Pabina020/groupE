@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Upload</title>
+  <title>Landlord Upload</title>
 
   <link rel="stylesheet" type="text/css" href="css/vendor.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -71,7 +71,7 @@
   <section id="page-billboard" style="background-image: url(images/pattern.png);">
     <div class="container py-5">
       <div class="page-billboard-container">
-        <h1 class="text-capitalize lh-1 mb-3">Admin Upload</h1>
+        <h1 class="text-capitalize lh-1 mb-3">Landlord Upload</h1>
         <span class="item"><a href="index.html" class="text-primary">Home</a></span> &nbsp; / &nbsp; <span
           class="item">Admin Upload</span>
       </div>
@@ -83,7 +83,7 @@
 
     <!-- Admin Authentication -->
     <div class="form-section mb-5">
-      <h2 class="section-title">Admin Authentication</h2>
+      <h2 class="section-title">Landlord Authentication</h2>
       <div class="row g-3">
         <div class="col-md-4"><input type="text" class="form-control" placeholder="Admin Username"></div>
         <div class="col-md-4"><input type="password" class="form-control" placeholder="Password"></div>
@@ -92,41 +92,85 @@
     </div>
 
     <!-- Upload Property -->
-    <div class="form-section">
+    <form class="form-section" action="property-handler.php" method="POST" enctype="multipart/form-data">
       <h2 class="section-title">Upload New Property Listing</h2>
-      <form>
-        <div class="mb-4"><label class="form-label">Property ID</label>
-          <input type="text" class="form-control" placeholder="Enter Unique Property ID">
+    
+      <div class="mb-4">
+        <label class="form-label">Property ID</label>
+        <input type="text" class="form-control" name="property_id" placeholder="Enter Unique Property ID" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Property Name</label>
+        <input type="text" class="form-control" name="property_name" placeholder="Enter Property Name" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Location</label>
+        <input type="text" class="form-control" name="location" placeholder="Enter Property Location" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Bedrooms</label>
+        <input type="number" class="form-control" name="bedrooms" placeholder="Enter Number of Bedrooms" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Bathrooms</label>
+        <input type="number" class="form-control" name="bathrooms" placeholder="Enter Number of Bathrooms" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Square Feet</label>
+        <input type="number" class="form-control" name="sqft" placeholder="Enter Area in Sq Ft" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Type</label>
+        <select class="form-control" name="type" required>
+          <option value="Rent">Rent</option>
+          <option value="Sale">Sale</option>
+        </select>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Price</label>
+        <input type="text" inputmode="decimal"  class="form-control" name="price" placeholder="Enter Price" required>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Property Description</label>
+        <textarea class="form-control" name="property_description" placeholder="Enter Property Description" required></textarea>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Upload Main Image</label>
+        <div class="upload-box" id="admin-main-upload-box">
+          <p>Upload Image</p>
+          <input type="file" accept="image/*" id="admin-main-upload-input" name="main_image" required>
+          <img id="admin-main-preview" class="preview-image mt-3 d-none" />
         </div>
-        <div class="mb-4"><label class="form-label">Property Name</label>
-          <input type="text" class="form-control" placeholder="Enter Property Name">
-        </div>
-        <div class="mb-4"><label class="form-label">Property Description</label>
-          <textarea class="form-control" placeholder="Enter Property Description"></textarea>
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Upload Main Image</label>
-          <div class="upload-box" id="admin-main-upload-box">
-            <p>Upload Image</p>
-            <input type="file" accept="image/*" id="admin-main-upload-input">
-            <img id="admin-main-preview" class="preview-image mt-3 d-none" />
-          </div>
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Upload Additional Images</label>
-          <div class="d-flex flex-wrap gap-3" id="admin-extra-upload-container"></div>
-        </div>
-        <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Submit Listing</button>
-      </form>
+      </div>
+    
+      <div class="mb-4">
+        <label class="form-label">Upload Additional Images</label>
+        <input type="file" name="extra_images[]" id="admin-extra-upload-input" multiple accept="image/*" class="form-control">
+        <div id="admin-extra-preview-container" class="d-flex flex-wrap gap-3 mt-3"></div>
+      </div>
+    
+      <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Submit Listing</button>
+    </form>
+    
     </div>
 
     <!-- Delete Property -->
     <div class="form-section mt-5">
       <h2 class="section-title">Delete Property Listing</h2>
-      <form id="delete-property-form">
+      <form action="property-handler.php" method="POST" id="delete-property-form">
+
         <div class="mb-4">
           <label class="form-label">Property ID</label>
-          <input type="text" class="form-control" id="delete-property-id" placeholder="Enter Property ID to Delete" required>
+          <input type="text" class="form-control" id="delete-property-id" name="delete-property-id" placeholder="Enter Property ID to Delete" required>
         </div>
         <button type="submit" class="btn btn-danger px-5 py-3 rounded-pill">Delete Listing</button>
       </form>
@@ -246,17 +290,57 @@
 
     // Delete property
     document.getElementById("delete-property-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const propertyId = document.getElementById("delete-property-id").value.trim();
-      if (propertyId) {
-        const confirmDelete = confirm(`Are you sure you want to delete property with ID: ${propertyId}?`);
-        if (confirmDelete) {
-          alert(`Property with ID "${propertyId}" has been deleted (simulated).`);
-        }
+  e.preventDefault();
+  const propertyId = document.getElementById("delete-property-id").value.trim();
+
+  // Assuming confirmDelete is a function or a confirmation dialog call
+  if (confirm("Are you sure you want to delete this property?")) {
+    fetch('delete_property.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ property_id: propertyId })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`Property with ID "${propertyId}" has been deleted.`);
+        // Optional: refresh list or remove DOM element here
       } else {
-        alert("Please enter a valid Property ID.");
+        alert(`Error: ${data.message}`);
       }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("An error occurred while deleting the property.");
     });
+  } // <- this closing brace was missing
+});
+
+// Extra image preview
+const extraInput = document.getElementById('admin-extra-upload-input');
+const extraPreviewContainer = document.getElementById('admin-extra-preview-container');
+
+if (extraInput) {
+  extraInput.addEventListener('change', function () {
+    extraPreviewContainer.innerHTML = ""; // Clear previous previews
+
+    Array.from(this.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'preview-image rounded mb-2';
+        img.style.width = '120px';
+        img.style.height = 'auto';
+        extraPreviewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
   </script>
 
   <script src="js/jquery-1.11.0.min.js"></script>
@@ -269,3 +353,4 @@
 
 </body>
 </html>
+  
