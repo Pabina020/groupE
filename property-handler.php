@@ -181,11 +181,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Commit transaction if everything succeeded
         $conn->commit();
 
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Property uploaded successfully!',
-            'property_id' => $property_id
-        ]);
+        header("Location: properties.html");
+exit();
+
 
     } catch (Exception $e) {
         // Rollback transaction on error
