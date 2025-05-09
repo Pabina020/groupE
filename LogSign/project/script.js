@@ -11,7 +11,7 @@ function togglePassword(inputId) {
   icon.alt = isPassword ? 'Hide password' : 'Show password';
 }
 
-// Handle signup
+// Handle signup (POST to signup.php)
 function handleSignup() {
   const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
@@ -24,10 +24,10 @@ function handleSignup() {
     return;
   }
 
-  fetch("http://localhost:3001/signup", {
+  fetch("signup.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include", // allow cookies
+    credentials: "include",
     body: JSON.stringify({ username, email, password, role })
   })
     .then(res => res.json())
@@ -44,7 +44,7 @@ function handleSignup() {
     });
 }
 
-// Handle login
+// Handle login (POST to login.php)
 function loginUser(event) {
   event.preventDefault();
   const email = document.getElementById("login-email").value.trim();
@@ -56,44 +56,43 @@ function loginUser(event) {
     return;
   }
 
-  fetch("http://localhost:3001/login", {
+  fetch("login.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include", // allow server cookie
+    credentials: "include",
     body: JSON.stringify({ email, password })
   })
     .then(res => res.json())
     .then(data => {
-      if (data.message === "Login successful") {
-        if (data.role === "landlord" || data.role === "both") {
-          window.location.href = "../../property-upload-delete.html";
-        } else if (data.role === "tenant") {
-          window.location.href = "../../index.html";
-        } else {
-          alert("Unknown user role.");
-        }
-      } else {
-        alert(data.message || "Invalid credentials");
-      }
-    })
+  if (data.message === "Login successful") {
+    const userCookie = JSON.stringify({ name: data.username }); // ✅ This must use data.username
+    document.cookie = `user=${encodeURIComponent(userCookie)}; path=/`;
+
+    if (data.role === "landlord" || data.role === "both") {
+      window.location.href = "../../property-upload-delete.html";
+    } else if (data.role === "tenant") {
+      window.location.href = "../../index.html";
+    } else {
+      alert("Unknown user role.");
+    }
+  } else {
+    alert(data.message || "Invalid credentials");
+  }
+})
     .catch(err => {
       alert("Server error. Please try again later.");
       console.error(err);
     });
 }
 
-// On page load, update displayed username
+// Load username from cookie
 window.addEventListener("DOMContentLoaded", () => {
   const user = getCookie('user');
-
   if (user) {
     try {
       const parsed = JSON.parse(decodeURIComponent(user));
-
       const nameSpan = document.getElementById('username');
-      if (nameSpan) {
-        nameSpan.textContent = parsed.name;
-      }
+      if (nameSpan) nameSpan.textContent = parsed.name;
 
       const authSection = document.getElementById('auth-buttons');
       if (authSection) {
@@ -111,10 +110,14 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Logout: Clear cookie and redirect
+// Logout: clear cookie + notify server
 function logoutUser() {
-  document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-  window.location.href = "landingpage.html";
+  fetch("logout.php")
+    .then(res => res.json())
+    .then(() => {
+      document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      window.location.href = "landingpage.html";
+    });
 }
 
 // Utility to get cookie value

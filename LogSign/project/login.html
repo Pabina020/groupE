@@ -14,11 +14,14 @@
       </div>
       <div class="form-section">
         <h1>Welcome to Rentup</h1>
+
+        <!-- ✅ Correct single form -->
         <form id="loginForm" onsubmit="return loginUser(event);" autocomplete="on">
           <div class="form-group">
             <label for="login-email">Email</label>
             <input type="email" id="login-email" placeholder="Enter your email here" required autocomplete="email" />
           </div>
+
           <div class="form-group">
             <label for="login-password">Password</label>
             <div class="password-input">
@@ -28,15 +31,13 @@
               </button>
             </div>
           </div>
+
           <div class="form-group checkbox">
             <input type="checkbox" id="remember-me" />
             <label for="remember-me">Remember Me</label>
           </div>
-          <form id="loginForm" onsubmit="return loginUser(event);" autocomplete="on">
-            <!-- your inputs... -->
-            <button type="submit" class="primary-button">Login</button>
-          </form>
-          
+
+          <button type="submit" class="primary-button">Login</button>
 
           <div class="divider">Or</div>
 
@@ -59,6 +60,7 @@
     </div>
   </div>
 
+  <!-- ✅ Load login/signup logic -->
   <script src="script.js"></script>
 </body>
 </html>
