@@ -29,6 +29,148 @@
   <script src="js/modernizr.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <style>
+    /* FAQ Section Styles */
+    .faqs-wrap {
+      background-color: #f8f9fa;
+      padding: 3rem 0;
+    }
+    
+    .section-title {
+      color: #2c3e50;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background-color: #ef8c3c;
+    }
+    
+    /* Accordion Styles */
+    .accordion-button:not(.collapsed) {
+      background-color: rgba(239, 140, 60, 0.1);
+      color: #2c3e50;
+    }
+    
+    .accordion-button:focus {
+      box-shadow: 0 0 0 0.25rem rgba(239, 140, 60, 0.25);
+    }
+    
+    /* Community Q&A Styles */
+    .community-qa {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 20px;
+    }
+    
+    .qa-item {
+      border-left: 3px solid #ef8c3c;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .admin-reply .alert-info {
+      background-color: #f8f9fa;
+      border-color: #dee2e6;
+      color: #212529;
+    }
+    
+    .reply-form {
+      display: none;
+      margin-top: 1rem;
+    }
+    
+    .admin-mode .reply-form {
+      display: block;
+    }
+    
+    .qa-list-container {
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    /* Scrollbar styling */
+    .qa-list-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .qa-list-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .qa-list-container::-webkit-scrollbar-thumb {
+      background: #ef8c3c;
+      border-radius: 10px;
+    }
+    
+    .qa-list-container::-webkit-scrollbar-thumb:hover {
+      background: #d97b2b;
+    }
+    
+    /* Question form styling */
+    .qa-form {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    /* Like button styling */
+    .like-btn {
+      background: none;
+      border: none;
+      color: #6c757d;
+      transition: all 0.3s;
+    }
+    
+    .like-btn:hover {
+      color: #ef8c3c;
+    }
+    
+    .like-btn.liked {
+      color: #ef8c3c;
+    }
+    
+    /* Admin controls */
+    .admin-controls {
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .community-qa {
+        position: static;
+        margin-top: 30px;
+      }
+    }
+  </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
@@ -235,7 +377,7 @@
               <div class="accordion-header" id="heading-six">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapse-six" aria-expanded="true" aria-controls="collapse-six">
-                  <h3 class="accordion-title fs-5">What’s your refund policy</h3>
+                  <h3 class="accordion-title fs-5">What's your refund policy</h3>
                 </button>
               </div>
               <div id="collapse-six" class="accordion-collapse collapse" aria-labelledby="heading-six">
@@ -298,7 +440,7 @@
               <div class="accordion-header" id="heading-nine">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapse-nine" aria-expanded="true" aria-controls="collapse-nine">
-                  <h3 class="accordion-title fs-5">Are utilities included in the rental price?h3>
+                  <h3 class="accordion-title fs-5">Are utilities included in the rental price?</h3>
                 </button>
               </div>
               <div id="collapse-nine" class="accordion-collapse collapse" aria-labelledby="heading-nine">
@@ -318,233 +460,61 @@
           </div>
         </div>
       </main>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+      <!-- Community Q&A Section -->
+      <div class="col-md-4">
+        <section class="community-qa">
+          <h3 class="section-title mb-3">Community Q&A</h3>
+          <p class="mb-4">Have a question not covered in our FAQs? Ask our community or get help from our support team.</p>
+          
+          <!-- Admin Controls (only visible in admin mode) -->
+          <div class="admin-controls" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Admin Controls</h6>
+              <button onclick="toggleAdminMode()" class="btn btn-sm btn-outline-danger">Exit Admin Mode</button>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="autoApproveSwitch">
+              <label class="form-check-label" for="autoApproveSwitch">Auto-approve questions</label>
+            </div>
+          </div>
 
-<section class="faqs-wrap no-padding-bottom">
-    <div class="container">
-      <div class="row g-5 my-4">
-        <main class="col-md-8">
-          <!-- Your main FAQ content can go here -->
-        </main>
-  
-        <!-- Community Q&A -->
-        <div class="col-md-4">
-          <section class="community-qa">
-            <h3 class="section-title mb-3">Community Q&A</h3>
-  
-            <!-- Admin Mode Toggle -->
-            <div class="text-end mb-3">
-              <button onclick="toggleAdminMode()" class="btn btn-warning btn-sm">Toggle Admin Mode</button>
-            </div>
-  
-            <!-- Question Form -->
-            <div class="qa-form mb-4">
-              <form id="questionForm" class="row g-3">
-                <div class="col-12">
-                  <input type="text" class="form-control" placeholder="Your Name" id="userName" required>
-                </div>
-                <div class="col-12">
-                  <input type="email" class="form-control" placeholder="Your Email" id="userEmail" required>
-                </div>
-                <div class="col-12">
-                  <textarea class="form-control" rows="3" placeholder="Your Question" id="userQuestion" required></textarea>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary w-100">Ask Question</button>
-                </div>
-              </form>
-            </div>
-  
-            <!-- Questions List -->
+          <!-- Question Form -->
+          <div class="qa-form mb-4">
+            <h5 class="mb-3">Ask a Question</h5>
+            <form id="questionForm" class="row g-3">
+              <div class="col-12">
+                <input type="text" class="form-control" placeholder="Your Name" id="userName" required>
+              </div>
+              <div class="col-12">
+                <input type="email" class="form-control" placeholder="Your Email" id="userEmail" required>
+              </div>
+              <div class="col-12">
+                <textarea class="form-control" rows="3" placeholder="Your Question" id="userQuestion" required></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Ask Question</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Questions List -->
+          <div class="qa-list-container">
             <div class="qa-list" id="qaList">
-              <!-- Dynamic content -->
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <style>
-    .community-qa {
-      background: #fff; /* Changed from light gray to white */
-      border: 1px solid #dee2e6;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    }
-    
-    .qa-item {
-      border-left: 3px solid #ef8c3c;
-      padding-left: 1rem;
-      margin: 1.5rem 0;
-    }
-    
-    .admin-reply .alert-info { /* Changed alert color */
-      background-color: #f8f9fa;
-      border-color: #dee2e6;
-      color: #212529;
-    }
-    
-    .reply-form {
-      display: none;
-      margin-top: 1rem;
-    }
-    
-    .admin-mode .reply-form {
-      display: block;
-    }
-    
-    /* Added height constraint */
-    .qa-list-container {
-      max-height: 600px;
-      overflow-y: auto;
-    }
-    </style>
-  
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const loadQuestions = () => {
-      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
-      const qaList = document.getElementById('qaList');
-      qaList.innerHTML = '';
-  
-      questions.forEach(question => {
-        const questionHTML = `
-
-        
-          <div class="qa-item card mb-3">
-            <div class="card-body">
-              <h5 class="card-title">${question.name}</h5>
-              <div class="question-meta mb-2">
-                ${new Date(question.timestamp).toLocaleDateString()}
-                <span class="ms-3">
-                  <i class="bi bi-hand-thumbs-up"></i>
-                  <span id="likes-${question.id}">${question.likes || 0}</span>
-                  <button class="btn btn-sm btn-outline-primary ms-1" onclick="likeQuestion(${question.id})">Like</button>
-                </span>
-              </div>
-              
-              <p class="card-text">${question.question}</p>
-  
-              <div class="admin-reply">
-                <div class="reply-form">
-                  <textarea class="form-control mb-2" placeholder="Admin reply..."></textarea>
-                  <button class="btn btn-sm btn-success" onclick="submitReply(${question.id})">Post Reply</button>
+              <!-- Dynamic content will be inserted here -->
+              <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
                 </div>
-                <div class="replies">
-                  ${(question.replies || []).map(reply => `
-                    <div class="reply-item alert alert-info mt-2">
-                      <strong>Admin:</strong> ${reply.text}
-                      <div class="reply-meta small text-muted">
-                        ${new Date(reply.timestamp).toLocaleString()}
-                      </div>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-  
-              <div class="user-comments mt-3">
-                <h6>Comments</h6>
-                ${(question.comments || []).map(comment => `
-                  <div class="alert alert-secondary mb-2">
-                    <strong>${comment.name}</strong>: ${comment.text}
-                    <div class="text-muted small">${new Date(comment.timestamp).toLocaleString()}</div>
-                  </div>
-                `).join('')}
-                <form onsubmit="addComment(event, ${question.id})" class="mt-2">
-                  <input type="text" class="form-control mb-1" placeholder="Your Name" required>
-                  <textarea class="form-control mb-1" rows="2" placeholder="Add a comment..." required></textarea>
-                  <button class="btn btn-sm btn-outline-secondary">Post Comment</button>
-                </form>
+                <p class="mt-2">Loading questions...</p>
               </div>
             </div>
           </div>
-              
-          
-        `;
-        qaList.insertAdjacentHTML('afterbegin', questionHTML);
-      });
-    };
-  
-    document.getElementById('questionForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const question = {
-        id: Date.now(),
-        name: document.getElementById('userName').value,
-        email: document.getElementById('userEmail').value,
-        question: document.getElementById('userQuestion').value,
-        timestamp: new Date().toISOString(),
-        likes: 0,
-        replies: [],
-        comments: []
-      };
-  
-      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
-      questions.push(question);
-      localStorage.setItem('questions', JSON.stringify(questions));
-      loadQuestions();
-      e.target.reset();
-    });
-  
-    window.submitReply = questionId => {
-      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
-      const question = questions.find(q => q.id === questionId);
-      if (!question) return;
-  
-      const replyInput = event.target.previousElementSibling;
-      if (!replyInput || !replyInput.value) return;
-  
-      question.replies.push({
-        text: replyInput.value,
-        timestamp: new Date().toISOString()
-      });
-      localStorage.setItem('questions', JSON.stringify(questions));
-      loadQuestions();
-    };
-  
-    window.likeQuestion = id => {
-      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
-      const question = questions.find(q => q.id === id);
-      if (question) {
-        question.likes = (question.likes || 0) + 1;
-        localStorage.setItem('questions', JSON.stringify(questions));
-        document.getElementById(`likes-${id}`).textContent = question.likes;
-      }
-    };
-  
-    window.addComment = (event, questionId) => {
-      event.preventDefault();
-      const name = event.target.querySelector('input').value;
-      const text = event.target.querySelector('textarea').value;
-  
-      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
-      const question = questions.find(q => q.id === questionId);
-      if (question) {
-        question.comments = question.comments || [];
-        question.comments.push({
-          name,
-          text,
-          timestamp: new Date().toISOString()
-        });
-        localStorage.setItem('questions', JSON.stringify(questions));
-        loadQuestions();
-      }
-    };
-  
-    window.toggleAdminMode = () => {
-      document.body.classList.toggle('admin-mode');
-      alert(`Admin mode ${document.body.classList.contains('admin-mode') ? 'activated' : 'deactivated'}`);
-    };
-  
-    loadQuestions();
-  });
-  </script>
-  
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- Lets contact-us  -->
   <section class="py-5" id="contact-us">
@@ -672,19 +642,217 @@
   </div>
 </section>
 
-
-
-
-
   <script src="js/jquery-1.11.0.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+  <script src="js/script.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize admin mode from localStorage
+      const isAdmin = localStorage.getItem('adminMode') === 'true';
+      if (isAdmin) {
+        document.body.classList.add('admin-mode');
+        const adminControls = document.querySelector('.admin-controls');
+        if (adminControls) adminControls.style.display = 'block';
+      }
+  
+      // Format date for display
+      const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      };
+  
+      // Load questions from localStorage
+      const loadQuestions = () => {
+        const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+        const qaList = document.getElementById('qaList');
+  
+        if (!qaList) return;
+  
+        if (questions.length === 0) {
+          qaList.innerHTML = `
+            <div class="text-center py-4">
+              <i class="bi bi-question-circle" style="font-size: 2rem; color: #6c757d;"></i>
+              <p class="mt-2">No questions yet. Be the first to ask!</p>
+            </div>
+          `;
+          return;
+        }
+  
+        qaList.innerHTML = '';
+        questions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  
+        questions.forEach(question => {
+          const questionHTML = `
+            <div class="qa-item card mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h5 class="card-title mb-1">${question.name}</h5>
+                  <small class="text-muted">${formatDate(question.timestamp)}</small>
+                </div>
+  
+                <p class="card-text mt-2">${question.question}</p>
+  
+                <div class="d-flex align-items-center mt-2">
+                  <button class="like-btn ${question.liked ? 'liked' : ''}" onclick="toggleLike(${question.id})">
+                    <i class="bi ${question.liked ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up'}"></i>
+                    <span id="likes-${question.id}">${question.likes || 0}</span>
+                  </button>
+                </div>
+  
+                ${question.replies && question.replies.length > 0 ? `
+                  <div class="admin-replies mt-3">
+                    <h6 class="small text-uppercase text-muted mb-2">Admin Replies</h6>
+                    ${question.replies.map(reply => `
+                      <div class="reply-item alert alert-info p-2 mb-2">
+                        <div class="d-flex justify-content-between">
+                          <strong>Admin</strong>
+                          <small class="text-muted">${formatDate(reply.timestamp)}</small>
+                        </div>
+                        <p class="mb-0 mt-1">${reply.text}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : ''}
+  
+                <div class="reply-form mt-3">
+                  <textarea class="form-control mb-2" id="reply-text-${question.id}" rows="2" placeholder="Your reply..."></textarea>
+                  <button class="btn btn-sm btn-primary" onclick="submitReply(${question.id})">Submit Reply</button>
+                </div>
+              </div>
+            </div>
+          `;
+          qaList.innerHTML += questionHTML;
+        });
+      };
+  
+      // Handle question form submission
+      const form = document.getElementById('questionForm');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+  
+          const name = document.getElementById('userName').value;
+          const email = document.getElementById('userEmail').value;
+          const question = document.getElementById('userQuestion').value;
+  
+          const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+          const newQuestion = {
+            id: Date.now(),
+            name,
+            email,
+            question,
+            timestamp: new Date().toISOString(),
+            likes: 0,
+            liked: false,
+            replies: []
+          };
+  
+          questions.push(newQuestion);
+          localStorage.setItem('questions', JSON.stringify(questions));
+  
+          form.reset();
+          loadQuestions();
+          alert('Your question has been submitted!');
+        });
+      }
+  
+      // Add admin toggle button in footer
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const adminToggle = document.createElement('div');
+        adminToggle.className = 'text-center mt-3';
+        adminToggle.innerHTML = `
+          <button onclick="toggleAdminMode()" class="btn btn-sm btn-outline-secondary">
+            ${isAdmin ? 'Exit Admin Mode' : 'Enter Admin Mode'}
+          </button>
+        `;
+        footer.appendChild(adminToggle);
+      }
+  
+      loadQuestions();
+    });
+  
+    // Toggle like on a question
+    function toggleLike(questionId) {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const question = questions.find(q => q.id === questionId);
+  
+      if (question) {
+        question.liked = !question.liked;
+        question.likes += question.liked ? 1 : -1;
+  
+        localStorage.setItem('questions', JSON.stringify(questions));
+  
+        const likeCountElement = document.getElementById(`likes-${questionId}`);
+        if (likeCountElement) likeCountElement.textContent = question.likes;
+  
+        const likeButton = document.querySelector(`.like-btn[onclick="toggleLike(${questionId})"]`);
+        if (likeButton) {
+          likeButton.classList.toggle('liked');
+          const icon = likeButton.querySelector('i');
+          if (icon) icon.className = question.liked ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up';
+        }
+      }
+    }
+  
+    // Submit a reply (admin only)
+    function submitReply(questionId) {
+      if (!document.body.classList.contains('admin-mode')) return;
+  
+      const replyInput = document.getElementById(`reply-text-${questionId}`);
+      if (!replyInput || !replyInput.value.trim()) return;
+  
+      const replyText = replyInput.value;
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const question = questions.find(q => q.id === questionId);
+  
+      if (question) {
+        if (!question.replies) question.replies = [];
+        question.replies.push({
+          text: replyText,
+          timestamp: new Date().toISOString()
+        });
+  
+        localStorage.setItem('questions', JSON.stringify(questions));
+        replyInput.value = '';
+  
+        const spinner = document.querySelector('.spinner-border');
+        if (spinner) spinner.style.display = 'block';
+  
+        setTimeout(() => {
+          if (spinner) spinner.style.display = 'none';
+          const qaList = document.getElementById('qaList');
+          if (qaList) qaList.innerHTML = '';
+          document.dispatchEvent(new Event('DOMContentLoaded')); // Reload content
+        }, 500);
+      }
+    }
+  
+    // Toggle admin mode
+    function toggleAdminMode() {
+      const isAdminNow = !document.body.classList.contains('admin-mode');
+      document.body.classList.toggle('admin-mode');
+      const controls = document.querySelector('.admin-controls');
+      if (controls) controls.style.display = isAdminNow ? 'block' : 'none';
+      localStorage.setItem('adminMode', isAdminNow);
+  
+      const button = document.querySelector('footer .btn-outline-secondary');
+      if (button) {
+        button.textContent = isAdminNow ? 'Exit Admin Mode' : 'Enter Admin Mode';
+      }
+    }
+  </script>
+  
 
-    
 </body>
-
 </html>
