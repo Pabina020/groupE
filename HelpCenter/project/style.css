@@ -27,53 +27,38 @@ nav {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.logo {
+.nav-center {
+    flex: 1; 
     display: flex;
+    justify-content: center; 
     align-items: center;
-    gap: 0.5rem;
 }
 
-.nav-center, .nav-links {
-.nav-center, .nav-links {
+.nav-links {
     display: flex;
-    gap: 3rem !important;
-    font-weight:500;
+    gap: 3.5rem !important;
     align-items: center;
+    font-weight: 520 !important;
 }
 
 .nav-links a {
     text-decoration: none;
     color: lightgray;
-    font-weight:semi-bold;
-    transition: width 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
     color: lightgray;
-    font-weight:semi-bold;
-    transition: width 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
     color: var(--text-color);
     text-decoration: underline;
-    text-underline-offset: 18px;
+    text-underline-offset: 10px;
     text-decoration-thickness: 2px;
 }
-.dropdown-menu a:hover {
-    text-decoration: none;
-    color:
-}
 
-.nav-right {
-    display: flex;
-    gap: 1rem;
-}
-
-    text-decoration: underline;
-    text-underline-offset: 18px;
-    text-decoration-thickness: 2px;
-}
 .dropdown-menu a:hover {
     text-decoration: none;
     color:
