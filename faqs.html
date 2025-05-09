@@ -318,32 +318,233 @@
           </div>
         </div>
       </main>
-      <div class="inquiry-item col-md-4">
-        <h3 class="section-title mb-3">Ask us anything</h3>
-        <p>Call Us +123 987 456 or just drop us your message at <a
-            href="mailto:contact@yourcompany.com">contact@yourcompany.com</a>. You can directly message us. </p>
-        <form id="form" class="form-group flex-wrap">
-          <div class="form-input col-lg-12 d-flex mb-3">
-            <input type="text" name="email" placeholder="Write Your Name Here" class="form-control ps-3 me-3">
-            <input type="text" name="email" placeholder="Write Your Email Here" class="form-control ps-3">
-          </div>
-          <div class="col-lg-12 mb-3">
-            <input type="text" name="email" placeholder="Phone Number" class="form-control ps-3">
-          </div>
-          <div class="col-lg-12 mb-3">
-            <input type="text" name="email" placeholder="Write Your Subject Here" class="form-control ps-3">
-          </div>
-          <div class="col-lg-12 mb-3">
-            <textarea placeholder="Write Your Message Here" class="form-control ps-3" rows="8"></textarea>
-          </div>
-          <div class="d-grid">
-            <button class="btn btn-primary btn-lg text-uppercase btn-rounded-none">Submit</button>
-          </div>
-        </form>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<section class="faqs-wrap no-padding-bottom">
+    <div class="container">
+      <div class="row g-5 my-4">
+        <main class="col-md-8">
+          <!-- Your main FAQ content can go here -->
+        </main>
+  
+        <!-- Community Q&A -->
+        <div class="col-md-4">
+          <section class="community-qa">
+            <h3 class="section-title mb-3">Community Q&A</h3>
+  
+            <!-- Admin Mode Toggle -->
+            <div class="text-end mb-3">
+              <button onclick="toggleAdminMode()" class="btn btn-warning btn-sm">Toggle Admin Mode</button>
+            </div>
+  
+            <!-- Question Form -->
+            <div class="qa-form mb-4">
+              <form id="questionForm" class="row g-3">
+                <div class="col-12">
+                  <input type="text" class="form-control" placeholder="Your Name" id="userName" required>
+                </div>
+                <div class="col-12">
+                  <input type="email" class="form-control" placeholder="Your Email" id="userEmail" required>
+                </div>
+                <div class="col-12">
+                  <textarea class="form-control" rows="3" placeholder="Your Question" id="userQuestion" required></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary w-100">Ask Question</button>
+                </div>
+              </form>
+            </div>
+  
+            <!-- Questions List -->
+            <div class="qa-list" id="qaList">
+              <!-- Dynamic content -->
+            </div>
+          </section>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  
+  <style>
+    .community-qa {
+      background: #fff; /* Changed from light gray to white */
+      border: 1px solid #dee2e6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    }
+    
+    .qa-item {
+      border-left: 3px solid #ef8c3c;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .admin-reply .alert-info { /* Changed alert color */
+      background-color: #f8f9fa;
+      border-color: #dee2e6;
+      color: #212529;
+    }
+    
+    .reply-form {
+      display: none;
+      margin-top: 1rem;
+    }
+    
+    .admin-mode .reply-form {
+      display: block;
+    }
+    
+    /* Added height constraint */
+    .qa-list-container {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    </style>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const loadQuestions = () => {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const qaList = document.getElementById('qaList');
+      qaList.innerHTML = '';
+  
+      questions.forEach(question => {
+        const questionHTML = `
+
+        
+          <div class="qa-item card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">${question.name}</h5>
+              <div class="question-meta mb-2">
+                ${new Date(question.timestamp).toLocaleDateString()}
+                <span class="ms-3">
+                  <i class="bi bi-hand-thumbs-up"></i>
+                  <span id="likes-${question.id}">${question.likes || 0}</span>
+                  <button class="btn btn-sm btn-outline-primary ms-1" onclick="likeQuestion(${question.id})">Like</button>
+                </span>
+              </div>
+              
+              <p class="card-text">${question.question}</p>
+  
+              <div class="admin-reply">
+                <div class="reply-form">
+                  <textarea class="form-control mb-2" placeholder="Admin reply..."></textarea>
+                  <button class="btn btn-sm btn-success" onclick="submitReply(${question.id})">Post Reply</button>
+                </div>
+                <div class="replies">
+                  ${(question.replies || []).map(reply => `
+                    <div class="reply-item alert alert-info mt-2">
+                      <strong>Admin:</strong> ${reply.text}
+                      <div class="reply-meta small text-muted">
+                        ${new Date(reply.timestamp).toLocaleString()}
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+  
+              <div class="user-comments mt-3">
+                <h6>Comments</h6>
+                ${(question.comments || []).map(comment => `
+                  <div class="alert alert-secondary mb-2">
+                    <strong>${comment.name}</strong>: ${comment.text}
+                    <div class="text-muted small">${new Date(comment.timestamp).toLocaleString()}</div>
+                  </div>
+                `).join('')}
+                <form onsubmit="addComment(event, ${question.id})" class="mt-2">
+                  <input type="text" class="form-control mb-1" placeholder="Your Name" required>
+                  <textarea class="form-control mb-1" rows="2" placeholder="Add a comment..." required></textarea>
+                  <button class="btn btn-sm btn-outline-secondary">Post Comment</button>
+                </form>
+              </div>
+            </div>
+          </div>
+              
+          
+        `;
+        qaList.insertAdjacentHTML('afterbegin', questionHTML);
+      });
+    };
+  
+    document.getElementById('questionForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const question = {
+        id: Date.now(),
+        name: document.getElementById('userName').value,
+        email: document.getElementById('userEmail').value,
+        question: document.getElementById('userQuestion').value,
+        timestamp: new Date().toISOString(),
+        likes: 0,
+        replies: [],
+        comments: []
+      };
+  
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      questions.push(question);
+      localStorage.setItem('questions', JSON.stringify(questions));
+      loadQuestions();
+      e.target.reset();
+    });
+  
+    window.submitReply = questionId => {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const question = questions.find(q => q.id === questionId);
+      if (!question) return;
+  
+      const replyInput = event.target.previousElementSibling;
+      if (!replyInput || !replyInput.value) return;
+  
+      question.replies.push({
+        text: replyInput.value,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('questions', JSON.stringify(questions));
+      loadQuestions();
+    };
+  
+    window.likeQuestion = id => {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const question = questions.find(q => q.id === id);
+      if (question) {
+        question.likes = (question.likes || 0) + 1;
+        localStorage.setItem('questions', JSON.stringify(questions));
+        document.getElementById(`likes-${id}`).textContent = question.likes;
+      }
+    };
+  
+    window.addComment = (event, questionId) => {
+      event.preventDefault();
+      const name = event.target.querySelector('input').value;
+      const text = event.target.querySelector('textarea').value;
+  
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const question = questions.find(q => q.id === questionId);
+      if (question) {
+        question.comments = question.comments || [];
+        question.comments.push({
+          name,
+          text,
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem('questions', JSON.stringify(questions));
+        loadQuestions();
+      }
+    };
+  
+    window.toggleAdminMode = () => {
+      document.body.classList.toggle('admin-mode');
+      alert(`Admin mode ${document.body.classList.contains('admin-mode') ? 'activated' : 'deactivated'}`);
+    };
+  
+    loadQuestions();
+  });
+  </script>
+  
 
   <!-- Lets contact-us  -->
   <section class="py-5" id="contact-us">

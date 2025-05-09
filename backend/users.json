@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "username": "pabs",
@@ -11,4 +12,19 @@
     "password": "pabina1234",
     "role": "landlord"
   }
+=======
+[
+  {
+    "username": "pabs",
+    "email": "pabinashrestha1234@gmail.com",
+    "password": "$2b$10$l/uRmDKyv6NjOo4pBCJgQ.T..BReoUYbTV3ujobikCbIEuPBVbxPG",
+    "role": "tenant"
+  },
+  {
+    "username": "pabina",
+    "email": "pabs12@gmail.com",
+    "password": "$2b$10$g8zF7u0bFLC52Si4gi1XiOYOx7fWoPvfxtj6LFW16NKhKmt4zQH8e",
+    "role": "landlord"
+  }
+>>>>>>> origin/main
 ]
