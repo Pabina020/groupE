@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Landlord Dashboard - RentUp</title>
+  <title>Edit Property - RentUp</title>
 
   <link rel="stylesheet" type="text/css" href="css/vendor.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -17,16 +17,31 @@
   <script src="js/modernizr.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    .property-card {
+      transition: transform 0.3s ease;
+    }
+    .property-card:hover {
+      transform: translateY(-5px);
+    }
+    .property-img {
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+    }
+    .search-box {
+      max-width: 500px;
+    }
+  </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
- <!-- nav bar start -->
- <header class="site-header fixed-top ">
+  <!-- nav bar start -->
+  <header class="site-header fixed-top ">
     <nav class="navbar navbar-expand-lg py-3">
       <div class="container d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <a class="navbar-brand" href="./index.html"><img src="images/logo.png" alt="image"></a>
-  
   
         <!-- Nav items -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -73,20 +88,15 @@
                 </li>
                 <li><a href="faqs.html" class="dropdown-item">FAQs </a>
                 </li>
-                
               </ul>
             </li></ul>
       
-        
-  
-  
         <!-- User Profile (After Login) -->
-  <div class="d-flex align-items-center gap-2">
-    <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
-     <span class="fw-semibold text-dark" id="username"></span>
-    <a href="landingpage.html" class="btn btn-danger btn-sm rounded-pill">Logout</a>
-  </div>
-  
+        <div class="d-flex align-items-center gap-2">
+          <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+          <span class="fw-semibold text-dark" id="username"></span>
+          <a href="landingpage.html" class="btn btn-danger btn-sm rounded-pill">Logout</a>
+        </div>
       </div>
     </nav>
   </header>
@@ -95,35 +105,41 @@
   <section id="page-billboard" style="background-image: url(images/pattern.png);">
     <div class="container py-5">
       <div class="page-billboard-container">
-        <h1 class="text-capitalize lh-1 mb-3">Landlord Dashboard</h1>
-        <span class="item"><a href="index.html" class="text-primary">Home</a></span> &nbsp; / &nbsp; <span class="item">Landlord</span>
+        <h1 class="text-capitalize lh-1 mb-3">Edit Property</h1>
+        <span class="item"><a href="index.html" class="text-primary">Home</a></span> &nbsp; / &nbsp; 
+        <span class="item"><a href="landlord.html" class="text-primary">Landlord</a></span> &nbsp; / &nbsp; 
+        <span class="item">Edit Property</span>
       </div>
     </div>
   </section>
 
-  <!-- Landlord Actions -->
+  <!-- Property List Section -->
   <section class="container py-5 mb-5">
-    <div class="row justify-content-center gap-4">
-      <div class="col-md-5">
-        <div class="card h-100 shadow rounded-4 text-center p-4">
-          <h4 class="fw-semibold mb-3">Upload Property</h4>
-          <p class="text-muted">Add a new property listing to the RentUp platform.</p>
-          <a href="property-upload-delete.html#upload" class="btn btn-primary rounded-pill px-4">Go to Upload</a>
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="input-group search-box">
+          <input type="text" id="searchInput" class="form-control" placeholder="Search properties...">
+          <button class="btn btn-primary" type="button" onclick="filterProperties()">
+            <i class="bi bi-search"></i>
+          </button>
         </div>
       </div>
-      <div class="col-md-5">
-        <div class="card h-100 shadow rounded-4 text-center p-4">
-          <h4 class="fw-semibold mb-3">Delete Property</h4>
-          <p class="text-muted">Remove your existing listing by property ID.</p>
-          <a href="property-upload-delete.html#delete" class="btn btn-outline-danger rounded-pill px-4">Go to Delete</a>
+      <div class="col-md-6">
+        <select id="typeFilter" class="form-select">
+          <option value="">All Types</option>
+          <option value="Sale">For Sale</option>
+          <option value="Rent">For Rent</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" id="propertyList">
+      <!-- Properties will be loaded here -->
+      <div class="col-12 text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-      <div class="col-md-5">
-        <div class="card h-100 shadow rounded-4 text-center p-4">
-          <h4 class="fw-semibold mb-3">Edit Property</h4>
-          <p class="text-muted">Modify your existing property listings.</p>
-          <a href="edit_property.html" class="btn btn-outline-danger rounded-pill px-4">Go to Edit</a>
-        </div>
     </div>
   </section>
 
@@ -188,13 +204,108 @@
   
       </footer>
     </div>
-  
-    
 
   <script src="js/jquery-1.11.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
-     <script src="LogSign/project/script.js"></script>
-</body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetchProperties();
+    });
 
+    function fetchProperties() {
+      fetch('get_properties.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            showError(data.error);
+            return;
+          }
+          displayProperties(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function displayProperties(properties) {
+      const propertyList = document.getElementById('propertyList');
+      propertyList.innerHTML = '';
+
+      if (properties.length === 0) {
+        propertyList.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <div class="alert alert-info">
+              No properties found. <a href="property-upload-delete.html#upload" class="alert-link">Upload a property</a> to get started.
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      properties.forEach(property => {
+        const propertyCard = document.createElement('div');
+        propertyCard.className = 'col-md-6 col-lg-4 mb-4';
+        
+        propertyCard.innerHTML = `
+          <div class="card h-100 shadow-sm property-card">
+            <img src="${property.main_image}" class="card-img-top property-img" alt="${property.name}">
+            <div class="card-body">
+              <h5 class="card-title">${property.name}</h5>
+              <p class="text-muted mb-2"><i class="bi bi-geo-alt"></i> ${property.location}</p>
+              <div class="d-flex justify-content-between mb-2">
+                <span><i class="bi bi-house-door"></i> ${property.bedrooms} Beds</span>
+                <span><i class="bi bi-droplet"></i> ${property.bathrooms} Baths</span>
+                <span><i class="bi bi-arrows-angle-expand"></i> ${property.sqft} sqft</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary">$${property.price}</span>
+                <span class="badge ${property.type === 'Sale' ? 'bg-success' : 'bg-info'}">${property.type}</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent">
+              <a href="property_editor.html?id=${property.property_id}" class="btn btn-warning w-100 rounded-pill">
+                <i class="bi bi-pencil-square"></i> Edit Property
+              </a>
+            </div>
+          </div>
+        `;
+        
+        propertyList.appendChild(propertyCard);
+      });
+    }
+
+    function filterProperties() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const typeFilter = document.getElementById('typeFilter').value;
+      
+      fetch('get_properties.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error(data.error);
+            return;
+          }
+          
+          let filtered = data.filter(property => {
+            const matchesSearch = property.name.toLowerCase().includes(searchTerm) || 
+                                 property.location.toLowerCase().includes(searchTerm) ||
+                                 property.description.toLowerCase().includes(searchTerm);
+            const matchesType = typeFilter === '' || property.type === typeFilter;
+            return matchesSearch && matchesType;
+          });
+          
+          displayProperties(filtered);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function showError(message) {
+      const propertyList = document.getElementById('propertyList');
+      propertyList.innerHTML = `
+        <div class="col-12">
+          <div class="alert alert-danger">${message}</div>
+        </div>
+      `;
+    }
+  </script>
+</body>
 </html>
