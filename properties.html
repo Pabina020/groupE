@@ -841,14 +841,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             col.innerHTML = `
     <div class="card position-relative">
-        ${isBooked ? '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">Booked</span>' : ''}
-        <a href="property-single.html?id=${property.property_id}">
-            <div class="img-container">
-                <img src="${property.main_image || 'images/placeholder.jpg'}" 
-                    class="card-img-top magnify-image" 
-                    alt="${property.name}">
-                <div class="magnifier"></div>
-            </div>
+    <!-- Booked badge - now properly positioned at top-right -->
+    ${isBooked ? '<span class="position-absolute top-0 end-0 translate-middle-y badge rounded-pill bg-danger">Booked</span>' : ''}
+    
+    <a href="property-single.html?id=${property.property_id}">
+        <div class="img-container">
+            <img src="${property.main_image || 'images/placeholder.jpg'}" 
+                class="card-img-top magnify-image" 
+                alt="${property.name}">
+            <div class="magnifier"></div>
+        </div>
         </a>
         <div class="card-body p-0">
             <a href="property-single.html?id=${property.property_id}">
