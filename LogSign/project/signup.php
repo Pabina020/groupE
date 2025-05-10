@@ -1,79 +1,39 @@
 <?php
 include "config.php";
-session_start();
 
-// Handle AJAX-based signup (JSON)
-if ($_SERVER['CONTENT_TYPE'] === 'application/json') {
-    header('Content-Type: application/json');
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    $username = sanitizeInput($conn, $data['username'] ?? '');
-    $email = sanitizeInput($conn, $data['email'] ?? '');
-    $password = sanitizeInput($conn, $data['password'] ?? '');
-    $role = sanitizeInput($conn, $data['role'] ?? '');
-
-    if (!$username || !$email || !$password || !$role) {
-        echo json_encode(['message' => 'All fields are required']);
-        exit;
-    }
-
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo json_encode(['message' => 'Email already exists']);
-        exit;
-    }
-
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $activationCode = md5(uniqid(rand(), true));
-
-    $insertStmt = $conn->prepare("INSERT INTO users (username, email, password, role, activation_code) VALUES (?, ?, ?, ?, ?)");
-    $insertStmt->bind_param("sssss", $username, $email, $hashedPassword, $role, $activationCode);
-
-    if ($insertStmt->execute()) {
-        echo json_encode(['message' => 'Signup successful']);
-    } else {
-        echo json_encode(['message' => 'Database error: ' . $conn->error]);
-    }
-    exit;
-}
-
-// Handle regular form-based signup
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = sanitizeInput($conn, $_POST['username']);
     $email = sanitizeInput($conn, $_POST['email']);
     $password = sanitizeInput($conn, $_POST['password']);
     $role = sanitizeInput($conn, $_POST['role']);
-
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $checkResult = $stmt->get_result();
-
-    if ($checkResult->num_rows > 0) {
-        $error = "Email already exists.";
+    
+    // Check if email already exists
+    $checkSql = "SELECT * FROM users WHERE email = '$email'";
+    $checkResult = mysqli_query($conn, $checkSql);
+    
+    if (mysqli_num_rows($checkResult) > 0) {
+        $error = "Email already exists";
     } else {
+        // Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        
+        // Generate activation code
         $activationCode = md5(uniqid(rand(), true));
-
-        $insertStmt = $conn->prepare("INSERT INTO users (username, email, password, role, activation_code) VALUES (?, ?, ?, ?, ?)");
-        $insertStmt->bind_param("sssss", $username, $email, $hashedPassword, $role, $activationCode);
-
-        if ($insertStmt->execute()) {
-            $success = "Registration successful! You can now log in.";
+        
+        // Insert user into database
+        $insertSql = "INSERT INTO users (username, email, password, role, activation_code) 
+                      VALUES ('$username', '$email', '$hashedPassword', '$role', '$activationCode')";
+        
+        if (mysqli_query($conn, $insertSql)) {
+            $success = "Registration successful! You can now login.";
             header("Location: login.php?success=" . urlencode($success));
             exit();
         } else {
-            $error = "Error: " . $conn->error;
+            $error = "Error: " . mysqli_error($conn);
         }
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,16 +51,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div class="form-section">
         <h1>Welcome to Rentup</h1>
-
-        <?php if (isset($error)): ?>
+        
+        <?php if(isset($error)): ?>
           <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
         
-        <?php if (isset($_GET['success'])): ?>
+        <?php if(isset($_GET['success'])): ?>
           <div class="success-message"><?php echo htmlspecialchars($_GET['success']); ?></div>
         <?php endif; ?>
-
-        <form method="POST">
+        
+        <form id="signupForm" method="POST">
           <div class="form-group">
             <label for="username">Enter username</label>
             <input type="text" id="username" name="username" placeholder="John Doe" required />
@@ -132,9 +92,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="terms">I agree to the <a href="terms.html">terms & policy</a></label>
           </div>
           <button type="submit" class="primary-button">Signup</button>
-
+          <a href="../../property-upload-delete.html" style="text-decoration: none;">
+                        <button type="button" class="primary-button">
+                            Signup as Landlord
+                        </button>
+          </a>
           <div class="divider">Or</div>
-
           <div class="social-buttons">
             <button type="button" class="social-button" onclick="window.location.href='google-auth.html'">
               <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google" />
@@ -145,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               Sign in with Apple
             </button>
           </div>
-
           <p class="switch-auth">
             Already have an account? <a href="login.php">Log in</a>
           </p>
@@ -154,11 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
 
-  <script>
-    function togglePassword(id) {
-      const input = document.getElementById(id);
-      input.type = input.type === "password" ? "text" : "password";
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
