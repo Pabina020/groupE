@@ -738,6 +738,23 @@
     crossorigin="anonymous"></script>
   <script src="js/script.js"></script>
   <script src="LogSign/project/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("LogSign/project/get_user.php") // adjust path if needed
+    .then(res => res.json())
+    .then(data => {
+      if (data.loggedIn) {
+        const usernameEl = document.getElementById("username");
+        if (usernameEl) {
+          usernameEl.textContent = data.username;
+        }
+      }
+    })
+    .catch(err => {
+      console.error("Error fetching user data:", err);
+    });
+});
+</script>
 
   <script>
     const rangeInputs = document.querySelectorAll(".range-input");

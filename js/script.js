@@ -2,14 +2,14 @@
   "use strict";
 
   const rangeInput = document.querySelectorAll(".range-input input"),
-    priceInput = document.querySelectorAll(".price-input input"),
-    range = document.querySelector(".slider .progress");
+        priceInput = document.querySelectorAll(".price-input input"),
+        range = document.querySelector(".slider .progress");
   let priceGap = 1000;
 
   priceInput.forEach((input) => {
     input.addEventListener("input", (e) => {
       let minPrice = parseInt(priceInput[0].value),
-        maxPrice = parseInt(priceInput[1].value);
+          maxPrice = parseInt(priceInput[1].value);
 
       if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
         if (e.target.className === "input-min") {
@@ -26,7 +26,7 @@
   rangeInput.forEach((input) => {
     input.addEventListener("input", (e) => {
       let minVal = parseInt(rangeInput[0].value),
-        maxVal = parseInt(rangeInput[1].value);
+          maxVal = parseInt(rangeInput[1].value);
 
       if (maxVal - minVal < priceGap) {
         if (e.target.className === "range-min") {
@@ -47,12 +47,11 @@
     Chocolat(document.querySelectorAll('.image-link'), {
       imageSize: 'contain',
       loop: true,
-    })
-  }
+    });
+  };
 
   window.addEventListener("scroll", function () {
     const header = document.querySelector(".site-header");
-
     if (window.innerWidth >= 992) {
       if (window.scrollY > 10) {
         header.classList.add("scrolled");
@@ -65,8 +64,40 @@
   $(document).ready(function () {
     const addBtn = document.getElementById("addPropertyBtn");
     const logoutBtn = document.getElementById("logoutBtn");
-    const currentUser = JSON.parse(localStorage.getItem("user")) || null;
+    const usernameSpan = document.getElementById("username");
+    fetch("LogSign/project/get_user.php")
+  .then(res => res.json())
+  .then(data => {
+    if (data.loggedIn && usernameSpan) {
+      usernameSpan.textContent = data.username;
 
+      // Handle Add Property logic
+      if (addBtn) {
+        addBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          const toastEl = document.getElementById("loginToast");
+          const toastBody = document.getElementById("loginToastBody");
+          const toast = new bootstrap.Toast(toastEl);
+
+          if (data.role === "landlord" || data.role === "both") {
+            toastBody.textContent = "Redirecting to add property...";
+            toast.show();
+            setTimeout(() => {
+              toast.hide();
+              window.location.href = "landlord.html";
+            }, 1500);
+          } else {
+            toastBody.textContent = "Please log in as a landlord to add a property.";
+            toast.show();
+          }
+        });
+      }
+    }
+  })
+  .catch(err => console.error("User fetch error:", err));
+
+
+    // Add property access check
     if (addBtn) {
       addBtn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -74,12 +105,12 @@
         const toastBody = document.getElementById("loginToastBody");
         const toast = new bootstrap.Toast(toastEl);
 
-        if (currentUser && currentUser.role === "landlord") {
+        if (currentUser && (currentUser.role === "landlord" || currentUser.role === "both")) {
           toastBody.textContent = "Redirecting to add property...";
           toast.show();
           setTimeout(() => {
             toast.hide();
-            window.location.href = "Landlord.html";
+            window.location.href = "landlord.html";
           }, 1500);
         } else {
           toastBody.textContent = "Please log in as a landlord to add a property.";
@@ -88,10 +119,10 @@
       });
     }
 
+    // Logout
     if (logoutBtn) {
       logoutBtn.addEventListener("click", function (e) {
         e.preventDefault();
-
         const toastEl = document.getElementById("logoutToast");
         const toastBody = document.getElementById("logoutToastBody");
         const toast = new bootstrap.Toast(toastEl);
@@ -111,7 +142,8 @@
       });
     }
 
-    var swiper = new Swiper(".residence-swiper", {
+    // Initialize Swipers
+    new Swiper(".residence-swiper", {
       slidesPerView: 3,
       spaceBetween: 30,
       freeMode: true,
@@ -130,7 +162,7 @@
       }
     });
 
-    var testimonialSwiper = new Swiper(".testimonial-swiper", {
+    new Swiper(".testimonial-swiper", {
       slidesPerView: 1,
       spaceBetween: 30,
       freeMode: true,
@@ -144,7 +176,7 @@
       },
     });
 
-    var thumb_slider = new Swiper(".product-thumbnail-slider", {
+    const thumb_slider = new Swiper(".product-thumbnail-slider", {
       autoplay: true,
       loop: true,
       spaceBetween: 8,
@@ -153,7 +185,7 @@
       watchSlidesProgress: true,
     });
 
-    var large_slider = new Swiper(".product-large-slider", {
+    new Swiper(".product-large-slider", {
       autoplay: true,
       loop: true,
       spaceBetween: 10,

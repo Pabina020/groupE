@@ -55,7 +55,7 @@ function loginUser(event) {
 
     if (email === "admin@rentup.com" && password === "admin123") {
         document.cookie = `user=${encodeURIComponent(JSON.stringify({ name: "Admin" }))}; path=/`;
-        window.location.href = "../../../admin/admin.html";
+        window.location.href = "../../admin/admin.html";
         return;
     }
     fetch("login.php", {
@@ -70,7 +70,7 @@ function loginUser(event) {
             document.cookie = `user=${encodeURIComponent(JSON.stringify({ name }))}; path=/`;
 
             if (data.role === "landlord" || data.role === "both") {
-                window.location.href = "../../property-upload-delete.html";
+                window.location.href = "../../landlord.html";
             } else if (data.role === "tenant") {
                 window.location.href = "../../index.html";
             } else {

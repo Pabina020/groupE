@@ -2,112 +2,84 @@
 include "config.php";
 session_start();
 
-// Sanitize function
+// Sanitize helper
 function sanitizeInput($conn, $data) {
-    return mysqli_real_escape_string($conn, trim($data));
+  return mysqli_real_escape_string($conn, trim($data));
 }
 
 // Handle OTP verification
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
-    $email = sanitizeInput($conn, $_POST['email']);
-    $otp = sanitizeInput($conn, $_POST['otp']);
+  $email = sanitizeInput($conn, $_POST['email']);
+  $otp = sanitizeInput($conn, $_POST['otp']);
 
-    $stmt = $conn->prepare("SELECT * FROM otp_verification WHERE email = ? AND otp = ? AND is_verified = 0 AND expires_at > NOW()");
-    $stmt->bind_param("ss", $email, $otp);
-    $stmt->execute();
-    $result = $stmt->get_result();
+  $stmt = $conn->prepare("SELECT * FROM opt_verification WHERE email = ? AND otp = ? AND is_verified = 0 AND expires_at > NOW()");
+  $stmt->bind_param("ss", $email, $otp);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-    if ($result && $result->num_rows > 0) {
-        // Mark OTP as verified
-        $updateStmt = $conn->prepare("UPDATE otp_verification SET is_verified = 1 WHERE email = ? AND otp = ?");
-        $updateStmt->bind_param("ss", $email, $otp);
-        $updateStmt->execute();
+  if ($result && $result->num_rows > 0) {
+    $conn->query("UPDATE opt_verification SET is_verified = 1 WHERE email = '$email' AND otp = '$otp'");
+    $user = $conn->query("SELECT * FROM users WHERE email = '$email'")->fetch_assoc();
 
-        // Get user data
-        $userStmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $userStmt->bind_param("s", $email);
-        $userStmt->execute();
-        $userResult = $userStmt->get_result();
-        $user = $userResult->fetch_assoc();
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['email'] = $user['email'];
+    $_SESSION['role'] = $user['role'];
 
-        // Set session
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];
-
-        // Redirect based on role
-        switch ($user['role']) {
-            case 'admin':
-                header("Location: ../../groupE/admin/admin.html");
-                break;
-            case 'landlord':
-            case 'both':
-                header("Location: ../../property-upload-delete.html");
-                break;
-            case 'tenant':
-            default:
-                header("Location: ../../index.html");
-                break;
-        }
-        exit();
-    } else {
-        $error = "Invalid OTP or OTP has expired";
+    switch ($user['role']) {
+      case 'admin':
+        header("Location: ../../admin/admin.html");
+        break;
+      case 'landlord':
+      case 'both':
+        header("Location: ../../landlord.html");
+        break;
+      default:
+        header("Location: ../../index.html");
+        break;
     }
+    exit();
+  } else {
+    $error = "Invalid OTP or expired.";
+  }
 }
 
-// Handle login form submission
+// Handle login and generate OTP
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $email = sanitizeInput($conn, $_POST['email']);
-    $password = sanitizeInput($conn, $_POST['password']);
+  $email = sanitizeInput($conn, $_POST['email']);
+  $password = sanitizeInput($conn, $_POST['password']);
 
-    // Admin shortcut login
-    if ($email === "admin@rentup.com" && $password === "admin123") {
-        $_SESSION['username'] = 'Admin';
-        $_SESSION['email'] = $email;
-        $_SESSION['role'] = 'admin';
-        header("Location: ../../groupE/admin/admin.html");
-        exit();
-    }
+  if ($email === "admin@rentup.com" && $password === "admin123") {
+    $_SESSION['username'] = 'Admin';
+    $_SESSION['role'] = 'admin';
+    header("Location: ../../admin/admin.html");
+    exit();
+  }
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+  $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-    if ($result && $result->num_rows > 0) {
-        $user = $result->fetch_assoc();
+  if ($result && $result->num_rows > 0) {
+    $user = $result->fetch_assoc();
 
-        if (password_verify($password, $user['password'])) {
-            // Generate OTP
-            $otp = rand(100000, 999999);
+    if (password_verify($password, $user['password'])) {
+      $otp = rand(100000, 999999);
+      $otpStmt = $conn->prepare("INSERT INTO opt_verification (email, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 10 MINUTE))");
+      $otpStmt->bind_param("ss", $email, $otp);
+      $otpStmt->execute();
 
-            // Store OTP in database
-            $otpStmt = $conn->prepare("INSERT INTO otp_verification (email, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 10 MINUTE))");
-            $otpStmt->bind_param("ss", $email, $otp);
-            $otpStmt->execute();
-
-            // Send OTP via email
-            $to = $email;
-            $subject = "Your OTP Code";
-            $message = "Your OTP is: $otp";
-            $headers = "From: no-reply@yourdomain.com";
-
-            mail($to, $subject, $message, $headers);
-
-            // Set flag to show OTP form
-            $showOtpForm = true;
-            $otpMessage = "An OTP has been sent to your email address.";
-        } else {
-            $error = "Invalid email or password";
-        }
+      $otpMessage = "Your OTP is: <strong>$otp</strong>";
+      $showOtpForm = true;
     } else {
-        $error = "Invalid email or password";
+      $error = "Invalid credentials.";
     }
+  } else {
+    $error = "Account not found.";
+  }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,18 +97,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
       </div>
       <div class="form-section">
         <h1>Welcome to Rentup</h1>
-        
+
         <?php if(isset($error)): ?>
           <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
-        
+
         <?php if(isset($otpMessage)): ?>
           <div class="success-message"><?php echo $otpMessage; ?></div>
         <?php endif; ?>
-        
+
         <?php if(isset($showOtpForm) && $showOtpForm): ?>
-          <!-- OTP Verification Form -->
-          <form id="otpForm" method="POST">
+          <form method="POST" autocomplete="off">
             <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
             <div class="form-group">
               <label for="otp">Enter OTP</label>
@@ -145,8 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             <button type="submit" name="verify_otp" class="primary-button">Verify OTP</button>
           </form>
         <?php else: ?>
-          <!-- Login Form -->
-          <form id="loginForm" method="POST">
+          <form method="POST" autocomplete="on">
             <div class="form-group">
               <label for="login-email">Email</label>
               <input type="email" id="login-email" name="email" placeholder="Enter your email here" required autocomplete="email" />
@@ -165,25 +135,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
               <label for="remember-me">Remember Me</label>
             </div>
             <button type="submit" name="login" class="primary-button">Login</button>
+
+            <div class="divider">Or</div>
+
+            <div class="social-buttons">
+              <button type="button" class="social-button" onclick="window.location.href='google-auth.html'">
+                <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google" />
+                Sign in with Google
+              </button>
+              <button type="button" class="social-button" onclick="window.location.href='apple-auth.html'">
+                <img src="https://api.iconify.design/ic:baseline-apple.svg" alt="Apple" />
+                Sign in with Apple
+              </button>
+            </div>
+
+            <p class="switch-auth">
+              Don't have an account? <a href="Signup.html">Sign up</a>
+            </p>
           </form>
         <?php endif; ?>
-
-        <div class="divider">Or</div>
-
-        <div class="social-buttons">
-          <button type="button" class="social-button" onclick="window.location.href='google-auth.html'">
-            <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google" />
-            Sign in with Google
-          </button>
-          <button type="button" class="social-button" onclick="window.location.href='apple-auth.html'">
-            <img src="https://api.iconify.design/ic:baseline-apple.svg" alt="Apple" />
-            Sign in with Apple
-          </button>
-        </div>
-
-        <p class="switch-auth">
-          Don't have an account? <a href="Signup.php">Sign up</a>
-        </p>
       </div>
     </div>
   </div>
