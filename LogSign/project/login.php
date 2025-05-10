@@ -1,20 +1,25 @@
-<?php 
+<?php
 include "config.php";
 session_start();
+
+// Sanitize function
+function sanitizeInput($conn, $data) {
+    return mysqli_real_escape_string($conn, trim($data));
+}
 
 // Handle OTP verification
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
     $email = sanitizeInput($conn, $_POST['email']);
     $otp = sanitizeInput($conn, $_POST['otp']);
-    
-    $stmt = $conn->prepare("SELECT * FROM opt_verification WHERE email = ? AND otp = ? AND is_verified = 0 AND expires_at > NOW()");
+
+    $stmt = $conn->prepare("SELECT * FROM otp_verification WHERE email = ? AND otp = ? AND is_verified = 0 AND expires_at > NOW()");
     $stmt->bind_param("ss", $email, $otp);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result && $result->num_rows > 0) {
         // Mark OTP as verified
-        $updateStmt = $conn->prepare("UPDATE opt_verification SET is_verified = 1 WHERE email = ? AND otp = ?");
+        $updateStmt = $conn->prepare("UPDATE otp_verification SET is_verified = 1 WHERE email = ? AND otp = ?");
         $updateStmt->bind_param("ss", $email, $otp);
         $updateStmt->execute();
 
@@ -31,7 +36,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
 
-        header("Location: ../../index.html");
+        // Redirect based on role
+        switch ($user['role']) {
+            case 'admin':
+                header("Location: ../../groupE/admin/admin.html");
+                break;
+            case 'landlord':
+            case 'both':
+                header("Location: ../../property-upload-delete.html");
+                break;
+            case 'tenant':
+            default:
+                header("Location: ../../index.html");
+                break;
+        }
         exit();
     } else {
         $error = "Invalid OTP or OTP has expired";
@@ -42,6 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $email = sanitizeInput($conn, $_POST['email']);
     $password = sanitizeInput($conn, $_POST['password']);
+
+    // Admin shortcut login
+    if ($email === "admin@rentup.com" && $password === "admin123") {
+        $_SESSION['username'] = 'Admin';
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = 'admin';
+        header("Location: ../../groupE/admin/admin.html");
+        exit();
+    }
 
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -56,13 +83,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $otp = rand(100000, 999999);
 
             // Store OTP in database
-            $otpStmt = $conn->prepare("INSERT INTO opt_verification (email, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 10 MINUTE))");
+            $otpStmt = $conn->prepare("INSERT INTO otp_verification (email, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 10 MINUTE))");
             $otpStmt->bind_param("ss", $email, $otp);
             $otpStmt->execute();
 
-            // Show OTP form
+            // Send OTP via email
+            $to = $email;
+            $subject = "Your OTP Code";
+            $message = "Your OTP is: $otp";
+            $headers = "From: no-reply@yourdomain.com";
+
+            mail($to, $subject, $message, $headers);
+
+            // Set flag to show OTP form
             $showOtpForm = true;
-            $otpMessage = "Your OTP is: $otp"; // In production, send this via email instead
+            $otpMessage = "An OTP has been sent to your email address.";
         } else {
             $error = "Invalid email or password";
         }
@@ -71,6 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -128,9 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
               <label for="remember-me">Remember Me</label>
             </div>
             <button type="submit" name="login" class="primary-button">Login</button>
-            <a href="../../property-upload-delete.html" class="primary-button" style="display: inline-block; text-align: center; text-decoration: none;">
-                      Log in as Landlord
-            </a>
           </form>
         <?php endif; ?>
 
