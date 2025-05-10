@@ -79,7 +79,7 @@
             <ul class="dropdown-menu dropdown-menu-light">
               <li><a href="about.html" class="dropdown-item">About </a>
               </li>
-              <li><a href="properties.html" class="dropdown-item">Properties </a></li>
+              <li<a href="property-single.html?id=1" class="dropdown-item">Properties </a></li>
               <li><a href="property-single.html" class="dropdown-item">Property-Single </a></li>
               <li><a href="contact.html" class="dropdown-item">Contact </a></li>
               <li><a href="reviews.html" class="dropdown-item">Review </a></li>
@@ -329,7 +329,7 @@
       </div>
 
       <div class="row g-5 my-5">
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card">
             <a href="property-single.html">
               <div class="img-container">
@@ -352,13 +352,17 @@
                 <div class="d-flex justify-content-between">
                   <p class="text-white">For Rent</p>
                   <p class="text-white">Price: $30,000 / mo</p>
+                  <div class="card-footer bg-transparent">
+                    <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                      Book Now
+                    </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -391,7 +395,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -424,7 +428,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -457,7 +461,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -491,7 +495,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -525,7 +529,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -559,7 +563,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container">
@@ -593,7 +597,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-5 product-item">
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
           <div class="card  ">
             <a href="property-single.html">
               <div class="img-container" style="position: relative;">
@@ -775,7 +779,8 @@
     </footer>
   </div>
 </section>
-<script>   
+<script> 
+// [DEVELOPED BY DIKSHYA]
  // Keyword search filter
   document.getElementById("keywordSearchForm").addEventListener("submit", function(e) {
     e.preventDefault();
@@ -819,10 +824,275 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<!-- Add this script section right before the closing </body> tag -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('get_properties.php')
+    .then(response => response.json())
+    .then(properties => {
+        const container = document.querySelector('.row.g-5.my-5');
+        container.innerHTML = '';
+        
+        properties.forEach(property => {
+            const isBooked = property.is_booked == 1;
+            const col = document.createElement('div');
+            col.className = 'col-md-4 mb-5 product-item';
+            
+            col.innerHTML = `
+    <div class="card position-relative">
+        ${isBooked ? '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">Booked</span>' : ''}
+        <a href="property-single.html?id=${property.property_id}">
+            <div class="img-container">
+                <img src="${property.main_image || 'images/placeholder.jpg'}" 
+                    class="card-img-top magnify-image" 
+                    alt="${property.name}">
+                <div class="magnifier"></div>
+            </div>
+        </a>
+        <div class="card-body p-0">
+            <a href="property-single.html?id=${property.property_id}">
+                <h5 class="card-title mt-4">${property.name || 'Property'}</h5>
+            </a>
+            <p class="card-text">${property.location || 'Location not specified'}</p>
+            <div class="card-text">
+                <ul class="d-flex">
+                    <li class="residence-list"> 
+                        <img src="images/bed.png" alt="bed"> ${property.bedrooms || 0} bed
+                    </li>
+                    <li class="residence-list"> 
+                        <img src="images/bath.png" alt="bath"> ${property.bathrooms || 0} bath
+                    </li>
+                    <li class="residence-list"> 
+                        <img src="images/square.png" alt="sqft"> ${property.sqft || 0} Sqft.
+                    </li>
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between">
+               
+
+<p class="text-dark">Price: ${
+    property.type === 'Rent' 
+        ? '$' + property.price.replace(/^\$/, '').replace(/\/mo$/i, '') + '/mo'
+        : '$' + property.price.replace(/^\$/, '')
+}</p>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                <a href="property-single.html?id=${property.property_id}" 
+                   class="btn ${isBooked ? 'btn-secondary disabled' : 'btn-primary'} rounded-pill w-100">
+                   ${isBooked ? 'Already Booked' : 'Book Now'}
+                </a>
+            </div>
+            
+   ${isBooked ? `
+<div class="cancel-booking p-3 border-top">
+    <form class="cancel-form" onsubmit="return handleCancelBooking(event, this)">
+        <input type="hidden" name="property_id" id="property_id" value="${property.property_id}">
+        <div class="mb-3">
+            <input type="email" name="email" class="form-control" 
+                   placeholder="Your booking email" required>
+        </div>
+        <div class="text-center mb-3">OR</div>
+        <div class="mb-3">
+            <input type="tel" name="phone" class="form-control" 
+                   placeholder="Your booking phone" required>
+        </div>
+        <button type="submit" class="btn btn-danger w-100">
+            <span class="submit-text">Cancel Booking</span>
+        </button>
+    </form>
+</div>
+    ` : ''}
+</div>
+`;
+            
+            container.appendChild(col);
+        });
+        
+        initImageMagnifiers();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+  
+    // Initialize image magnifiers
+    function initImageMagnifiers() {
+        const zoom = 2;
+        const images = document.querySelectorAll('.magnify-image');
+    
+        images.forEach((img) => {
+            const magnifier = img.parentElement.querySelector('.magnifier');
+    
+            img.addEventListener('load', () => {
+                magnifier.style.backgroundImage = `url('${img.src}')`;
+                magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
+            });
+    
+            // fallback if images are already loaded
+            magnifier.style.backgroundImage = `url('${img.src}')`;
+            magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
+    
+            img.addEventListener('mousemove', (e) => {
+                magnifier.style.display = 'block';
+                const rect = img.getBoundingClientRect();
+                const x = e.pageX - rect.left - window.scrollX;
+                const y = e.pageY - rect.top - window.scrollY;
+    
+                magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+                magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+    
+                magnifier.style.backgroundPosition = `-${x * zoom - magnifier.offsetWidth / 2}px -${y * zoom - magnifier.offsetHeight / 2}px`;
+            });
+    
+            img.addEventListener('mouseout', () => {
+                magnifier.style.display = 'none';
+            });
+        });
+    }
+  
+    // Keyword search filter
+    document.getElementById("keywordSearchForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const keyword = document.getElementById("searchInput").value.toLowerCase();
+        document.querySelectorAll(".product-item").forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(keyword) ? "block" : "none";
+        });
+    });
+
+  </script>
+  <!-- In your property card loop, add this button -->
+<!-- In your property listing loop -->
+
+
+<!-- JavaScript for properties.html -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle book button clicks
+  document.querySelectorAll('.book-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const propertyId = this.getAttribute('data-property-id');
+      // Open property page in a new window
+      window.open(`property-single.html?id=${propertyId}`, '_blank');
+    });
+  });
+});
+</script>
 
 
 
+<script>
+  function setupBookButtons() {
+  document.querySelectorAll('.book-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const propertyId = this.getAttribute('data-property-id');
+      window.open(`property-single.html?id=${propertyId}`, '_blank');
+    });
+  });
+}
 
+</script>
+<script>
+  // Add this to your existing JavaScript
+// Add this to your existing JavaScript
+// Updated JavaScript handler
+// Updated cancel form handler
+// Update the setupCancelForms function
+async function handleCancelBooking(event, form) {
+    event.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(form);
+    const propertyId = formData.get('property_id');
+    const email = formData.get('email').trim();
+    const phone = formData.get('phone').trim();
+
+    // Validate inputs
+    if (!propertyId || isNaN(propertyId)) {
+        alert('Invalid property ID');
+        return false;
+    }
+    
+    if (!email && !phone) {
+        alert('Please provide either email or phone number');
+        return false;
+    }
+
+    // Create payload
+    const payload = {
+        property_id: parseInt(propertyId),
+        email: email,
+        phone: phone
+    };
+
+    try {
+        // Show loading state
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+
+        // Send POST request with proper headers
+        const response = await fetch('cancel_booking.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert('Booking cancelled successfully!');
+            // Refresh the page to update the UI
+            window.location.reload();
+        } else {
+            throw new Error(result.message || 'Failed to cancel booking');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert(error.message);
+    } finally {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span class="submit-text">Cancel Booking</span>';
+        }
+    }
+    
+    return false;
+}
+// Helper function to show alerts
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show fixed-top mx-auto mt-3`;
+    alertDiv.style.maxWidth = '500px';
+    alertDiv.style.zIndex = '1100';
+    alertDiv.role = 'alert';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    document.body.appendChild(alertDiv);
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        const bsAlert = new bootstrap.Alert(alertDiv);
+        bsAlert.close();
+    }, 5000);
+}
+
+// Call this function after loading properties
+setupCancelForms();
+</script>
   <script src="js/jquery-1.11.0.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

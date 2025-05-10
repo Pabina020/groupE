@@ -27,34 +27,87 @@ nav {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.logo {
+.nav-center {
+    flex: 1; 
     display: flex;
+    justify-content: center; 
     align-items: center;
-    gap: 0.5rem;
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 3.5rem !important;
     align-items: center;
+    font-weight: 520 !important;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-color);
+    color: lightgray;
+    transition: color 0.3s ease-in-out;
 }
+
+.nav-links a:hover {
+    color: lightgray;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+}
+
+.dropdown-menu a:hover {
+    text-decoration: none;
+    color:
+}
+
+.nav-right {
+    display: flex;
+    gap: 1rem;
+}
+
 
 .login-btn, .signup-btn {
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
+    border-radius: 20px;
     cursor: pointer;
+    text-decoration: none;
 }
 
+/* Login button styling */
+.login-btn {
+    background: #F8F8F8;
+    color: black !important;
+}
+
+.login-btn:hover {
+    background: #D6D6D6 !important;
+    text-decoration: none;
+}
+
+/* Login button styling */
+.login-btn {
+    background: #F8F8F8;
+    color: black !important;
+}
+
+.login-btn:hover {
+    background: #D6D6D6 !important;
+}
+
+/* Signup button styling */
+/* Signup button styling */
 .signup-btn {
     background: var(--primary-color);
     color: white !important;
 }
+
+
 
 /* Help Header */
 .help-header {
