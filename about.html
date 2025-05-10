@@ -32,6 +32,15 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+<!-- Centered Toast for Add Property Access -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
+  <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 
  <!-- nav bar start -->
  <header class="site-header fixed-top ">
@@ -93,12 +102,20 @@
       
 
 
-      <!-- User Profile (After Login) -->
-    <div class="d-flex align-items-center gap-2">
-     <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
-      <span class="fw-semibold text-dark" id="username"></span>
-     <a href="landingpage.html" class="btn btn-danger btn-sm rounded-pill">Logout</a>
-    </div>
+     <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+
+              <!-- Add Property Button -->
+              <a href="#" id="addPropertyBtn" class="btn btn-success btn-sm rounded-pill px-3">Add Property +</a>
+
+              <!-- User Profile Section -->
+              <div class="d-flex align-items-center gap-2">
+                <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
+                  style="width: 40px; height: 40px;">
+                <span class="fw-semibold text-dark"><span id="username">User</span></span>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm rounded-pill">Logout</a>
+              </div>
+
+            </div>
     </div>
   </nav>
 </header>
@@ -315,6 +332,16 @@ Our mission is to make renting hassle-free by offering a seamless, user-friendly
      <script src="LogSign/project/script.js"></script>
 
     
+<!-- Centered Toast Container -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="logoutToastBody">Logging out...</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 </body>
+
 
 </html>

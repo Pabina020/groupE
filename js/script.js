@@ -1,5 +1,4 @@
 (function ($) {
-
   "use strict";
 
   const rangeInput = document.querySelectorAll(".range-input input"),
@@ -44,7 +43,6 @@
     });
   });
 
-  // init Chocolat light box
   var initChocolat = function () {
     Chocolat(document.querySelectorAll('.image-link'), {
       imageSize: 'contain',
@@ -55,7 +53,6 @@
   window.addEventListener("scroll", function () {
     const header = document.querySelector(".site-header");
 
-    // Only apply behavior for large screens
     if (window.innerWidth >= 992) {
       if (window.scrollY > 10) {
         header.classList.add("scrolled");
@@ -65,12 +62,55 @@
     }
   });
 
-
-
   $(document).ready(function () {
+    const addBtn = document.getElementById("addPropertyBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const currentUser = JSON.parse(localStorage.getItem("user")) || null;
 
+    if (addBtn) {
+      addBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        const toastEl = document.getElementById("loginToast");
+        const toastBody = document.getElementById("loginToastBody");
+        const toast = new bootstrap.Toast(toastEl);
 
-    // swiper
+        if (currentUser && currentUser.role === "landlord") {
+          toastBody.textContent = "Redirecting to add property...";
+          toast.show();
+          setTimeout(() => {
+            toast.hide();
+            window.location.href = "Landlord.html";
+          }, 1500);
+        } else {
+          toastBody.textContent = "Please log in as a landlord to add a property.";
+          toast.show();
+        }
+      });
+    }
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const toastEl = document.getElementById("logoutToast");
+        const toastBody = document.getElementById("logoutToastBody");
+        const toast = new bootstrap.Toast(toastEl);
+
+        toastBody.textContent = "Logging out...";
+        toast.show();
+
+        localStorage.removeItem("user");
+        setTimeout(() => {
+          toastBody.textContent = "Logged out successfully!";
+        }, 1200);
+
+        setTimeout(() => {
+          toast.hide();
+          window.location.href = "landingpage.html";
+        }, 2500);
+      });
+    }
+
     var swiper = new Swiper(".residence-swiper", {
       slidesPerView: 3,
       spaceBetween: 30,
@@ -84,22 +124,13 @@
         clickable: true,
       },
       breakpoints: {
-        300: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
+        300: { slidesPerView: 1, spaceBetween: 20 },
+        768: { slidesPerView: 2, spaceBetween: 30 },
+        1024: { slidesPerView: 3, spaceBetween: 30 },
       }
     });
 
-    var swiper = new Swiper(".testimonial-swiper", {
+    var testimonialSwiper = new Swiper(".testimonial-swiper", {
       slidesPerView: 1,
       spaceBetween: 30,
       freeMode: true,
@@ -113,7 +144,6 @@
       },
     });
 
-    // product single page
     var thumb_slider = new Swiper(".product-thumbnail-slider", {
       autoplay: true,
       loop: true,
@@ -125,7 +155,7 @@
 
     var large_slider = new Swiper(".product-large-slider", {
       autoplay: true,
-      loop:true,
+      loop: true,
       spaceBetween: 10,
       effect: 'fade',
       thumbs: {
@@ -133,13 +163,7 @@
       },
     });
 
-
     initChocolat();
-
-
-  }); // End of a document
-
-
-
+  });
 
 })(jQuery);

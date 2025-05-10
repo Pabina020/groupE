@@ -1,0 +1,10 @@
+[09-May-2025 16:37:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefromjpeg() in C:\xampp\htdocs\aman\groupE\update_property.php:229
+Stack trace:
+#0 C:\xampp\htdocs\aman\groupE\update_property.php(89): resizeAndSaveImage('C:\\xampp\\tmp\\ph...', 'uploads/681e131...', 'image/jpeg', 1200, 800)
+#1 {main}
+  thrown in C:\xampp\htdocs\aman\groupE\update_property.php on line 229
+[09-May-2025 16:40:41 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatefromjpeg() in C:\xampp\htdocs\aman\groupE\update_property.php:229
+Stack trace:
+#0 C:\xampp\htdocs\aman\groupE\update_property.php(89): resizeAndSaveImage('C:\\xampp\\tmp\\ph...', 'uploads/681e13e...', 'image/jpeg', 1200, 800)
+#1 {main}
+  thrown in C:\xampp\htdocs\aman\groupE\update_property.php on line 229

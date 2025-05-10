@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sign Up - Rentup</title>
   <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Rentup</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
@@ -14,19 +18,15 @@
       </div>
       <div class="form-section">
         <h1>Welcome to Rentup</h1>
-
-        <!-- ✅ Fixed form -->
-        <form id="signupForm" onsubmit="return handleSignup(event);" autocomplete="on">
+        <form id="signupForm" onsubmit="return false;">
           <div class="form-group">
             <label for="username">Enter username</label>
             <input type="text" id="username" placeholder="John Doe" required />
           </div>
-
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" placeholder="Enter your email here" required />
           </div>
-
           <div class="form-group">
             <label for="password">Password</label>
             <div class="password-input">
@@ -36,7 +36,6 @@
               </button>
             </div>
           </div>
-
           <div class="form-group">
             <label for="role">Select Role</label>
             <select id="role" required>
@@ -46,16 +45,17 @@
               <option value="both">Both</option>
             </select>
           </div>
-
           <div class="form-group checkbox">
             <input type="checkbox" id="terms" required />
             <label for="terms">I agree to the <a href="terms.html">terms & policy</a></label>
           </div>
-
-          <button type="submit" class="primary-button">Signup</button>
-
+          <button type="button" class="primary-button" onclick="handleSignup()">Signup</button>
+          <a href="../../property-upload-delete.html" style="text-decoration: none;">
+            <button type="button" class="primary-button">
+                Signup as Landlord
+            </button>
+          </a>
           <div class="divider">Or</div>
-
           <div class="social-buttons">
             <button type="button" class="social-button" onclick="window.location.href='google-auth.html'">
               <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google" />
@@ -66,7 +66,6 @@
               Sign in with Apple
             </button>
           </div>
-
           <p class="switch-auth">
             Already have an account? <a href="login.html">Log in</a>
           </p>
@@ -75,6 +74,8 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+
+<script src="script.js"></script>
+
 </body>
 </html>

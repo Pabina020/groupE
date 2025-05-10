@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - Rentup</title>
   <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Rentup</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
@@ -14,14 +18,11 @@
       </div>
       <div class="form-section">
         <h1>Welcome to Rentup</h1>
-
-        <!-- ✅ Correct single form -->
         <form id="loginForm" onsubmit="return loginUser(event);" autocomplete="on">
           <div class="form-group">
             <label for="login-email">Email</label>
             <input type="email" id="login-email" placeholder="Enter your email here" required autocomplete="email" />
           </div>
-
           <div class="form-group">
             <label for="login-password">Password</label>
             <div class="password-input">
@@ -31,13 +32,18 @@
               </button>
             </div>
           </div>
-
           <div class="form-group checkbox">
             <input type="checkbox" id="remember-me" />
             <label for="remember-me">Remember Me</label>
           </div>
-
-          <button type="submit" class="primary-button">Login</button>
+          <form id="loginForm" onsubmit="return loginUser(event);" autocomplete="on">
+            <!-- your inputs... -->
+            <button type="submit" class="primary-button">Login</button>
+            <a href="../../property-upload-delete.html" class="primary-button" style="display: inline-block; text-align: center; text-decoration: none;">
+              Log in as Landlord
+            </a>
+          </form>
+          
 
           <div class="divider">Or</div>
 
@@ -60,7 +66,6 @@
     </div>
   </div>
 
-  <!-- ✅ Load login/signup logic -->
   <script src="script.js"></script>
 </body>
 </html>
