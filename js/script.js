@@ -113,8 +113,10 @@
             window.location.href = "landlord.html";
           }, 1500);
         } else {
-          toastBody.textContent = "Please log in as a landlord to add a property.";
-          toast.show();
+         toastBody.innerHTML = `
+  You are currently a <strong>${data.role}</strong>.<br>
+  <a href="../groupE/LogSign/Project/Signup.html" class="text-white fw-bold text-decoration-underline">create landlord profile</a>.
+`;
         }
       });
     }
