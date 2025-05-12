@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "Rentup");
+$conn = mysqli_connect("localhost", "root", "", "opt_verification");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
