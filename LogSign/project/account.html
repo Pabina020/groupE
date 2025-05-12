@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Account - RentUp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card shadow-lg rounded-4 p-4">
+        <h3 class="text-center mb-4">My Account</h3>
+
+        <form id="accountForm">
+          <div class="mb-3">
+            <label for="account-username" class="form-label">Username</label>
+            <input type="text" class="form-control rounded-pill" id="account-username" name="username" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="account-email" class="form-label">Email</label>
+            <input type="email" class="form-control rounded-pill" id="account-email" name="email" disabled>
+          </div>
+
+          <div class="mb-3">
+            <label for="account-role" class="form-label">Role</label>
+            <select class="form-select rounded-pill" id="account-role" name="role" required>
+              <option value="tenant">Tenant</option>
+              <option value="landlord">Landlord</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="account-password" class="form-label">New Password</label>
+            <input type="password" class="form-control rounded-pill" id="account-password" name="password" placeholder="Leave blank to keep current">
+          </div>
+
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary rounded-pill">Update Account</button>
+          </div>
+        </form>
+
+        <div id="account-msg" class="text-center mt-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("accountForm");
+    if (!form) return;
+
+    fetch("get_user.php")
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          form["account-username"].value = data.username;
+          form["account-email"].value = data.email;
+          form["account-role"].value = data.role;
+        } else {
+          alert("You must be logged in.");
+          window.location.href = "login.php";
+        }
+      });
+  });
+
+  const accountForm = document.getElementById("accountForm");
+  if (accountForm) {
+    accountForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = accountForm["account-username"].value.trim();
+      const role = accountForm["account-role"].value;
+      const password = accountForm["account-password"].value;
+
+      fetch("update_user.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, role, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const msg = document.getElementById("account-msg");
+        if (data.success) {
+          msg.innerHTML = `<span class="text-success fw-bold">Account updated!</span>`;
+        } else {
+          msg.innerHTML = `<span class="text-danger fw-bold">${data.message}</span>`;
+        }
+      });
+    });
+  }
+</script>
+</body>
+</html>
