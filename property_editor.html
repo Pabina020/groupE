@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Property - RentUp</title>
+
+  <link rel="stylesheet" type="text/css" href="css/vendor.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="js/modernizr.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    .image-preview {
+      max-width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #dee2e6;
+    }
+    .extra-image-preview {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin: 8px;
+      border: 1px solid #dee2e6;
+    }
+    .extra-image-container {
+      position: relative;
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+    .remove-image {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .status-message {
+      display: none;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .status-message.success {
+      display: block;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .status-message.error {
+      display: block;
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .form-section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .form-section h3 {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      color: #333;
+    }
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #495057;
+    }
+    .btn-save {
+      background-color: #dc8b44;
+      color: white;
+      padding: 10px 25px;
+      font-weight: 500;
+    }
+    .btn-save:hover {
+      background-color: #0b5ed7;
+      color: white;
+    }
+    .btn-cancel {
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 25px;
+      font-weight: 500;
+      margin-left: 15px;
+    }
+    .btn-cancel:hover {
+      background-color: #5c636a;
+      color: white;
+    }
+    .image-upload-label {
+      display: block;
+      background-color: #f8f9fa;
+      border: 1px dashed #ced4da;
+      padding: 15px;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+    }
+    .image-upload-label:hover {
+      background-color: #e9ecef;
+      border-color: #adb5bd;
+    }
+    .image-upload input[type="file"] {
+      display: none;
+    }
+    .extra-images-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      min-height: 150px;
+    }
+    .form-control, .form-select {
+      padding: 10px 15px;
+      border-radius: 6px;
+    }
+    .input-group-text {
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+<!-- Centered Toast for Add Property Access -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
+  <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+  <!-- nav bar start -->
+  <header class="site-header fixed-top ">
+    <nav class="navbar navbar-expand-lg py-3">
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo -->
+        <a class="navbar-brand" href="./index.html"><img src="images/logo.png" alt="image"></a>
+  
+        <!-- Nav items -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation"><ion-icon
+          name="menu-outline" style="font-size: 30px;"></ion-icon></button>
+  
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2"
+        aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
+            <li class="nav-item">
+            <a class="nav-link me-md-4" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="index.html#apartment">Apartments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="index.html#residence">Properties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="HelpCenter/project/helpcenter.html">Help center</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-md-4" href="index.html#contact-us">Contact Us</a>
+          </li>
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+              <span class="link-text">Pages</span>
+            </a>
+            
+            <ul class="dropdown-menu dropdown-menu-light">
+                  <li><a href="about.html" class="dropdown-item">About </a>
+                  </li>
+                  <li><a href="properties.html" class="dropdown-item">Properties </a></li>
+                  <li><a href="contact.html" class="dropdown-item">Contact </a></li>
+                  <li><a href="reviews.html" class="dropdown-item">Review </a></li>
+                  <li><a href="agents.html" class="dropdown-item">Agents </a>
+                  </li>
+                  <li><a href="faqs.html" class="dropdown-item">FAQs </a>
+                  </li>
+                  <li><a href="bug-report/index.html" class="dropdown-item">Report Bug </a>
+                  </li>
+                </ul>
+          </li></ul>
+      
+       <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+
+              <!-- Add Property Button -->
+              <a href="#" id="addPropertyBtn" class="btn btn-success btn-sm rounded-pill px-3">Add Property +</a>
+
+              <!-- User Profile Section -->
+              <div class="d-flex align-items-center gap-2">
+                <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
+                  style="width: 40px; height: 40px;">
+                <span class="fw-semibold text-dark"><span id="username">User</span></span>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm rounded-pill">Logout</a>
+              </div>
+
+            </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Billboard -->
+  <section id="page-billboard" style="background-image: url(images/pattern.png);">
+    <div class="container py-5">
+      <div class="page-billboard-container">
+        <h1 class="text-capitalize lh-1 mb-3">Edit Property</h1>
+        <span class="item"><a href="index.html" class="text-primary">Home</a></span> &nbsp; / &nbsp; 
+        <span class="item"><a href="landlord.html" class="text-primary">Landlord</a></span> &nbsp; / &nbsp; 
+        <span class="item"><a href="edit_property.html" class="text-primary">Properties</a></span> &nbsp; / &nbsp; 
+        <span class="item" id="propertyTitleNav">Loading...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Editor Section -->
+  <section class="container py-5 mb-5">
+    <div id="statusMessage" class="alert status-message mb-4"></div>
+
+    <div class="card shadow">
+      <div class="card-body p-4">
+        <form id="propertyForm">
+          <input type="hidden" id="propertyId">
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-section">
+                <h3>Basic Information</h3>
+                
+                <div class="mb-4">
+                  <label for="name" class="form-label">Property Name</label>
+                  <input type="text" class="form-control" id="name" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="location" class="form-label">Location</label>
+                  <input type="text" class="form-control" id="location" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="description" class="form-label">Description</label>
+                  <textarea class="form-control" id="description" rows="5" required></textarea>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3>Property Details</h3>
+                
+                <div class="row">
+                  <div class="col-md-4 mb-4">
+                    <label for="bedrooms" class="form-label">Bedrooms</label>
+                    <input type="number" class="form-control" id="bedrooms" min="1" required>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="bathrooms" class="form-label">Bathrooms</label>
+                    <input type="number" class="form-control" id="bathrooms" min="1" required>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <label for="sqft" class="form-label">Square Feet</label>
+                    <input type="number" class="form-control" id="sqft" min="1" required>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="type" class="form-label">Property Type</label>
+                  <select class="form-select" id="type" required>
+                    <option value="Sale">For Sale</option>
+                    <option value="Rent">For Rent</option>
+                  </select>
+                </div>
+
+                <div class="mb-4">
+                  <label for="price" class="form-label">Price</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" id="price" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-section">
+                <h3>Images</h3>
+                
+                <div class="mb-4">
+                  <label class="form-label">Main Image</label>
+                  <img id="mainImagePreview" class="image-preview w-100" src="" alt="Main Image Preview">
+                  <div class="image-upload">
+                      <label for="mainImage" class="image-upload-label">
+                        <i class="bi bi-cloud-arrow-up fs-4"></i><br>
+                        Change Main Image<br>
+                        <span class="text-muted">Click to browse or drag and drop</span>
+                      </label>
+                      <input type="file" id="mainImage" accept="image/*">
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label">Extra Images</label>
+                  <div id="extraImagesPreview" class="extra-images-container">
+                      <!-- Extra images will be displayed here -->
+                  </div>
+                  <div class="image-upload">
+                      <label for="extraImages" class="image-upload-label">
+                        <i class="bi bi-images fs-4"></i><br>
+                        Add More Images<br>
+                        <span class="text-muted">Click to browse or drag and drop</span>
+                      </label>
+                      <input type="file" id="extraImages" accept="image/*" multiple>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-cancel" onclick="window.location.href='edit_property.html'">Cancel</button>
+            <button type="submit" class="btn btn-save">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const propertyId = urlParams.get('id');
+        
+        if (propertyId) {
+            fetchPropertyDetails(propertyId);
+        } else {
+            showError('No property ID specified');
+            window.location.href = 'edit_property.html';
+        }
+
+        // Handle form submission
+        document.getElementById('propertyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            updateProperty();
+        });
+
+        // Preview main image when selected
+        document.getElementById('mainImage').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('mainImagePreview').src = event.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Handle extra images upload
+        document.getElementById('extraImages').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                Array.from(e.target.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        addExtraImagePreview(event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        });
+    });
+
+    function fetchPropertyDetails(propertyId) {
+        fetch(`get_properties.php?id=${propertyId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showError(data.error);
+                    return;
+                }
+                
+                // Populate form fields
+                document.getElementById('propertyId').value = data.property_id;
+                document.getElementById('propertyTitleNav').textContent = data.name;
+                document.getElementById('name').value = data.name;
+                document.getElementById('location').value = data.location;
+                document.getElementById('bedrooms').value = data.bedrooms;
+                document.getElementById('bathrooms').value = data.bathrooms;
+                document.getElementById('sqft').value = data.sqft;
+                document.getElementById('type').value = data.type;
+                document.getElementById('price').value = data.price;
+                document.getElementById('description').value = data.description;
+                
+                // Set main image preview
+                if (data.main_image) {
+                    document.getElementById('mainImagePreview').src = data.main_image;
+                }
+                
+                // Display extra images
+                if (data.extra_images && data.extra_images.length > 0) {
+                    data.extra_images.forEach(image => {
+                        addExtraImagePreview(image);
+                    });
+                }
+            })
+            .catch(error => {
+                showError('Error fetching property details: ' + error);
+            });
+    }
+
+    function addExtraImagePreview(imageSrc) {
+        const container = document.getElementById('extraImagesPreview');
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'extra-image-container';
+        
+        imageContainer.innerHTML = `
+            <img src="${imageSrc}" class="extra-image-preview">
+            <button class="remove-image" onclick="this.parentElement.remove()">×</button>
+        `;
+        
+        container.appendChild(imageContainer);
+    }
+
+function updateProperty() {
+    const propertyId = document.getElementById('propertyId').value;
+    const formData = new FormData();
+    
+    // Disable save button during submission
+    const saveButton = document.querySelector('.btn-save');
+    const originalButtonText = saveButton.textContent;
+    saveButton.disabled = true;
+    saveButton.textContent = 'Saving...';
+    
+    // Add all property data to formData
+    formData.append('property_id', propertyId);
+    formData.append('name', document.getElementById('name').value);
+    formData.append('location', document.getElementById('location').value);
+    formData.append('bedrooms', document.getElementById('bedrooms').value);
+    formData.append('bathrooms', document.getElementById('bathrooms').value);
+    formData.append('sqft', document.getElementById('sqft').value);
+    formData.append('type', document.getElementById('type').value);
+    formData.append('price', document.getElementById('price').value);
+    formData.append('description', document.getElementById('description').value);
+    
+    // Add main image if changed
+    const mainImageInput = document.getElementById('mainImage');
+    if (mainImageInput.files.length > 0) {
+        formData.append('main_image', mainImageInput.files[0]);
+    }
+    
+    // Add extra images if added
+    const extraImagesInput = document.getElementById('extraImages');
+    if (extraImagesInput.files.length > 0) {
+        Array.from(extraImagesInput.files).forEach(file => {
+            formData.append('extra_images[]', file);
+        });
+    }
+    
+    // Get existing extra images that weren't removed
+    const extraImages = [];
+    document.querySelectorAll('.extra-image-preview').forEach(img => {
+        // Only keep images that are URLs (not data URLs from new uploads)
+        if (!img.src.startsWith('data:')) {
+            extraImages.push(img.src);
+        }
+    });
+    formData.append('existing_extra_images', JSON.stringify(extraImages));
+    
+    // Send to server
+    fetch('update_property.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccess('Property updated successfully! Redirecting...');
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'properties.html';
+            }, 2000);
+        } else {
+            showError(data.error || 'Failed to update property');
+            // Reset button
+            saveButton.disabled = false;
+            saveButton.textContent = originalButtonText;
+        }
+    })
+    .catch(error => {
+        showError('Error updating property: ' + error);
+        // Reset button
+        saveButton.disabled = false;
+        saveButton.textContent = originalButtonText;
+    });
+}
+    function showSuccess(message) {
+        const statusElement = document.getElementById('statusMessage');
+        statusElement.textContent = message;
+        statusElement.className = 'alert status-message success';
+    }
+
+    function showError(message) {
+        const statusElement = document.getElementById('statusMessage');
+        statusElement.textContent = message;
+        statusElement.className = 'alert status-message error';
+        // Hide error after 5 seconds
+        setTimeout(() => {
+            statusElement.className = 'alert status-message';
+        }, 5000);
+    }
+  </script>
+<!-- Centered Toast Container -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="logoutToastBody">Logging out...</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

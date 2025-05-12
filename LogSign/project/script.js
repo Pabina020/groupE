@@ -27,7 +27,7 @@ function handleSignup() {
         return;
     }
 
-    fetch("http://localhost:3001/signup", {
+    fetch("signup.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password, role })
@@ -35,7 +35,6 @@ function handleSignup() {
     .then(res => res.json())
     .then(data => {
         if (data.message === "Signup successful") {
-            // Store user name in cookie
             document.cookie = `user=${encodeURIComponent(JSON.stringify({ name: username }))}; path=/`;
             window.location.replace("success1.html");
         } else {
@@ -54,14 +53,12 @@ function loginUser(event) {
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value;
 
-    // Admin shortcut
     if (email === "admin@rentup.com" && password === "admin123") {
         document.cookie = `user=${encodeURIComponent(JSON.stringify({ name: "Admin" }))}; path=/`;
-        window.location.href = "/groupE/admin/admin.html";
+        window.location.href = "../../admin/admin.html";
         return;
     }
-
-    fetch("http://localhost:3001/login", {
+    fetch("login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -69,12 +66,11 @@ function loginUser(event) {
     .then(res => res.json())
     .then(data => {
         if (data.message === "Login successful") {
-            // Store user name in cookie
             const name = email.split('@')[0];
             document.cookie = `user=${encodeURIComponent(JSON.stringify({ name }))}; path=/`;
 
             if (data.role === "landlord" || data.role === "both") {
-                window.location.href = "../../property-upload-delete.html";
+                window.location.href = "../../landlord.html";
             } else if (data.role === "tenant") {
                 window.location.href = "../../index.html";
             } else {
@@ -135,7 +131,21 @@ function verifyOtp(event) {
     });
 }
 
-// Replace login/signup buttons with user info if logged in
+// ✅ Updated: Handle OTP verification (PHP form submit)
+function verifyOtp(event) {
+    event.preventDefault();
+
+    const form = document.getElementById("otpForm");
+    if (!form.otp.value.trim()) {
+        alert("Please enter the OTP");
+        return;
+    }
+
+    // Submit form normally to PHP backend (login.php handles OTP)
+    form.submit();
+}
+
+// Update UI with logged-in user from cookie
 window.addEventListener("DOMContentLoaded", () => {
     const user = getCookie('user');
     const authSection = document.getElementById('auth-buttons');
@@ -147,7 +157,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 <div class="d-flex align-items-center gap-3">
                     <img src="images/user-avatar.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
                     <span class="fw-semibold text-dark">Welcome, ${parsed.name}</span>
-                    <a href="/logout" class="btn btn-outline-danger btn-sm rounded-pill">Logout</a>
+                    <a href="logout.php" class="btn btn-outline-danger btn-sm rounded-pill">Logout</a>
                 </div>
             `;
         } catch (err) {
@@ -156,7 +166,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Utility to get cookie value
+// Get cookie by name
 function getCookie(name) {
     const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
     return match ? match[2] : null;

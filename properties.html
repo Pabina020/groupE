@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> RentUp - Real Estate Free Website Template</title>
 
-  <link rel="stylesheet" type="text/css" href="css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="css/ vendor.css">
 
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -33,6 +33,15 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+<!-- Centered Toast for Add Property Access -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
+  <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 
  <!-- nav bar start -->
  <header class="site-header fixed-top ">
@@ -57,19 +66,19 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
           <li class="nav-item">
-            <a class="nav-link  me-md-4" href="index.html">Home</a>
+            <a class="nav-link me-md-4" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-md-4" href="#apartment">Apartments</a>
+            <a class="nav-link me-md-4" href="index.html#apartment">Apartments</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-md-4" href="#residence">Properties</a>
+            <a class="nav-link me-md-4" href="index.html#residence">Properties</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-md-4" href="#help">Help center</a>
+            <a class="nav-link me-md-4" href="HelpCenter/project/helpcenter.html">Help center</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-md-4" href="#contact-us">Contact Us</a>
+            <a class="nav-link me-md-4" href="index.html#contact-us">Contact Us</a>
           </li>
           <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
@@ -77,28 +86,37 @@
             </a>
             
             <ul class="dropdown-menu dropdown-menu-light">
-              <li><a href="about.html" class="dropdown-item">About </a>
-              </li>
-              <li<a href="property-single.html?id=1" class="dropdown-item">Properties </a></li>
-              <li><a href="property-single.html" class="dropdown-item">Property-Single </a></li>
-              <li><a href="contact.html" class="dropdown-item">Contact </a></li>
-              <li><a href="reviews.html" class="dropdown-item">Review </a></li>
-              <li><a href="agents.html" class="dropdown-item">Agents </a>
-              </li>
-              <li><a href="faqs.html" class="dropdown-item">FAQs </a>
-              </li>
-              
-            </ul>
+                  <li><a href="about.html" class="dropdown-item">About </a>
+                  </li>
+                  <li><a href="properties.html" class="dropdown-item">Properties </a></li>
+                  <li><a href="contact.html" class="dropdown-item">Contact </a></li>
+                  <li><a href="reviews.html" class="dropdown-item">Review </a></li>
+                  <li><a href="agents.html" class="dropdown-item">Agents </a>
+                  </li>
+                  <li><a href="faqs.html" class="dropdown-item">FAQs </a>
+                  </li>
+                  <li><a href="bug-report/index.html" class="dropdown-item">Report Bug </a>
+                  </li>
+                </ul>
           </li></ul>
     
       
 
 
-      <!-- Auth Buttons -->
-      <div class="d-flex gap-2">
-        <a href="LogSign/project/login.html" class="btn btn-light rounded-pill px-3 py-2">Login</a>
-        <a href="LogSign/project/Signup.html" class="btn btn-primary text-white rounded-pill px-3 py-2">Sign Up</a>
-      </div>
+     <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+
+              <!-- Add Property Button -->
+              <a href="#" id="addPropertyBtn" class="btn btn-success btn-sm rounded-pill px-3">Add Property +</a>
+
+              <!-- User Profile Section -->
+              <div class="d-flex align-items-center gap-2">
+                <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
+                  style="width: 40px; height: 40px;">
+                <span class="fw-semibold text-dark"><span id="username">User</span></span>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm rounded-pill">Logout</a>
+              </div>
+
+            </div>
     </div>
   </nav>
 </header>
@@ -329,74 +347,75 @@
       </div>
 
       <div class="row g-5 my-5">
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card">
-            <a href="property-single.html">
-              <div class="img-container">
+       <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
                 <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div>              
+            </div>              
+        </a>
+        <div class="card-body">
+            <a href="property-single.html">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
             </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
                 </ul>
                 <hr>
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $30,000 / mo</p>
-                  <div class="card-footer bg-transparent">
-                    <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
-                      Book Now
-                    </a>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
         
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
-            <a href="property-single.html">
-              <div class="img-container">
-                <img src="images/item2.png" class="card-img-top magnify-image" alt="property">
+      <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div>
+            </div>              
+        </a>
+        <div class="card-body">
+            <a href="property-single.html">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
             </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
                 </ul>
-
                 <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $90,000 / mo</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
                 </div>
-
-              </div>
-
             </div>
-          </div>
         </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
         <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
+          <div class="card h-100 ">
             <a href="property-single.html">
               <div class="img-container">
                 <img src="images/item3.png" class="card-img-top magnify-image" alt="property">
@@ -429,208 +448,203 @@
           </div>
         </div>
         <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
-            <a href="property-single.html">
-              <div class="img-container">
-                <img src="images/item4.png" class="card-img-top magnify-image" alt="property">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div> 
-            </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                </ul>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $65,000 / mo</p>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
+            </div>              
+        </a>
+        <div class="card-body">
             <a href="property-single.html">
-              <div class="img-container">
-                <img src="images/item5.png" class="card-img-top magnify-image" alt="property">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
+            </a>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div>
-              
-            </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                </ul>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $30,000 / mo</p>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
+            </div>              
+        </a>
+        <div class="card-body">
             <a href="property-single.html">
-              <div class="img-container">
-                <img src="images/item6.png" class="card-img-top magnify-image" alt="property">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
+            </a>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
+       <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div>
-              
-            </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                </ul>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $65,000 / mo</p>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
+            </div>              
+        </a>
+        <div class="card-body">
             <a href="property-single.html">
-              <div class="img-container">
-                <img src="images/item7.png" class="card-img-top magnify-image" alt="property">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
+            </a>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div>
-              
-            </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                </ul>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $65,000 / mo</p>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
+            </div>              
+        </a>
+        <div class="card-body">
             <a href="property-single.html">
-              <div class="img-container">
-                <img src="images/item3.png" class="card-img-top magnify-image" alt="property">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
+            </a>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
                 <div class="magnifier"></div>
-              </div>
-              
-            </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                </ul>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $30,000 / mo</p>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
-          <div class="card  ">
+            </div>              
+        </a>
+        <div class="card-body">
             <a href="property-single.html">
-              <div class="img-container" style="position: relative;">
-              <img src="images/item1.png" class="card-img-top magnify-image" alt="images">
-              <div class="magnifier"></div>
-              </div>
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
             </a>
-            <div class="card-body p-0">
-              <a href="property-single.html">
-                <h5 class="card-title mt-4">Aliva Priva Jalvin</h5>
-              </a>
-              <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-              <div class="card-text">
-                <ul class="d-flex">
-                  <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                  <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                  <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
                 </ul>
-
                 <hr>
-
-                <div class="d-flex justify-content-between">
-                  <p class="text-white">For Rent</p>
-                  <p class="text-white">Price: $90,000 / mo</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
                 </div>
-
-              </div>
-
             </div>
-          </div>
         </div>
-      </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
+        <div class="col-md-4 mb-5 product-item" data-property-id="<?= $property['property_id'] ?>">
+    <div class="card h-100">
+        <a href="property-single.html">
+            <div class="img-container">
+                <img src="images/item1.png" class="card-img-top magnify-image" alt="property">
+                <div class="magnifier"></div>
+            </div>              
+        </a>
+        <div class="card-body">
+            <a href="property-single.html">
+                <h5 class="card-title">Aliva Priva Jalvin</h5>
+            </a>
+            <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
+            <div class="card-text">
+                <ul class="d-flex flex-wrap">
+                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
+                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
+                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">For Rent</p>
+                    <p class="mb-0">Price: $30,000 / mo</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent">
+            <a href="property-single.html?id=1" class="btn btn-primary rounded-pill w-100">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>
 
       <nav aria-label="Page navigation" class="d-flex justify-content-center pt-4 my-5">
         <ul class="pagination">
@@ -654,6 +668,8 @@
     </main>
   </div>
 </div>
+
+
   <!-- Lets contact-us  -->
   <section class="py-5" id="contact-us">
     <div class="container">
@@ -824,13 +840,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-<!-- Add this script section right before the closing </body> tag -->
+<!-- Add this script section right before the closing <!-- Centered Toast Container -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="logoutToastBody">Logging out...</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+</body>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Load properties and render them
+    fetchProperties();
+    
+    // Initialize image magnifiers
+    initImageMagnifiers();
+    
+    // Setup search functionality
+    setupSearch();
+    
+    // Setup book buttons
+    setupBookButtons();
+});
+
+// Fetch and display properties
+function fetchProperties() {
     fetch('get_properties.php')
     .then(response => response.json())
     .then(properties => {
         const container = document.querySelector('.row.g-5.my-5');
+        if (!container) return;
+        
         container.innerHTML = '';
         
         properties.forEach(property => {
@@ -839,120 +882,134 @@ document.addEventListener('DOMContentLoaded', function() {
             col.className = 'col-md-4 mb-5 product-item';
             
             col.innerHTML = `
-    <div class="card position-relative">
-        ${isBooked ? '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">Booked</span>' : ''}
-        <a href="property-single.html?id=${property.property_id}">
-            <div class="img-container">
-                <img src="${property.main_image || 'images/placeholder.jpg'}" 
-                    class="card-img-top magnify-image" 
-                    alt="${property.name}">
-                <div class="magnifier"></div>
-            </div>
-        </a>
-        <div class="card-body p-0">
-            <a href="property-single.html?id=${property.property_id}">
-                <h5 class="card-title mt-4">${property.name || 'Property'}</h5>
-            </a>
-            <p class="card-text">${property.location || 'Location not specified'}</p>
-            <div class="card-text">
-                <ul class="d-flex">
-                    <li class="residence-list"> 
-                        <img src="images/bed.png" alt="bed"> ${property.bedrooms || 0} bed
-                    </li>
-                    <li class="residence-list"> 
-                        <img src="images/bath.png" alt="bath"> ${property.bathrooms || 0} bath
-                    </li>
-                    <li class="residence-list"> 
-                        <img src="images/square.png" alt="sqft"> ${property.sqft || 0} Sqft.
-                    </li>
-                </ul>
-                <hr>
-                <div class="d-flex justify-content-between">
-               
-
-<p class="text-dark">Price: ${
-    property.type === 'Rent' 
-        ? '$' + property.price.replace(/^\$/, '').replace(/\/mo$/i, '') + '/mo'
-        : '$' + property.price.replace(/^\$/, '')
-}</p>
+                <div class="card h-100">
+                    ${isBooked ? '<span class="position-absolute top-0 end-0 translate-middle-y badge rounded-pill bg-danger">Booked</span>' : ''}
+                    
+                    <a href="property-single.html?id=${property.property_id}">
+                        <div class="img-container">
+                            <img src="${property.main_image || 'images/placeholder.jpg'}" 
+                                class="card-img-top magnify-image" 
+                                alt="${property.name}">
+                            <div class="magnifier"></div>
+                        </div>
+                    </a>
+                    
+                    <div class="card-body">
+                        <a href="property-single.html?id=${property.property_id}">
+                            <h5 class="card-title">${property.name || 'Property'}</h5>
+                        </a>
+                        <p class="card-text text-muted mb-3">
+                            <i class="fas fa-map-marker-alt"></i> ${property.location || 'Location not specified'}
+                        </p>
+                        
+                        <div class="d-flex flex-wrap mb-3">
+                            <span class="me-3"><i class="fas fa-bed"></i> ${property.bedrooms || 0} bed</span>
+                            <span class="me-3"><i class="fas fa-bath"></i> ${property.bathrooms || 0} bath</span>
+                            <span><i class="fas fa-ruler-combined"></i> ${property.sqft || 0} sqft</span>
+                        </div>
+                        
+                        <hr class="my-2">
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge ${property.type === 'Rent' ? 'bg-primary' : 'bg-success'}">
+                                ${property.type === 'Rent' ? 'For Rent' : 'For Sale'}
+                            </span>
+                            <span class="fw-bold">
+                                ${property.type === 'Rent' ? '$' + property.price.replace(/^\$/, '').replace(/\/mo$/i, '') + '/mo' : '$' + property.price.replace(/^\$/, '')}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-top-0">
+                        ${isBooked ? `
+                        <div class="cancel-booking-section">
+                            <button class="btn btn-outline-danger w-100 mb-2" 
+                                    onclick="showCancelForm(${property.property_id})">
+                                Cancel Booking
+                            </button>
+                            <div id="cancelForm-${property.property_id}" class="cancel-form d-none">
+                                <form onsubmit="return handleCancelBooking(event, ${property.property_id})">
+                                    <div class="mb-3">
+                                        <input type="email" name="email" class="form-control" 
+                                            placeholder="Your booking email" required>
+                                    </div>
+                                    <div class="text-center mb-3 small text-muted">OR</div>
+                                    <div class="mb-3">
+                                        <input type="tel" name="phone" class="form-control" 
+                                            placeholder="Your booking phone" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger w-100">
+                                        Confirm Cancellation
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        ` : `
+                        <a href="property-single.html?id=${property.property_id}" 
+                            class="btn btn-primary w-100 book-btn">
+                            Book Now
+                        </a>
+                        `}
+                    </div>
                 </div>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="property-single.html?id=${property.property_id}" 
-                   class="btn ${isBooked ? 'btn-secondary disabled' : 'btn-primary'} rounded-pill w-100">
-                   ${isBooked ? 'Already Booked' : 'Book Now'}
-                </a>
-            </div>
-            
-   ${isBooked ? `
-<div class="cancel-booking p-3 border-top">
-    <form class="cancel-form" onsubmit="return handleCancelBooking(event, this)">
-        <input type="hidden" name="property_id" id="property_id" value="${property.property_id}">
-        <div class="mb-3">
-            <input type="email" name="email" class="form-control" 
-                   placeholder="Your booking email" required>
-        </div>
-        <div class="text-center mb-3">OR</div>
-        <div class="mb-3">
-            <input type="tel" name="phone" class="form-control" 
-                   placeholder="Your booking phone" required>
-        </div>
-        <button type="submit" class="btn btn-danger w-100">
-            <span class="submit-text">Cancel Booking</span>
-        </button>
-    </form>
-</div>
-    ` : ''}
-</div>
-`;
+            `;
             
             container.appendChild(col);
         });
-        
-        initImageMagnifiers();
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Error loading properties:', error);
+        showAlert('danger', 'Failed to load properties. Please try again later.');
     });
-});
-  
-    // Initialize image magnifiers
-    function initImageMagnifiers() {
-        const zoom = 2;
-        const images = document.querySelectorAll('.magnify-image');
-    
-        images.forEach((img) => {
-            const magnifier = img.parentElement.querySelector('.magnifier');
-    
-            img.addEventListener('load', () => {
-                magnifier.style.backgroundImage = `url('${img.src}')`;
-                magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
-            });
-    
-            // fallback if images are already loaded
+}
+
+// Image magnifier functionality
+function initImageMagnifiers() {
+    const zoom = 2;
+    const images = document.querySelectorAll('.magnify-image');
+
+    images.forEach((img) => {
+        const magnifier = img.parentElement.querySelector('.magnifier');
+        if (!magnifier) return;
+
+        // Set background image
+        const setBackground = () => {
             magnifier.style.backgroundImage = `url('${img.src}')`;
             magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
-    
-            img.addEventListener('mousemove', (e) => {
-                magnifier.style.display = 'block';
-                const rect = img.getBoundingClientRect();
-                const x = e.pageX - rect.left - window.scrollX;
-                const y = e.pageY - rect.top - window.scrollY;
-    
-                magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
-                magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
-    
-                magnifier.style.backgroundPosition = `-${x * zoom - magnifier.offsetWidth / 2}px -${y * zoom - magnifier.offsetHeight / 2}px`;
-            });
-    
-            img.addEventListener('mouseout', () => {
-                magnifier.style.display = 'none';
-            });
+        };
+
+        // If image is already loaded
+        if (img.complete) {
+            setBackground();
+        } else {
+            img.addEventListener('load', setBackground);
+        }
+
+        // Mouse move handler
+        img.addEventListener('mousemove', (e) => {
+            magnifier.style.display = 'block';
+            const rect = img.getBoundingClientRect();
+            const x = e.pageX - rect.left - window.scrollX;
+            const y = e.pageY - rect.top - window.scrollY;
+
+            magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+            magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+
+            magnifier.style.backgroundPosition = `-${x * zoom - magnifier.offsetWidth / 2}px -${y * zoom - magnifier.offsetHeight / 2}px`;
         });
-    }
-  
-    // Keyword search filter
-    document.getElementById("keywordSearchForm").addEventListener("submit", function(e) {
+
+        img.addEventListener('mouseout', () => {
+            magnifier.style.display = 'none';
+        });
+    });
+}
+
+// Search functionality
+function setupSearch() {
+    const searchForm = document.getElementById("keywordSearchForm");
+    if (!searchForm) return;
+    
+    searchForm.addEventListener("submit", function(e) {
         e.preventDefault();
         const keyword = document.getElementById("searchInput").value.toLowerCase();
         document.querySelectorAll(".product-item").forEach(card => {
@@ -960,69 +1017,44 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.display = text.includes(keyword) ? "block" : "none";
         });
     });
-
-  </script>
-  <!-- In your property card loop, add this button -->
-<!-- In your property listing loop -->
-
-
-<!-- JavaScript for properties.html -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Handle book button clicks
-  document.querySelectorAll('.book-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const propertyId = this.getAttribute('data-property-id');
-      // Open property page in a new window
-      window.open(`property-single.html?id=${propertyId}`, '_blank');
-    });
-  });
-});
-</script>
-
-
-
-<script>
-  function setupBookButtons() {
-  document.querySelectorAll('.book-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const propertyId = this.getAttribute('data-property-id');
-      window.open(`property-single.html?id=${propertyId}`, '_blank');
-    });
-  });
 }
 
-</script>
-<script>
-  // Add this to your existing JavaScript
-// Add this to your existing JavaScript
-// Updated JavaScript handler
-// Updated cancel form handler
-// Update the setupCancelForms function
-async function handleCancelBooking(event, form) {
+// Book buttons functionality
+function setupBookButtons() {
+    document.querySelectorAll('.book-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const propertyId = this.closest('.card').querySelector('a').href.split('id=')[1];
+            window.open(`property-single.html?id=${propertyId}`, '_blank');
+        });
+    });
+}
+
+// Cancel booking functions
+function showCancelForm(propertyId) {
+    const form = document.getElementById(`cancelForm-${propertyId}`);
+    if (form) {
+        form.classList.toggle('d-none');
+    }
+}
+
+async function handleCancelBooking(event, propertyId) {
     event.preventDefault();
     
-    // Get form data
+    const form = event.target;
     const formData = new FormData(form);
-    const propertyId = formData.get('property_id');
     const email = formData.get('email').trim();
     const phone = formData.get('phone').trim();
 
     // Validate inputs
-    if (!propertyId || isNaN(propertyId)) {
-        alert('Invalid property ID');
-        return false;
-    }
-    
     if (!email && !phone) {
-        alert('Please provide either email or phone number');
+        showAlert('danger', 'Please provide either email or phone number');
         return false;
     }
 
     // Create payload
     const payload = {
-        property_id: parseInt(propertyId),
+        property_id: propertyId,
         email: email,
         phone: phone
     };
@@ -1030,68 +1062,76 @@ async function handleCancelBooking(event, form) {
     try {
         // Show loading state
         const submitBtn = form.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+        }
 
-        // Send POST request with proper headers
+        // Send POST request
         const response = await fetch('cancel_booking.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
         });
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error('Network response was not ok');
         }
         
         const result = await response.json();
         
         if (result.success) {
-            alert('Booking cancelled successfully!');
-            // Refresh the page to update the UI
-            window.location.reload();
+            showAlert('success', 'Booking cancelled successfully!');
+            // Refresh the page after 2 seconds
+            setTimeout(() => window.location.reload(), 2000);
         } else {
             throw new Error(result.message || 'Failed to cancel booking');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert(error.message);
-    } finally {
+        showAlert('danger', error.message);
+        // Reset button
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span class="submit-text">Cancel Booking</span>';
+            submitBtn.innerHTML = 'Confirm Cancellation';
         }
     }
     
     return false;
 }
-// Helper function to show alerts
-function showAlert(message, type) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type} alert-dismissible fade show fixed-top mx-auto mt-3`;
-    alertDiv.style.maxWidth = '500px';
-    alertDiv.style.zIndex = '1100';
-    alertDiv.role = 'alert';
-    alertDiv.innerHTML = `
+
+// Alert system
+function showAlert(type, message) {
+    let alertContainer = document.getElementById('alert-container');
+    
+    if (!alertContainer) {
+        alertContainer = document.createElement('div');
+        alertContainer.id = 'alert-container';
+        alertContainer.className = 'position-fixed top-0 end-0 p-3';
+        alertContainer.style.zIndex = '9999';
+        document.body.appendChild(alertContainer);
+    }
+    
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type} alert-dismissible fade show`;
+    alert.innerHTML = `
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
     
-    document.body.appendChild(alertDiv);
+    alertContainer.appendChild(alert);
     
     // Auto-dismiss after 5 seconds
     setTimeout(() => {
-        const bsAlert = new bootstrap.Alert(alertDiv);
-        bsAlert.close();
+        alert.classList.remove('show');
+        setTimeout(() => alert.remove(), 150);
     }, 5000);
 }
 
-// Call this function after loading properties
-setupCancelForms();
+
 </script>
   <script src="js/jquery-1.11.0.min.js"></script>
 
@@ -1100,9 +1140,20 @@ setupCancelForms();
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+     <script src="LogSign/project/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
 
     
+<!-- Centered Toast Container -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="logoutToastBody">Logging out...</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 </body>
+
 
 </html>

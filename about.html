@@ -32,6 +32,15 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+<!-- Centered Toast for Add Property Access -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
+  <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 
  <!-- nav bar start -->
  <header class="site-header fixed-top ">
@@ -56,7 +65,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
           <li class="nav-item">
-            <a class="nav-link  me-md-4" href="index.html">Home</a>
+            <a class="nav-link me-md-4" href="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link me-md-4" href="index.html#apartment">Apartments</a>
@@ -76,28 +85,37 @@
             </a>
             
             <ul class="dropdown-menu dropdown-menu-light">
-              <li><a href="about.html" class="dropdown-item">About </a>
-              </li>
-              <li><a href="properties.html" class="dropdown-item">Properties </a></li>
-              <li><a href="property-single.html" class="dropdown-item">Property-Single </a></li>
-              <li><a href="contact.html" class="dropdown-item">Contact </a></li>
-              <li><a href="reviews.html" class="dropdown-item">Review </a></li>
-              <li><a href="agents.html" class="dropdown-item">Agents </a>
-              </li>
-              <li><a href="faqs.html" class="dropdown-item">FAQs </a>
-              </li>
-              
-            </ul>
+                  <li><a href="about.html" class="dropdown-item">About </a>
+                  </li>
+                  <li><a href="properties.html" class="dropdown-item">Properties </a></li>
+                  <li><a href="contact.html" class="dropdown-item">Contact </a></li>
+                  <li><a href="reviews.html" class="dropdown-item">Review </a></li>
+                  <li><a href="agents.html" class="dropdown-item">Agents </a>
+                  </li>
+                  <li><a href="faqs.html" class="dropdown-item">FAQs </a>
+                  </li>
+                  <li><a href="bug-report/index.html" class="dropdown-item">Report Bug </a>
+                  </li>
+                </ul>
           </li></ul>
     
       
 
 
-      <!-- Auth Buttons -->
-      <div class="d-flex gap-2">
-        <a href="LogSign/project/login.html" class="btn btn-light rounded-pill px-3 py-2">Login</a>
-        <a href="LogSign/project/Signup.html" class="btn btn-primary text-white rounded-pill px-3 py-2">Sign Up</a>
-      </div>
+     <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+
+              <!-- Add Property Button -->
+              <a href="#" id="addPropertyBtn" class="btn btn-success btn-sm rounded-pill px-3">Add Property +</a>
+
+              <!-- User Profile Section -->
+              <div class="d-flex align-items-center gap-2">
+                <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
+                  style="width: 40px; height: 40px;">
+                <span class="fw-semibold text-dark"><span id="username">User</span></span>
+                <a href="#" id="logoutBtn" class="btn btn-danger btn-sm rounded-pill">Logout</a>
+              </div>
+
+            </div>
     </div>
   </nav>
 </header>
@@ -311,8 +329,19 @@ Our mission is to make renting hassle-free by offering a seamless, user-friendly
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+     <script src="LogSign/project/script.js"></script>
 
     
+<!-- Centered Toast Container -->
+<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="logoutToastBody">Logging out...</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 </body>
+
 
 </html>
