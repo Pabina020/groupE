@@ -44,8 +44,8 @@
   });
 
   var initChocolat = function () {
-    Chocolat(document.querySelectorAll('.image-link'), {
-      imageSize: 'contain',
+    Chocolat(document.querySelectorAll(".image-link"), {
+      imageSize: "contain",
       loop: true,
     });
   };
@@ -191,7 +191,7 @@
       autoplay: true,
       loop: true,
       spaceBetween: 10,
-      effect: 'fade',
+      effect: "fade",
       thumbs: {
         swiper: thumb_slider,
       },

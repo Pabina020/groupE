@@ -86,15 +86,12 @@ function loginUser(event) {
     });
 }
 
-// Handle OTP verification
+// ✅ Updated: Handle OTP verification (PHP form submit)
 function verifyOtp(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    const email = document.getElementById("otpForm").email.value.trim();
-    const otp = document.getElementById("otp").value.trim();
-
-    // Basic validation
-    if (!otp) {
+    const form = document.getElementById("otpForm");
+    if (!form.otp.value.trim()) {
         alert("Please enter the OTP");
         return;
     }
