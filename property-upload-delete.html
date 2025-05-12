@@ -24,7 +24,7 @@
 <!-- Centered Toast for Add Property Access -->
 <div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
   <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
+    <div class="d-flex">a
       <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
       <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
@@ -58,7 +58,6 @@
                 <ul class="dropdown-menu dropdown-menu-light">
                   <li><a href="about.html" class="dropdown-item">About </a></li>
                   <li><a href="properties.html" class="dropdown-item">Properties </a></li>
-                  <li><a href="property-single.html" class="dropdown-item">Property-Single </a></li>
                   <li><a href="contact.html" class="dropdown-item">Contact </a></li>
                   <li><a href="reviews.html" class="dropdown-item">Review </a></li>
                   <li><a href="agents.html" class="dropdown-item">Agents </a></li>
@@ -173,6 +172,12 @@
         <input type="file" name="extra_images[]" id="admin-extra-upload-input" multiple accept="image/*" class="form-control">
         <div id="admin-extra-preview-container" class="d-flex flex-wrap gap-3 mt-3"></div>
       </div>
+
+      <div class="mb-4">
+  <label class="form-label">Upload Billing/Tax Proof</label>
+  <input type="file" name="billing_proof" id="billingProofInput" accept="application/pdf,image/*" class="form-control" required>
+  <div id="billingProofPreview" class="mt-2"></div>
+</div>
     
       <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Submit Listing</button>
     </form>
