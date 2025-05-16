@@ -5,6 +5,7 @@ class RentalAdmin {
   }
 
   initData() {
+    // Initialize data structure if not exists
     if (!localStorage.getItem('rentalAdminData')) {
       const initialData = {
         users: [
@@ -44,8 +45,7 @@ class RentalAdmin {
             type: "Villa",
             bedrooms: 4,
             price: 350,
-            status: "Available",
-            billingProof: "uploads/sample_invoice1.pdf"
+            status: "Available"
           },
           {
             id: 2,
@@ -54,8 +54,7 @@ class RentalAdmin {
             type: "Apartment",
             bedrooms: 2,
             price: 200,
-            status: "Occupied",
-            billingProof: ""
+            status: "Occupied"
           },
           {
             id: 3,
@@ -64,8 +63,7 @@ class RentalAdmin {
             type: "House",
             bedrooms: 3,
             price: 280,
-            status: "Available",
-            billingProof: ""
+            status: "Available"
           }
         ],
         bookings: [
