@@ -14,7 +14,7 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 $db_host = "localhost";
 $db_user = "root";
 $db_pass = "";
-$db_name = "property_db";
+$db_name = "rentup";
 
 // Initialize response
 $response = ['success' => false, 'error' => ''];

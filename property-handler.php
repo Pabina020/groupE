@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -6,7 +7,7 @@ ini_set('display_errors', 1);
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "property_db";
+$database = "rentup";
 
 // Connect to database
 $conn = new mysqli($host, $user, $password, $database);
@@ -148,31 +149,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Begin database transaction
     $conn->begin_transaction();
+// Get landlord ID from session
+if (!isset($_SESSION['user_id'])) {
+    die(json_encode([
+        'status' => 'error',
+        'message' => 'User session not found. Please log in first.'
+    ]));
+}
+
+$landlord_id = $_SESSION['user_id'];
 
     try {
         // Prepare and execute SQL statement
         $stmt = $conn->prepare("INSERT INTO properties 
-            (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images, landlord_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
-        // Bind parameters (all as strings)
-        $stmt->bind_param("sssiissssss", 
-            $property_id, 
-            $property_name, 
-            $location,
-            $bedrooms,
-            $bathrooms,
-            $sqft,
-            $property_type,
-            $price,
-            $property_description,
-            $main_image_path,
-            $extra_images_serialized
-        );
+        $stmt->bind_param("sssiissssssi", 
+    $property_id, 
+    $property_name, 
+    $location,
+    $bedrooms,
+    $bathrooms,
+    $sqft,
+    $property_type,
+    $price,
+    $property_description,
+    $main_image_path,
+    $extra_images_serialized,
+    $landlord_id
+);
 
         if (!$stmt->execute()) {
             throw new Exception("Execute failed: " . $stmt->error);
@@ -265,6 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]));
     }
 
+
     // Process and sanitize form data
     $property_id = $conn->real_escape_string($_POST['property_id']);
     $property_name = $conn->real_escape_string($_POST['property_name']);
@@ -370,27 +381,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Prepare and execute SQL statement
         $stmt = $conn->prepare("INSERT INTO properties 
-            (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images, landlord_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
-        // Bind parameters (all as strings)
-        $stmt->bind_param("sssiissssss", 
-            $property_id, 
-            $property_name, 
-            $location,
-            $bedrooms,
-            $bathrooms,
-            $sqft,
-            $property_type,
-            $price,
-            $property_description,
-            $main_image_path,
-            $extra_images_serialized
-        );
+        $stmt->bind_param("sssiissssssi", 
+    $property_id, 
+    $property_name, 
+    $location,
+    $bedrooms,
+    $bathrooms,
+    $sqft,
+    $property_type,
+    $price,
+    $property_description,
+    $main_image_path,
+    $extra_images_serialized,
+    $landlord_id
+);
 
         if (!$stmt->execute()) {
             throw new Exception("Execute failed: " . $stmt->error);

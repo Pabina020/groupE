@@ -2,7 +2,7 @@
 // Fetch property details from DB using property_id from URL
 $property_id = $_GET['id'];
 
-$conn = new mysqli("localhost", "root", "", "property_db");
+$conn = new mysqli("localhost", "root", "", "rentup");
 $sql = "SELECT * FROM properties WHERE property_id = $property_id";
 $result = $conn->query($sql);
 $property = $result->fetch_assoc();

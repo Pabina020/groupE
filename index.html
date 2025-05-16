@@ -56,15 +56,22 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+
 <!-- Centered Toast for Add Property Access -->
 <div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
-  <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+  <div id="loginToast" 
+       class="toast align-items-center text-white bg-danger border-0 shadow-lg" 
+       role="alert" 
+       aria-live="assertive" 
+       aria-atomic="true"
+       data-bs-autohide="false">
     <div class="d-flex">
       <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
       <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
 </div>
+>
   <!-- nav bar start -->
   <header class="site-header fixed-top ">
     <nav class="navbar navbar-expand-lg py-3">
@@ -87,19 +94,19 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
               <li class="nav-item">
-                <a class="nav-link active me-md-4" href="#index.html">Home</a>
+                <a class="nav-link active me-md-4" href="index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link me-md-4" href="#apartment">Apartments</a>
+                <a class="nav-link me-md-4" href="index.html#apartment">Apartments</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link me-md-4" href="#residence">Properties</a>
+                <a class="nav-link me-md-4" href="index.html#residence">Properties</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link me-md-4" href="HelpCenter/project/helpcenter.html">Help center</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link me-md-4" href="#contact-us">Contact Us</a>
+                <a class="nav-link me-md-4" href="index.html#contact-us">Contact Us</a>
               </li>
               <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button"
@@ -111,7 +118,6 @@
                   <li><a href="about.html" class="dropdown-item">About </a>
                   </li>
                   <li><a href="properties.html" class="dropdown-item">Properties </a></li>
-                  <li><a href="property-single.html" class="dropdown-item">Property-Single </a></li>
                   <li><a href="contact.html" class="dropdown-item">Contact </a></li>
                   <li><a href="reviews.html" class="dropdown-item">Review </a></li>
                   <li><a href="agents.html" class="dropdown-item">Agents </a>
@@ -156,17 +162,16 @@
             Perfect Way To Buy <br>And Sell A Home
           </h1>
           <p class="text-muted mb-4">
-            Diam vitae, nec mattis lectus quam pretium amet facilisis. Urna, massa aliqua dui pellentesque.
-            Ac, gravida in eget non amet eget purus non.
+           A user-friendly online platform that connects property owners with renters. The website allows users to browse, search, and filter available rental listings, including apartments, houses, and commercial spaces.
           </p>
           <div class="d-flex gap-3" data-aos="fade-up" data-aos-delay="300">
-            <a href="#" class="btn btn-primary rounded-pill px-4">VIEW</a>
-            <a href="#" class="btn btn-outline-primary rounded-pill px-4">LEARN MORE</a>
+            <a href="properties.html" class="btn btn-primary rounded-pill px-4">VIEW</a>
+            <a href="about.html" class="btn btn-outline-primary rounded-pill px-4">LEARN MORE</a>
           </div>
         </div>
 
         <!-- Right Content (Images) -->
-        <div class="col-lg-7 d-none d-lg-flex justify-content-lg-end justify-content-center mt-5 mt-lg-0">
+        <div class="col-lg-7 d-none d-lg-flex justify-content-lg-end justify-content-center mt-1 mt-lg-0">
           <div class="hero-image-group position-relative">
             <div class="hero-image hero-main" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1000">
               <img src="images/hero1.png" alt="Main House">
@@ -229,8 +234,8 @@
             </div>
 
             <div class="col-lg-1 billboard-btn d-flex justify-content-end">
-              <button type="button" class="btn btn-primary rounded-pill px-4 py-4"
-                onclick="filterProperties()">Search</button>
+              <a href="properties.html" type="button" class="btn btn-primary rounded-pill px-4 py-4"
+                onclick="filterProperties()">Search</a>
             </div>
           </div>
         </div>
@@ -457,32 +462,22 @@
 
 
 
-  <script src="js/jquery-1.11.0.min.js"></script>
+ <!-- 1. jQuery (for Chocolat or legacy plugins) -->
+<script src="js/jquery-1.11.0.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
-  <script src="js/script.js"></script>
-  <script src="LogSign/project/script.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("LogSign/project/get_user.php") // adjust path if needed
-    .then(res => res.json())
-    .then(data => {
-      if (data.loggedIn) {
-        const usernameEl = document.getElementById("username");
-        if (usernameEl) {
-          usernameEl.textContent = data.username;
-        }
-      }
-    })
-    .catch(err => {
-      console.error("Error fetching user data:", err);
-    });
-});
-</script>
+<!-- 2. Swiper (for sliders) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+<!-- 3. Bootstrap (must come BEFORE your custom scripts) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+  crossorigin="anonymous"></script>
+
+<!-- 4. Your custom scripts (AFTER Bootstrap is available) -->
+<script src="js/script.js"></script>
+<script src="LogSign/project/script.js"></script>
+
+<script></script>
   <script>
     const rangeInputs = document.querySelectorAll(".range-input");
     const progress = document.querySelector(".slider .progress");
