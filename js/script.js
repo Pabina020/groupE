@@ -42,7 +42,21 @@
       }
     });
   });
-
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("LogSign/project/get_user.php") // adjust path if needed
+    .then(res => res.json())
+    .then(data => {
+      if (data.loggedIn) {
+        const usernameEl = document.getElementById("username");
+        if (usernameEl) {
+          usernameEl.textContent = data.username;
+        }
+      }
+    })
+    .catch(err => {
+      console.error("Error fetching user data:", err);
+    });
+});
   var initChocolat = function () {
     Chocolat(document.querySelectorAll('.image-link'), {
       imageSize: 'contain',
@@ -113,8 +127,10 @@
             window.location.href = "landlord.html";
           }, 1500);
         } else {
-          toastBody.textContent = "Please log in as a landlord to add a property.";
-          toast.show();
+         toastBody.innerHTML = `
+  You are currently a <strong>${data.role}</strong>.<br>
+  <a href="../groupE/LogSign/Project/Signup.html" class="text-white fw-bold text-decoration-underline">create landlord profile</a>.
+`;
         }
       });
     }

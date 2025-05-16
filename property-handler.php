@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -18,6 +19,7 @@ if ($conn->connect_error) {
         'message' => "Connection failed: " . $conn->connect_error
     ]));
 }
+$landlord_id = intval($_SESSION['user_id']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate required fields
@@ -151,16 +153,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Prepare and execute SQL statement
-        $stmt = $conn->prepare("INSERT INTO properties 
-            (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+       $stmt = $conn->prepare("INSERT INTO properties 
+    (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images, landlord_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
         // Bind parameters (all as strings)
-        $stmt->bind_param("sssiissssss", 
+        $stmt->bind_param("sssiissssssi", 
             $property_id, 
             $property_name, 
             $location,
@@ -171,7 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $price,
             $property_description,
             $main_image_path,
-            $extra_images_serialized
+            $extra_images_serialized,
+            $landlord_id
         );
 
         if (!$stmt->execute()) {
@@ -369,16 +372,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Prepare and execute SQL statement
-        $stmt = $conn->prepare("INSERT INTO properties 
-            (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+       $stmt = $conn->prepare("INSERT INTO properties 
+    (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images, landlord_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
         // Bind parameters (all as strings)
-        $stmt->bind_param("sssiissssss", 
+        $stmt->bind_param("sssiissssssi", 
             $property_id, 
             $property_name, 
             $location,

@@ -137,6 +137,26 @@ try {
 
         // Update property status
         $update_stmt = $conn->prepare("UPDATE properties SET is_booked = 1 WHERE property_id = ?");
+// Get landlord_id for the property
+$landlordQuery = $conn->prepare("SELECT landlord_id, name FROM properties WHERE property_id = ?");
+$landlordQuery->bind_param("i", $property_id);
+$landlordQuery->execute();
+$landlordResult = $landlordQuery->get_result();
+
+if ($landlordResult->num_rows > 0) {
+    $property = $landlordResult->fetch_assoc();
+    $landlord_id = $property['landlord_id'];
+
+    $propertyName = htmlspecialchars($property['name'], ENT_QUOTES, 'UTF-8');
+    $notif_message = "Your property '$propertyName' has been booked for $booking_date.";
+
+    $notifInsert = $conn->prepare("INSERT INTO notifications (landlord_id, message) VALUES (?, ?)");
+    $notifInsert->bind_param("is", $landlord_id, $notif_message);
+    $notifInsert->execute();
+}
+
+
+
         if (!$update_stmt) throw new Exception("Database error: " . $conn->error);
         
         $update_stmt->bind_param("i", $property_id);
