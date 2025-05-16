@@ -44,8 +44,8 @@
   });
 
   var initChocolat = function () {
-    Chocolat(document.querySelectorAll('.image-link'), {
-      imageSize: 'contain',
+    Chocolat(document.querySelectorAll(".image-link"), {
+      imageSize: "contain",
       loop: true,
     });
   };
@@ -113,8 +113,10 @@
             window.location.href = "landlord.html";
           }, 1500);
         } else {
-          toastBody.textContent = "Please log in as a landlord to add a property.";
-          toast.show();
+         toastBody.innerHTML = `
+  You are currently a <strong>${data.role}</strong>.<br>
+  <a href="../groupE/LogSign/Project/Signup.html" class="text-white fw-bold text-decoration-underline">create landlord profile</a>.
+`;
         }
       });
     }
@@ -189,7 +191,7 @@
       autoplay: true,
       loop: true,
       spaceBetween: 10,
-      effect: 'fade',
+      effect: "fade",
       thumbs: {
         swiper: thumb_slider,
       },

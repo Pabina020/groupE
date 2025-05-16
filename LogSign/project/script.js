@@ -96,6 +96,48 @@ function verifyOtp(event) {
         return;
     }
 
+    // Sending OTP to the server for verification
+    fetch("http://localhost:3001/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            // OTP verified successfully, display success message and redirect
+            const successMessage = document.createElement("div");
+            successMessage.classList.add("success-message");
+            successMessage.innerText = "OTP verified successfully!";
+            document.body.appendChild(successMessage);
+
+            setTimeout(() => {
+                window.location.href = "../../index.html"; // Redirect after 2 seconds
+            }, 2000);
+        } else {
+            // Error in OTP verification
+            const errorMessage = document.createElement("div");
+            errorMessage.classList.add("error-message");
+            errorMessage.innerText = data.message || "Invalid OTP or OTP expired.";
+            document.body.appendChild(errorMessage);
+        }
+    })
+    .catch(err => {
+        alert("Server error. Please try again later.");
+        console.error(err);
+    });
+}
+
+// ✅ Updated: Handle OTP verification (PHP form submit)
+function verifyOtp(event) {
+    event.preventDefault();
+
+    const form = document.getElementById("otpForm");
+    if (!form.otp.value.trim()) {
+        alert("Please enter the OTP");
+        return;
+    }
+
     // Submit form normally to PHP backend (login.php handles OTP)
     form.submit();
 }
