@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // Database connection
-$conn = new mysqli("localhost", "root", "", "property_db");
+$conn = new mysqli("localhost", "root", "", "rentup");
 
 // Check connection
 if ($conn->connect_error) {

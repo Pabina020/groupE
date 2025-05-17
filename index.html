@@ -92,6 +92,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
+
             <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
               <li class="nav-item">
                 <a class="nav-link active me-md-4" href="index.html">Home</a>
@@ -140,11 +141,14 @@
 
               <!-- User Profile Section -->
               <div class="d-flex align-items-center gap-2">
-                <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
-                  style="width: 40px; height: 40px;">
+                <a href="usersetting.php" style="display: inline-block; position: relative; z-index: 10;">
+                  <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
+                    style="width: 40px; height: 40px; cursor: pointer;">
+                </a>
                 <span class="fw-semibold text-dark"><span id="username">User</span></span>
                 <a href="#" id="logoutBtn" class="btn btn-danger btn-sm rounded-pill">Logout</a>
               </div>
+
 
             </div>
 
@@ -246,104 +250,106 @@
 
   <!-- apartment start -->
 
-<section class="apartment-types py-5" id="apartment">
-  <div class="container">
-    <div class="text-center mb-4">
-      <h2 class="featured-heading text-center m-0">
-        <span class="fw-semibold">Explore Apartment</span> 
-        <span class="text-grey fw-semibold">Types</span>
-      </h2>
-      <p class="text-grey text-center fw-semibold fs-6">Based On What The Customer Requires</p>
-    </div>
-
-    <div class="row g-4 justify-content-center" id="rent-properties-container">
-      <div class="col-12 text-center loading-spinner">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+  <section class="apartment-types py-5" id="apartment">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="featured-heading text-center m-0">
+          <span class="fw-semibold">Explore Apartment</span>
+          <span class="text-grey fw-semibold">Types</span>
+        </h2>
+        <p class="text-grey text-center fw-semibold fs-6">Based On What The Customer Requires</p>
       </div>
-    </div>
-  </div>
-</section>
 
-
-
-   <!-- Residence start  -->
-
-<!-- Residence start -->
-<section id="residence">
-  <div class="container my-5 py-5">
-    <div class="text-center mb-4">
-      <h2 class="featured-heading text-center m-0">
-        <span class="fw-semibold">Homes For</span> 
-        <span class="text-grey fw-semibold">You</span>
-      </h2>
-      <p class="text-grey text-center fw-semibold fs-6">Choose Comfort And Peace</p>
-    </div>
-
-    <div class="swiper residence-swiper">
-      <div class="swiper-wrapper" id="sale-properties-container">
-        <div class="swiper-slide">
-          <div class="card h-100 loading-spinner">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+      <div class="row g-4 justify-content-center" id="rent-properties-container">
+        <div class="col-12 text-center loading-spinner">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="swiper-button-next residence-swiper-next residence-arrow"></div>
-    <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
 
-    <div class="residence-btn text-center mt-5">
-      <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-3">View All Properties</a>
-    </div>
-  </div>
-</section>
 
- <!-- Help start -->
-<section id="help" class="py-5">
-  <div class="container-lg my-5">
-    <div class="row align-items-center justify-content-between">
-      <!-- Image Group -->
-      <div class="col-md-6 d-flex gap-3 justify-content-center">
-        <!-- First Image -->
-        <div class="rounded-4 overflow-hidden shadow-sm">
-          <img src="images/group1.jpg" class="img-fluid" alt="Outdoor House">
-        </div>
+  <!-- Residence start  -->
 
-        <!-- Second Image with Play Icon -->
-        <div class="position-relative rounded-4 overflow-hidden">
-          <img src="images/group2.jpg" class="img-fluid" alt="Dining Area">
-        </div>
-      </div>
-
-      <!-- Text Content -->
-      <div class="col-md-5 mt-4 mt-md-0">
-        <h2 class="fw-bold text-primary-emphasis mb-3" style="font-size: 2rem;">
-          We Help People To <br> Find Homes
+  <!-- Residence start -->
+  <section id="residence">
+    <div class="container my-5 py-5">
+      <div class="text-center mb-4">
+        <h2 class="featured-heading text-center m-0">
+          <span class="fw-semibold">Homes For</span>
+          <span class="text-grey fw-semibold">You</span>
         </h2>
-        <p class="text-muted mb-4">
-          If you are having trouble finding the perfect rental for you, we have a functioning help centre that will be very useful for you and help guide you through all the confusions you might be facing. Click the button below and feel free to look through!
-        </p>
-        <a href="contact.html" class="btn btn-primary px-5 py-3 rounded-pill">Get In Touch</a>
+        <p class="text-grey text-center fw-semibold fs-6">Choose Comfort And Peace</p>
+      </div>
+
+      <div class="swiper residence-swiper">
+        <div class="swiper-wrapper" id="sale-properties-container">
+          <div class="swiper-slide">
+            <div class="card h-100 loading-spinner">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-button-next residence-swiper-next residence-arrow"></div>
+      <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
+
+      <div class="residence-btn text-center mt-5">
+        <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-3">View All Properties</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Help start -->
+  <section id="help" class="py-5">
+    <div class="container-lg my-5">
+      <div class="row align-items-center justify-content-between">
+        <!-- Image Group -->
+        <div class="col-md-6 d-flex gap-3 justify-content-center">
+          <!-- First Image -->
+          <div class="rounded-4 overflow-hidden shadow-sm">
+            <img src="images/group1.jpg" class="img-fluid" alt="Outdoor House">
+          </div>
+
+          <!-- Second Image with Play Icon -->
+          <div class="position-relative rounded-4 overflow-hidden">
+            <img src="images/group2.jpg" class="img-fluid" alt="Dining Area">
+          </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="col-md-5 mt-4 mt-md-0">
+          <h2 class="fw-bold text-primary-emphasis mb-3" style="font-size: 2rem;">
+            We Help People To <br> Find Homes
+          </h2>
+          <p class="text-muted mb-4">
+            If you are having trouble finding the perfect rental for you, we have a functioning help centre that will be
+            very useful for you and help guide you through all the confusions you might be facing. Click the button
+            below and feel free to look through!
+          </p>
+          <a href="contact.html" class="btn btn-primary px-5 py-3 rounded-pill">Get In Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- Lets contact-us  -->
   <section class="py-5" id="contact-us">
     <div class="container">
       <div class="row align-items-center">
-  
+
         <!-- Left: Text + Form -->
         <div class="col-lg-6 mb-4 mb-lg-0">
           <h5 class="fw-bold">Do You Have Any Question?</h5>
           <h5 class="fw-bold">Get Help From Us</h5>
-  
+
           <div class="d-flex align-items-center gap-3 my-3">
             <div class="d-flex align-items-center gap-2">
               <i class="bi bi-check-circle"></i>
@@ -354,111 +360,109 @@
               <small class="fw-semibold">Browse our FAQ</small>
             </div>
           </div>
-  
+
           <form class="d-flex align-items-center gap-3 mt-4">
             <div class="input-group rounded-pill bg-primary overflow-hidden shadow-sm" style="max-width: 350px;">
               <span class="input-group-text bg-primary border-0">
                 <i class="bi bi-envelope text-white"></i>
               </span>
-              <input type="email" class="form-control bg-primary border-0 text-white" placeholder="Enter your email address...">
+              <input type="email" class="form-control bg-primary border-0 text-white"
+                placeholder="Enter your email address...">
             </div>
 
             <a href="contact.html" class="btn btn-primary rounded-pill px-4">Submit</a>
           </form>
         </div>
-  
-       <!-- Interactive Google Map -->
-<div class="col-lg-6 text-center text-lg-end">
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d906778.5731543257!2d83.83550629505596!3d28.38004029629043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995936df2dc9fb3%3A0xc1b1a7f6a587c1b2!2sNepal!5e0!3m2!1sen!2snp!4v1711809038429!5m2!1sen!2snp"
-    width="100%"
-    height="510px"
-    style="border:0; border-radius: 1rem;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-</div>
 
-  
+        <!-- Interactive Google Map -->
+        <div class="col-lg-6 text-center text-lg-end">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d906778.5731543257!2d83.83550629505596!3d28.38004029629043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995936df2dc9fb3%3A0xc1b1a7f6a587c1b2!2sNepal!5e0!3m2!1sen!2snp!4v1711809038429!5m2!1sen!2snp"
+            width="100%" height="510px" style="border:0; border-radius: 1rem;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+
       </div>
     </div>
   </section>
-  
+
   <!-- Footer Start -->
-<section id="footer">
-  <div class="container footer-container py-5">
-    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5">
+  <section id="footer">
+    <div class="container footer-container py-5">
+      <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5">
 
-      <!-- Logo & Description -->
-      <div class="col-md-4 mb-4">
-        <h3><img src="images/logo-footer.png" alt="RentHub Logo" class="mb-3"></h3>
-        <p>Neque, vestibulum sed varius magna et at. Eu, adipiscing morbi augue.</p>
-        <div class="mt-3">
-          <i class="bi bi-facebook pe-3"></i>
-          <i class="bi bi-instagram pe-3"></i>
-          <i class="bi bi-twitter pe-3"></i>
-          <i class="bi bi-youtube pe-3"></i>
+        <!-- Logo & Description -->
+        <div class="col-md-4 mb-4">
+          <h3><img src="images/logo-footer.png" alt="RentHub Logo" class="mb-3"></h3>
+          <p>Neque, vestibulum sed varius magna et at. Eu, adipiscing morbi augue.</p>
+          <div class="mt-3">
+            <i class="bi bi-facebook pe-3"></i>
+            <i class="bi bi-instagram pe-3"></i>
+            <i class="bi bi-twitter pe-3"></i>
+            <i class="bi bi-youtube pe-3"></i>
+          </div>
         </div>
-      </div>
 
-      <!-- Project Links -->
-      <div class="col-md-2 mb-4">
-        <h5>Project</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Houses</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Rooms</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Flats</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Appartments</a></li>
-        </ul>
-      </div>
+        <!-- Project Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Project</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Houses</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Rooms</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Flats</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Appartments</a></li>
+          </ul>
+        </div>
 
-      <!-- Company Links -->
-      <div class="col-md-2 mb-4">
-        <h5>Company</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="footer-link">How we work?</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Capital</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Security</a></li>
-        </ul>
-      </div>
+        <!-- Company Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Company</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">How we work?</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Capital</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Security</a></li>
+          </ul>
+        </div>
 
-      <!-- Movement Links -->
-      <div class="col-md-2 mb-4">
-        <h5>Movement</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Movement</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Support us</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Pricing</a></li>
-        </ul>
-      </div>
+        <!-- Movement Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Movement</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Movement</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Support us</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Pricing</a></li>
+          </ul>
+        </div>
 
-      <!-- Help Links -->
-      <div class="col-md-2 mb-4">
-        <h5>Help</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Privacy</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Condition</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">Blog</a></li>
-          <li class="nav-item mb-2"><a href="#" class="footer-link">FAQs</a></li>
-        </ul>
-      </div>
+        <!-- Help Links -->
+        <div class="col-md-2 mb-4">
+          <h5>Help</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Privacy</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Condition</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">Blog</a></li>
+            <li class="nav-item mb-2"><a href="#" class="footer-link">FAQs</a></li>
+          </ul>
+        </div>
 
-    </footer>
-  </div>
+      </footer>
+    </div>
 
-  <!-- Bottom Footer -->
-  <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
-      <div class="col-md-8 d-flex align-items-center">
-        <p class="mb-0 text-white">© 2025 AgileTech, Inc. All rights reserved.</p>
-      </div>
-      <div class="col-md-4 d-flex align-items-center justify-content-end">
-        <p class="mb-0 text-white">HTML template by: <a href="https://agiletech.com/" class="link-primary text-decoration-underline" target="_blank">AgileTech</a></p>
-      </div>
-    </footer>
-  </div>
-</section>
+    <!-- Bottom Footer -->
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
+        <div class="col-md-8 d-flex align-items-center">
+          <p class="mb-0 text-white">© 2025 AgileTech, Inc. All rights reserved.</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-end">
+          <p class="mb-0 text-white">HTML template by: <a href="https://agiletech.com/"
+              class="link-primary text-decoration-underline" target="_blank">AgileTech</a></p>
+        </div>
+      </footer>
+    </div>
+  </section>
 
 
 
@@ -478,7 +482,7 @@
 <script src="js/script.js"></script>
 <script src="LogSign/project/script.js"></script>
 
-<script></script>
+
   <script>
     const rangeInputs = document.querySelectorAll(".range-input");
     const progress = document.querySelector(".slider .progress");
@@ -725,15 +729,15 @@
     `;
     }
   </script>
-<!-- Centered Toast Container -->
-<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
-  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body" id="logoutToastBody">Logging out...</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  <!-- Centered Toast Container -->
+  <div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+    <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert"
+      aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="logoutToastBody">Logging out...</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
     </div>
   </div>
-</div>
 </body>
-
-</html>

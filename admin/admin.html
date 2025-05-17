@@ -1,321 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rental Admin Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="../style.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
-  <style>
-    /* Additional styles for better UI */
-    .sidebar {
-      background-color: #f8f9fa;
-      min-height: 100vh;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      transition: all 0.3s;
-    }
-    .sidebar a {
-      display: block;
-      padding: 0.75rem 1.5rem;
-      color: #333;
-      text-decoration: none;
-      border-left: 3px solid transparent;
-      transition: all 0.2s;
-    }
-    .sidebar a:hover, .sidebar a.active {
-      background-color: #e9ecef;
-      border-left: 3px solid #0d6efd;
-    }
-    .sidebar a i {
-      margin-right: 0.5rem;
-      width: 1.25rem;
-      text-align: center;
-    }
-    .dashboard-header {
-      padding: 1rem 1.5rem;
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .card {
-      border: none;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-    }
-    .card-title i {
-      color: #6c757d;
-    }
-    .badge {
-      font-weight: 500;
-      padding: 0.35em 0.65em;
-    }
-    .table-hover tbody tr:hover {
-      background-color: rgba(0,0,0,0.02);
-    }
-    .btn-sm {
-      padding: 0.25rem 0.5rem;
-      font-size: 0.75rem;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../style.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
   <div class="container-fluid">
     <div class="row">
       <aside class="col-md-3 col-lg-2 sidebar py-4">
-        <h5 class="text-center text-uppercase mb-4 fw-bold text-primary">RentUp Admin</h5>
-        <nav class="nav flex-column">
-          <a href="admin.html" class="active"><i class="bi bi-house-door"></i> Dashboard</a>
-          <a href="properties.html"><i class="bi bi-building"></i> Properties</a>
-          <a href="settings.html"><i class="bi bi-gear"></i> Settings</a>
-        </nav>
+        <h5 class="text-center text-uppercase mb-4">RentUp Admin</h5>
+        <a href="admin.html" class="active"><i class="bi bi-house-door"></i> Dashboard</a>
+        <a href="properties.php"><i class="bi bi-building"></i> Properties</a>
+        <a href="bookings.php"><i class="bi bi-calendar-event"></i> Bookings</a>
+        <a href="users.html"><i class="bi bi-people"></i> Users</a>
+        <a href="payments.html"><i class="bi bi-currency-dollar"></i> Payments</a>
+        <a href="settings.php"><i class="bi bi-gear"></i> Settings</a>
       </aside>
 
-      <main class="col-md-9 col-lg-10 px-0">
-        <div class="dashboard-header d-flex justify-content-end align-items-center gap-3 px-4">
-          <div class="position-relative">
-            <i class="bi bi-bell fs-5 cursor-pointer"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              3
-            </span>
-          </div>
-          <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-              <img id="headerAvatar" src="https://i.pravatar.cc/40?img=3" 
-                   class="rounded-circle me-2" alt="Avatar" width="40" height="40" style="object-fit: cover;">
-              <span id="headerUsername" class="fw-medium">John Doe</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser">
-              <li><a class="dropdown-item" href="settings.html"><i class="bi bi-person me-2"></i> Profile</a></li>
-              <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="../index.html"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
-            </ul>
-          </div>
+      <main class="col-md-9 col-lg-10">
+        <div class="dashboard-header d-flex justify-content-end align-items-center gap-3">
+          <i class="bi bi-bell fs-5"></i>
+          <img src="" class="rounded-circle" alt="Avatar" id="userAvatar" style="width:40px; height:40px;" />
+          <span id="userName" style="color: var(--body-text-color);"></span>
+          <a href="../landingpage.html" class="text-decoration-none text-dark">
+            <i class="bi bi-box-arrow-right fs-5"></i>
+          </a>
         </div>
 
-        <div class="container-fluid py-4 px-4">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mb-0">Dashboard Overview</h4>
-            <div class="d-flex gap-2">
-              <select class="form-select form-select-sm w-auto">
-                <option>Today</option>
-                <option>This Week</option>
-                <option selected>This Month</option>
-                <option>This Year</option>
-              </select>
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="bi bi-download"></i> Export
-              </button>
+        <div class="container-fluid py-4">
+          <div class="row g-4 mb-4" id="dashboardStats">
+            <!-- Stats cards will be dynamically inserted here -->
+          </div>
+
+          <div class="card shadow-sm mt-4">
+            <div class="card-header bg-white fw-semibold">Recent Bug Reports</div>
+            <div class="card-body">
+              <table class="table table-hover">
+                <thead>
+                  <tr><th>ID</th><th>Email</th><th>Description</th><th>Severity</th><th>Status</th><th>Date</th><th>Action</th></tr>
+                </thead>
+                <tbody id="bugReportsTable">
+                  <tr><td colspan="7" class="text-center text-muted">Loading bug reports...</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <div class="row g-4 mb-4">
-            <div class="col-md-3">
-              <div class="card shadow-sm h-100">
-                <div class="card-body">
-                  <h6 class="card-title d-flex justify-content-between align-items-center text-muted mb-3">
-                    Total Properties <i class="bi bi-building"></i>
-                  </h6>
-                  <div class="d-flex align-items-end">
-                    <h3 class="mb-0 fw-bold">156</h3>
-                    <span class="text-success ms-2 fw-medium">
-                      <i class="bi bi-arrow-up"></i> 12%
-                    </span>
-                  </div>
-                  <div class="mt-2 text-muted small">+5 from last month</div>
+          <div class="modal fade" id="bugReportModal" tabindex="-1" aria-labelledby="bugReportModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="bugReportModalLabel">Bug Report Details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card shadow-sm h-100">
-                <div class="card-body">
-                  <h6 class="card-title d-flex justify-content-between align-items-center text-muted mb-3">
-                    Active Bookings <i class="bi bi-calendar-event"></i>
-                  </h6>
-                  <div class="d-flex align-items-end">
-                    <h3 class="mb-0 fw-bold">43</h3>
-                    <span class="text-danger ms-2 fw-medium">
-                      <i class="bi bi-arrow-down"></i> 8%
-                    </span>
-                  </div>
-                  <div class="mt-2 text-muted small">-4 from last month</div>
+                <div class="modal-body" id="bugReportDetails">
+                  <!-- Content will be loaded here -->
                 </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card shadow-sm h-100">
-                <div class="card-body">
-                  <h6 class="card-title d-flex justify-content-between align-items-center text-muted mb-3">
-                    Total Revenue <i class="bi bi-currency-dollar"></i>
-                  </h6>
-                  <div class="d-flex align-items-end">
-                    <h3 class="mb-0 fw-bold">$45,231</h3>
-                    <span class="text-success ms-2 fw-medium">
-                      <i class="bi bi-arrow-up"></i> 23%
-                    </span>
-                  </div>
-                  <div class="mt-2 text-muted small">+$8,450 from last month</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card shadow-sm h-100">
-                <div class="card-body">
-                  <h6 class="card-title d-flex justify-content-between align-items-center text-muted mb-3">
-                    Active Users <i class="bi bi-people"></i>
-                  </h6>
-                  <div class="d-flex align-items-end">
-                    <h3 class="mb-0 fw-bold">892</h3>
-                    <span class="text-success ms-2 fw-medium">
-                      <i class="bi bi-arrow-up"></i> 15%
-                    </span>
-                  </div>
-                  <div class="mt-2 text-muted small">+116 from last month</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row g-4 mb-4">
-            <div class="col-lg-8">
-              <div class="card shadow-sm h-100">
-                <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                  <h6 class="mb-0 fw-semibold">Recent Property Submissions</h6>
-                  <a href="properties.html" class="btn btn-sm btn-outline-primary">View All</a>
-                </div>
-                <div class="card-body p-0">
-                  <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                      <thead class="table-light">
-                        <tr>
-                          <th>Property</th>
-                          <th>Landlord</th>
-                          <th>Status</th>
-                          <th>Date</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=100" 
-                                   class="rounded me-2" width="40" height="40" style="object-fit: cover;">
-                              <div>
-                                <div class="fw-medium">Lakeview Villa</div>
-                                <div class="text-muted small">3 Beds • 2 Baths</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>John Doe</td>
-                          <td><span class="badge bg-warning">Pending</span></td>
-                          <td>Apr 5, 2025</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary">View</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=100" 
-                                   class="rounded me-2" width="40" height="40" style="object-fit: cover;">
-                              <div>
-                                <div class="fw-medium">Downtown Flat</div>
-                                <div class="text-muted small">2 Beds • 1 Bath</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Jane Smith</td>
-                          <td><span class="badge bg-success">Approved</span></td>
-                          <td>Apr 3, 2025</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary">View</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=100" 
-                                   class="rounded me-2" width="40" height="40" style="object-fit: cover;">
-                              <div>
-                                <div class="fw-medium">Cozy Studio</div>
-                                <div class="text-muted small">1 Bed • 1 Bath</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Adam West</td>
-                          <td><span class="badge bg-danger">Rejected</span></td>
-                          <td>Apr 1, 2025</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary">View</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card shadow-sm h-100">
-                <div class="card-header bg-white">
-                  <h6 class="mb-0 fw-semibold">Quick Actions</h6>
-                </div>
-                <div class="card-body">
-                  <div class="d-grid gap-2">
-                    <a href="properties.html?action=add" class="btn btn-primary">
-                      <i class="bi bi-plus-circle me-2"></i> Add New Property
-                    </a>
-                    <a href="bookings.html?action=add" class="btn btn-outline-primary">
-                      <i class="bi bi-calendar-plus me-2"></i> Create Booking
-                    </a>
-                    <a href="users.html?action=add" class="btn btn-outline-primary">
-                      <i class="bi bi-person-plus me-2"></i> Add New User
-                    </a>
-                  </div>
-                  <hr>
-                  <h6 class="fw-medium mb-3">Recent Notifications</h6>
-                  <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
-                      <div class="d-flex align-items-center">
-                        <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                          <i class="bi bi-building text-primary"></i>
-                        </div>
-                        <div>
-                          <div>New property submitted</div>
-                          <small class="text-muted">2 hours ago</small>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
-                      <div class="d-flex align-items-center">
-                        <div class="bg-success bg-opacity-10 p-2 rounded me-3">
-                          <i class="bi bi-currency-dollar text-success"></i>
-                        </div>
-                        <div>
-                          <div>Payment received for booking #B1024</div>
-                          <small class="text-muted">5 hours ago</small>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
-                      <div class="d-flex align-items-center">
-                        <div class="bg-warning bg-opacity-10 p-2 rounded me-3">
-                          <i class="bi bi-exclamation-triangle text-warning"></i>
-                        </div>
-                        <div>
-                          <div>3 pending approvals</div>
-                          <small class="text-muted">1 day ago</small>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
@@ -383,83 +130,7 @@
 </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const tbody = document.getElementById("billingTable");
-  tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted">Loading...</td></tr>`;
-
-  fetch("get_billing.php")
-    .then(res => res.json())
-    .then(data => {
-      tbody.innerHTML = "";
-
-      data.forEach(item => {
-        // Format monetary fields
-        const formattedPrice = parseFloat(item.price).toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        });
-        const formattedService = parseFloat(item.service_charge).toFixed(2);
-        const formattedDeposit = parseFloat(item.deposit).toFixed(2);
-        const formattedTotal = parseFloat(item.total_estimated).toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        });
-
-        // Default Billing Proof cell (shows "None")
-        let billingProofCell = `<span class="text-muted">None</span>`;
-
-        // Create table row with placeholder cell ID for billing proof
-        const row = `
-          <tr>
-            <td>${item.property_id}</td>
-            <td>${item.name}</td>
-            <td>${formattedPrice}</td>
-            <td>$${formattedService}</td>
-            <td>$${formattedDeposit}</td>
-            <td>${item.duration || 'N/A'} mo</td>
-            <td><strong>${formattedTotal}</strong></td>
-            <td id="billing-proof-${item.property_id}">${billingProofCell}</td>
-            <td><span class="badge ${item.status === 'Active' ? 'bg-success' : 'bg-secondary'}">${item.status}</span></td>
-            <td>${item.is_booked == 1 ? '✔️' : '❌'}</td>
-          </tr>
-        `;
-
-        tbody.insertAdjacentHTML("beforeend", row);
-
-        // Handle billing proof if present
-        if (item.billing_proof && item.billing_proof !== "NULL") {
-          const filename = item.billing_proof.split('/').pop();
-          const path = `../${item.billing_proof}`;
-          const proofCellId = `billing-proof-${item.property_id}`;
-
-          // Check if file exists via HEAD request
-          fetch(path, { method: 'HEAD' })
-            .then(res => {
-              const cell = document.getElementById(proofCellId);
-              if (res.ok) {
-                cell.innerHTML = `<a href="${path}" target="_blank">View</a>`;
-              } else {
-                cell.innerHTML = `<span class="text-danger">Missing file</span>`;
-              }
-            })
-            .catch(() => {
-              const cell = document.getElementById(proofCellId);
-              cell.innerHTML = `<span class="text-danger">Missing file</span>`;
-            });
-        }
-      });
-    })
-    .catch(err => {
-      console.error("Billing load error:", err);
-      tbody.innerHTML = `<tr><td colspan="10" class="text-danger text-center">Failed to load billing data</td></tr>`;
-    });
-});
-
-
-
-</script>
-
+  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Load profile data from localStorage
@@ -515,6 +186,5 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
   </script>
-  <script src="bug-reports.js"></script>
 </body>
 </html>
