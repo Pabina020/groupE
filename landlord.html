@@ -19,83 +19,89 @@
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <style>
-/* Notification bell button */
-#notificationBtn {
-  background-color: #4b5563; /* Tailwind slate-600 */
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 25px;
-  position: relative;
-  transition: background-color 0.3s ease;
-}
+    /* Notification bell button */
+    #notificationBtn {
+      background-color: #4b5563;
+      /* Tailwind slate-600 */
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 25px;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
 
-#notificationBtn:hover {
-  background-color: #374151; /* Slightly darker on hover */
-}
+    #notificationBtn:hover {
+      background-color: #374151;
+      /* Slightly darker on hover */
+    }
 
-/* Notification badge */
-#notifCount {
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  background-color: #dc3545; /* Bootstrap danger red */
-  color: white;
-  border-radius: 50%;
-  position: absolute;
-  display: none;
-}
+    /* Notification badge */
+    #notifCount {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      background-color: #dc3545;
+      /* Bootstrap danger red */
+      color: white;
+      border-radius: 50%;
+      position: absolute;
+      display: none;
+    }
 
-#notificationDropdown {
-  max-height: 400px;
-  opacity: 1;
-  overflow-y: auto;
-  background-color: #fff;
-  min-width: 300px;
-  max-width: 400px; /* increase max width */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 0;
-  position: absolute;
-  right: 0;
-  top: 40px;
-  z-index: 999;
-  transition: all 0.4s ease;
-}
+    #notificationDropdown {
+      max-height: 400px;
+      opacity: 1;
+      overflow-y: auto;
+      background-color: #fff;
+      min-width: 300px;
+      max-width: 400px;
+      /* increase max width */
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 0;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      z-index: 999;
+      transition: all 0.4s ease;
+    }
 
-#notificationDropdown li {
-  padding: 12px 16px;
-  border-bottom: 1px solid #eee;
-  font-size: 0.9rem;
-  color: #333;
-  background-color: #fff;
-  transition: background-color 0.2s;
-  white-space: normal;         /* allow wrapping */
-  word-break: break-word;      /* break long strings */
-  line-height: 1.5;
-}
-
-/* Show dropdown */
-#notificationDropdown.show {
-  max-height: 400px;
-  opacity: 1;
-}
+    #notificationDropdown li {
+      padding: 12px 16px;
+      border-bottom: 1px solid #eee;
+      font-size: 0.9rem;
+      color: #333;
+      background-color: #fff;
+      transition: background-color 0.2s;
+      white-space: normal;
+      /* allow wrapping */
+      word-break: break-word;
+      /* break long strings */
+      line-height: 1.5;
+    }
 
 
-#notificationDropdown li:hover {
-  background-color: #f8f9fa;
-}
+    /* Show dropdown */
+    #notificationDropdown.show {
+      max-height: 400px;
+      opacity: 1;
+    }
 
-#notificationDropdown li:last-child {
-  border-bottom: none;
-}
 
-#notificationDropdown small {
-  display: block;
-  color: #888;
-  margin-top: 4px;
-  font-size: 0.8rem;
-}
+    #notificationDropdown li:hover {
+      background-color: #f8f9fa;
+    }
 
+    #notificationDropdown li:last-child {
+      border-bottom: none;
+    }
+
+    #notificationDropdown small {
+      display: block;
+      color: #888;
+      margin-top: 4px;
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 
@@ -178,18 +184,24 @@
               <a href="#" id="addPropertyBtn" class="btn btn-success btn-sm rounded-pill px-3">Add Property +</a>
 
               <!-- Notification Button -->
-              <div class="dropdown">
-                <button class="btn btn-outline-secondary position-relative rounded-pill dropdown-toggle" type="button"
-                  data-bs-toggle="dropdown" id="notificationBtn">
-                  <i class="bi bi-bell"></i>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                    id="notifCount" style="display:none;">
-                    0
-                  </span>
-                </button>
-                <ul class="dropdown-menu" id="notificationDropdown">
-                  <li>Loading...</li>
-                </ul>
+<div class="dropdown position-relative">
+  <button class="btn btn-outline-secondary position-relative rounded-pill" 
+          type="button"
+          id="notificationBtn">
+    <i class="bi bi-bell"></i>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          id="notifCount" style="display: none;">
+      0
+    </span>
+  </button>
+
+  <ul class="dropdown-menu shadow" id="notificationDropdown" aria-labelledby="notificationBtn"
+      style="display: none; position: absolute; right: 0; top: 40px; min-width: 300px; max-width: 400px; z-index: 999; border-radius: 8px; overflow-y: auto; max-height: 400px;">
+    <li class="dropdown-item text-muted">Loading...</li>
+  </ul>
+</div>
+
+
               </div>
               <!-- User Profile Section -->
               <div class="d-flex align-items-center gap-2">
@@ -312,46 +324,60 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
     <script src="LogSign/project/script.js"></script>
-    <script>
-function fetchNotifications() {
-  fetch('get-notifications.php')
-    .then(response => response.json())
-    .then(data => {
-      const notifCount = document.getElementById('notifCount');
-      const notifDropdown = document.getElementById('notificationDropdown');
+<script>
+  function fetchNotifications() {
+    fetch('get-notifications.php')
+      .then(response => response.json())
+      .then(data => {
+        const notifCount = document.getElementById('notifCount');
+        const notifDropdown = document.getElementById('notificationDropdown');
 
-      if (data.length > 0) {
-        notifCount.textContent = data.length;
-        notifCount.style.display = 'inline-block';
+        if (Array.isArray(data) && data.length > 0) {
+          notifCount.textContent = data.length;
+          notifCount.style.display = 'inline-block';
 
-        notifDropdown.innerHTML = '';
-        data.forEach(n => {
-          notifDropdown.innerHTML += `
-            <li class="dropdown-item">${n.message}<br>
-              <small class="text-muted">${new Date(n.created_at).toLocaleString()}</small>
-            </li>`;
-        });
+          notifDropdown.innerHTML = '';
+          data.forEach(n => {
+            notifDropdown.innerHTML += `
+              <li class="dropdown-item">
+                ${n.message}<br>
+                <small class="text-muted">${new Date(n.created_at).toLocaleString()}</small>
+              </li>`;
+          });
+        } else {
+          notifCount.style.display = 'none';
+          notifDropdown.innerHTML = '<li class="dropdown-item text-muted">No new notifications</li>';
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching notifications:', err);
+      });
+  }
 
-        notifDropdown.classList.add('show');
-      } else {
-        notifCount.style.display = 'none';
-        notifDropdown.innerHTML = '<li class="dropdown-item">No new notifications</li>';
-        notifDropdown.classList.remove('show');
-      }
-    })
-    .catch(err => {
-      console.error('Error fetching notifications:', err);
-    });
-}
+  // Toggle dropdown on bell click
+  document.getElementById("notificationBtn").addEventListener("click", function (e) {
+    const dropdown = document.getElementById("notificationDropdown");
+    const isVisible = dropdown.style.display === 'block';
+    dropdown.style.display = isVisible ? 'none' : 'block';
+  });
 
-      // Logout button functionality
-      setInterval(fetchNotifications, 10000); // Poll every 10 seconds
-      window.onload = fetchNotifications;
+  // Hide dropdown when clicking outside
+  document.addEventListener("click", function (e) {
+    const dropdown = document.getElementById("notificationDropdown");
+    const button = document.getElementById("notificationBtn");
 
-      // Poll every 10 seconds
-      setInterval(fetchNotifications, 10000);
-      window.onload = fetchNotifications;
-    </script>
+    if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // Auto fetch every 10 seconds
+  setInterval(fetchNotifications, 10000);
+
+  // Fetch on page load
+  window.onload = fetchNotifications;
+</script>
+
 
     <!-- Centered Toast Container -->
     <div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">

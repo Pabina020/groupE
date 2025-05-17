@@ -2,23 +2,21 @@
 session_start();
 header('Content-Type: application/json');
 
-$conn = new mysqli("localhost", "root", "", "property_db");
-
+// Connect to DB
+$conn = new mysqli("localhost", "root", "", "rentup");
 if ($conn->connect_error) {
-    http_response_code(500);
-    echo json_encode(['error' => 'DB connection failed']);
-    exit;
+    die(json_encode(["error" => "Connection failed"]));
 }
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'landlord') {
-    http_response_code(403);
-    echo json_encode(['error' => 'Unauthorized']);
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(["error" => "Not logged in"]);
     exit;
 }
 
 $landlord_id = $_SESSION['user_id'];
 
-$stmt = $conn->prepare("SELECT id, message, created_at FROM notifications WHERE landlord_id = ? AND is_read = 0 ORDER BY created_at DESC");
+$sql = "SELECT id, message, is_read, created_at FROM notifications WHERE landlord_id = ? ORDER BY created_at DESC";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $landlord_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -29,5 +27,4 @@ while ($row = $result->fetch_assoc()) {
 }
 
 echo json_encode($notifications);
-$conn->close();
 ?>

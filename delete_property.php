@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$conn = new mysqli("localhost", "root", "", "property_db");
+$conn = new mysqli("localhost", "root", "", "rentup");
 
 if ($conn->connect_error) {
     echo json_encode(["success" => false, "message" => "Connection failed."]);
