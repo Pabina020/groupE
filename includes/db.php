@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'rentup_admin';
+$dbname = 'rentup';
 $username = 'root';
 $password = '';
 
@@ -13,7 +13,7 @@ try {
 ?>
 <?php
 $host = 'localhost';
-$dbname = 'rentup_admin';
+$dbname = 'rentup';
 $username = 'root';
 $password = '';
 

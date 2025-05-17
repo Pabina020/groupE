@@ -56,15 +56,22 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
+
 <!-- Centered Toast for Add Property Access -->
 <div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1060">
-  <div id="loginToast" class="toast align-items-center text-white bg-danger border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+  <div id="loginToast" 
+       class="toast align-items-center text-white bg-danger border-0 shadow-lg" 
+       role="alert" 
+       aria-live="assertive" 
+       aria-atomic="true"
+       data-bs-autohide="false">
     <div class="d-flex">
       <div class="toast-body" id="loginToastBody">Please log in as a landlord to add a property.</div>
       <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
 </div>
+>
   <!-- nav bar start -->
   <header class="site-header fixed-top ">
     <nav class="navbar navbar-expand-lg py-3">
@@ -85,21 +92,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
+
             <ul class="navbar-nav justify-content-center rounded-pill bg-white align-items-center mx-lg-5 px-lg-5">
               <li class="nav-item">
-                <a class="nav-link active me-md-4" href="#index.html">Home</a>
+                <a class="nav-link active me-md-4" href="index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link me-md-4" href="#apartment">Apartments</a>
+                <a class="nav-link me-md-4" href="index.html#apartment">Apartments</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link me-md-4" href="#residence">Properties</a>
+                <a class="nav-link me-md-4" href="index.html#residence">Properties</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link me-md-4" href="HelpCenter/project/helpcenter.html">Help center</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link me-md-4" href="#contact-us">Contact Us</a>
+                <a class="nav-link me-md-4" href="index.html#contact-us">Contact Us</a>
               </li>
               <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button"
@@ -133,11 +141,14 @@
 
               <!-- User Profile Section -->
               <div class="d-flex align-items-center gap-2">
-                <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
-                  style="width: 40px; height: 40px;">
+                <a href="usersetting.php" style="display: inline-block; position: relative; z-index: 10;">
+                  <img src="images/user-avatar.png" alt="User Avatar" class="rounded-circle"
+                    style="width: 40px; height: 40px; cursor: pointer;">
+                </a>
                 <span class="fw-semibold text-dark"><span id="username">User</span></span>
                 <a href="#" id="logoutBtn" class="btn btn-danger btn-sm rounded-pill">Logout</a>
               </div>
+
 
             </div>
 
@@ -156,17 +167,16 @@
             Perfect Way To Buy <br>And Sell A Home
           </h1>
           <p class="text-muted mb-4">
-            Diam vitae, nec mattis lectus quam pretium amet facilisis. Urna, massa aliqua dui pellentesque.
-            Ac, gravida in eget non amet eget purus non.
+           A user-friendly online platform that connects property owners with renters. The website allows users to browse, search, and filter available rental listings, including apartments, houses, and commercial spaces.
           </p>
           <div class="d-flex gap-3" data-aos="fade-up" data-aos-delay="300">
-            <a href="#" class="btn btn-primary rounded-pill px-4">VIEW</a>
-            <a href="#" class="btn btn-outline-primary rounded-pill px-4">LEARN MORE</a>
+            <a href="properties.html" class="btn btn-primary rounded-pill px-4">VIEW</a>
+            <a href="about.html" class="btn btn-outline-primary rounded-pill px-4">LEARN MORE</a>
           </div>
         </div>
 
         <!-- Right Content (Images) -->
-        <div class="col-lg-7 d-none d-lg-flex justify-content-lg-end justify-content-center mt-5 mt-lg-0">
+        <div class="col-lg-7 d-none d-lg-flex justify-content-lg-end justify-content-center mt-1 mt-lg-0">
           <div class="hero-image-group position-relative">
             <div class="hero-image hero-main" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1000">
               <img src="images/hero1.png" alt="Main House">
@@ -229,8 +239,8 @@
             </div>
 
             <div class="col-lg-1 billboard-btn d-flex justify-content-end">
-              <button type="button" class="btn btn-primary rounded-pill px-4 py-4"
-                onclick="filterProperties()">Search</button>
+              <a href="properties.html" type="button" class="btn btn-primary rounded-pill px-4 py-4"
+                onclick="filterProperties()">Search</a>
             </div>
           </div>
         </div>
@@ -240,257 +250,143 @@
 
   <!-- apartment start -->
 
-<section class="apartment-types py-5" id="apartment">
-  <div class="container">
-    <div class="text-center mb-4">
-      <h2 class="featured-heading text-center m-0">
-        <span class="fw-semibold">Explore Apartment</span> 
-        <span class="text-grey fw-semibold">Types</span>
-      </h2>
-      <p class="text-grey text-center fw-semibold fs-6">Based On What The Customer Requires</p>
-    </div>
-
-    <div class="row g-4 justify-content-center" id="rent-properties-container">
-      <div class="col-12 text-center loading-spinner">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+  <section class="apartment-types py-5" id="apartment">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="featured-heading text-center m-0">
+          <span class="fw-semibold">Explore Apartment</span>
+          <span class="text-grey fw-semibold">Types</span>
+        </h2>
+        <p class="text-grey text-center fw-semibold fs-6">Based On What The Customer Requires</p>
       </div>
-    </div>
-  </div>
-</section>
 
-
-
-   <!-- Residence start  -->
-
-<!-- Residence start -->
-<section id="residence">
-  <div class="container my-5 py-5">
-    <div class="text-center mb-4">
-      <h2 class="featured-heading text-center m-0">
-        <span class="fw-semibold">Homes For</span> 
-        <span class="text-grey fw-semibold">You</span>
-      </h2>
-      <p class="text-grey text-center fw-semibold fs-6">Choose Comfort And Peace</p>
-    </div>
-
-    <div class="swiper residence-swiper">
-      <div class="swiper-wrapper" id="sale-properties-container">
-        <div class="swiper-slide">
-          <div class="card h-100 loading-spinner">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+      <div class="row g-4 justify-content-center" id="rent-properties-container">
+        <div class="col-12 text-center loading-spinner">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </div>
-    </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item3.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item4.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item5.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item6.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card">
-              <a href="property-single.html"><img src="images/item7.png" class="card-img-top" alt="image"></a>
-              <div class="card-body p-0">
-                <a href="property-single.html">
-                  <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                </a>
-                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                <div class="card-text">
-                  <ul class="d-flex">
-                    <li class="residence-list"> <img src="images/bed.png" alt="image"> 4 bed</li>
-                    <li class="residence-list"> <img src="images/bath.png" alt="image"> 2 bath</li>
-                    <li class="residence-list"> <img src="images/square.png" alt="image"> 1203 Sqft.</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-
-
-      </div>
-
-      <div class="residence-btn">
-        <a href="properties.html" class="btn btn-primary rounded-pill mt-5 px-4 py-3">View All Properties</a>
-      </div>
-<div class="swiper-button-next residence-swiper-next residence-arrow"></div>
-    <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
-
-    <div class="residence-btn text-center mt-5">
-      <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-3">View All Properties</a>
-    </div>
     </div>
   </section>
-<!-- Help start -->
-<section id="help" class="py-5">
-  <div class="container-lg my-5">
-    <div class="row align-items-center justify-content-between">
 
-      <!-- Image Group -->
-      <div class="col-md-6 d-flex gap-3 justify-content-center" data-aos="fade-right" data-aos-duration="800">
-        <!-- First Image -->
-        <div class="rounded-4 overflow-hidden shadow-sm">
-          <img src="images/group1.jpg" class="img-fluid" alt="Outdoor House">
-        </div>
 
-        <!-- Second Image -->
-        <div class="position-relative rounded-4 overflow-hidden">
-          <img src="images/group2.jpg" class="img-fluid" alt="Dining Area">
-        </div>
-      </div>
 
-      <!-- Text Content -->
-      <div class="col-md-5 mt-4 mt-md-0" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
-        <h2 class="fw-bold text-primary-emphasis mb-3" style="font-size: 2rem;">
-          We Help People To <br> Find Homes
+  <!-- Residence start  -->
+
+  <!-- Residence start -->
+  <section id="residence">
+    <div class="container my-5 py-5">
+      <div class="text-center mb-4">
+        <h2 class="featured-heading text-center m-0">
+          <span class="fw-semibold">Homes For</span>
+          <span class="text-grey fw-semibold">You</span>
         </h2>
-        <p class="text-muted mb-4">
-          If you are having trouble finding the perfect rental for you, we have a functioning help centre that will be very useful for you and help guide you through all the confusions you might be facing. Click the button below and feel free to look through!
-        </p>
-        <a href="contact.html" class="btn btn-primary px-5 py-3 rounded-pill" data-aos="zoom-in" data-aos-delay="400">Get In Touch</a>
+        <p class="text-grey text-center fw-semibold fs-6">Choose Comfort And Peace</p>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- Lets contact-us -->
-<section class="py-5" id="contact-us">
-  <div class="container">
-    <div class="row align-items-center">
-
-      <!-- Left: Text + Form -->
-      <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-up-right" data-aos-duration="1000">
-        <h5 class="fw-bold">Do You Have Any Question?</h5>
-        <h5 class="fw-bold">Get Help From Us</h5>
-
-        <div class="d-flex align-items-center gap-3 my-3">
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-check-circle"></i>
-            <small class="fw-semibold">Chat live with our support team</small>
+      <div class="swiper residence-swiper">
+        <div class="swiper-wrapper" id="sale-properties-container">
+          <div class="swiper-slide">
+            <div class="card h-100 loading-spinner">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-check-circle"></i>
-            <small class="fw-semibold">Browse our FAQ</small>
+        </div>
+      </div>
+
+      <div class="swiper-button-next residence-swiper-next residence-arrow"></div>
+      <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
+
+      <div class="residence-btn text-center mt-5">
+        <a href="properties.html" class="btn btn-primary rounded-pill px-4 py-3">View All Properties</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Help start -->
+  <section id="help" class="py-5">
+    <div class="container-lg my-5">
+      <div class="row align-items-center justify-content-between">
+        <!-- Image Group -->
+        <div class="col-md-6 d-flex gap-3 justify-content-center">
+          <!-- First Image -->
+          <div class="rounded-4 overflow-hidden shadow-sm">
+            <img src="images/group1.jpg" class="img-fluid" alt="Outdoor House">
+          </div>
+
+          <!-- Second Image with Play Icon -->
+          <div class="position-relative rounded-4 overflow-hidden">
+            <img src="images/group2.jpg" class="img-fluid" alt="Dining Area">
           </div>
         </div>
 
-        <form class="d-flex align-items-center gap-3 mt-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="input-group rounded-pill bg-primary overflow-hidden shadow-sm" style="max-width: 350px;">
-            <span class="input-group-text bg-primary border-0">
-              <i class="bi bi-envelope text-white"></i>
-            </span>
-            <input type="email" class="form-control bg-primary border-0 text-white" placeholder="Enter your email address...">
+        <!-- Text Content -->
+        <div class="col-md-5 mt-4 mt-md-0">
+          <h2 class="fw-bold text-primary-emphasis mb-3" style="font-size: 2rem;">
+            We Help People To <br> Find Homes
+          </h2>
+          <p class="text-muted mb-4">
+            If you are having trouble finding the perfect rental for you, we have a functioning help centre that will be
+            very useful for you and help guide you through all the confusions you might be facing. Click the button
+            below and feel free to look through!
+          </p>
+          <a href="contact.html" class="btn btn-primary px-5 py-3 rounded-pill">Get In Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Lets contact-us  -->
+  <section class="py-5" id="contact-us">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- Left: Text + Form -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h5 class="fw-bold">Do You Have Any Question?</h5>
+          <h5 class="fw-bold">Get Help From Us</h5>
+
+          <div class="d-flex align-items-center gap-3 my-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle"></i>
+              <small class="fw-semibold">Chat live with our support team</small>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle"></i>
+              <small class="fw-semibold">Browse our FAQ</small>
+            </div>
           </div>
 
-          <a href="#" class="btn btn-primary rounded-pill px-4">Submit</a>
-        </form>
-      </div>
+          <form class="d-flex align-items-center gap-3 mt-4">
+            <div class="input-group rounded-pill bg-primary overflow-hidden shadow-sm" style="max-width: 350px;">
+              <span class="input-group-text bg-primary border-0">
+                <i class="bi bi-envelope text-white"></i>
+              </span>
+              <input type="email" class="form-control bg-primary border-0 text-white"
+                placeholder="Enter your email address...">
+            </div>
 
-      <!-- Right: Google Map -->
-      <div class="col-lg-6 text-center text-lg-end" data-aos="zoom-in-left" data-aos-duration="1200">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d906778.5731543257!2d83.83550629505596!3d28.38004029629043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995936df2dc9fb3%3A0xc1b1a7f6a587c1b2!2sNepal!5e0!3m2!1sen!2snp!4v1711809038429!5m2!1sen!2snp"
-          width="100%"
-          height="510px"
-          style="border:0; border-radius: 1rem;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
+            <a href="contact.html" class="btn btn-primary rounded-pill px-4">Submit</a>
+          </form>
+        </div>
 
+        <!-- Interactive Google Map -->
+        <div class="col-lg-6 text-center text-lg-end">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d906778.5731543257!2d83.83550629505596!3d28.38004029629043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995936df2dc9fb3%3A0xc1b1a7f6a587c1b2!2sNepal!5e0!3m2!1sen!2snp!4v1711809038429!5m2!1sen!2snp"
+            width="100%" height="510px" style="border:0; border-radius: 1rem;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Footer Start -->
   <section id="footer">
@@ -554,48 +450,38 @@
       </footer>
     </div>
 
-  <!-- Bottom Footer -->
-  <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
-      <div class="col-md-8 d-flex align-items-center">
-        <p class="mb-0 text-white">© 2025 AgileTech, Inc. All rights reserved.</p>
-      </div>
-      <div class="col-md-4 d-flex align-items-center justify-content-end">
-        <p class="mb-0 text-white">HTML template by: <a href="https://agiletech.com/" class="link-white text-decoration-underline" target="_blank">AgileTech</a></p>
-      </div>
-    </footer>
-  </div>
-</section>
+    <!-- Bottom Footer -->
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
+        <div class="col-md-8 d-flex align-items-center">
+          <p class="mb-0 text-white">© 2025 AgileTech, Inc. All rights reserved.</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-end">
+          <p class="mb-0 text-white">HTML template by: <a href="https://agiletech.com/"
+              class="link-primary text-decoration-underline" target="_blank">AgileTech</a></p>
+        </div>
+      </footer>
+    </div>
+  </section>
 
 
 
 
+ <!-- 1. jQuery (for Chocolat or legacy plugins) -->
+<script src="js/jquery-1.11.0.min.js"></script>
 
-  <script src="js/jquery-1.11.0.min.js"></script>
+<!-- 2. Swiper (for sliders) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
-  <script src="js/script.js"></script>
-  <script src="LogSign/project/script.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("LogSign/project/get_user.php") // adjust path if needed
-    .then(res => res.json())
-    .then(data => {
-      if (data.loggedIn) {
-        const usernameEl = document.getElementById("username");
-        if (usernameEl) {
-          usernameEl.textContent = data.username;
-        }
-      }
-    })
-    .catch(err => {
-      console.error("Error fetching user data:", err);
-    });
-});
-</script>
+<!-- 3. Bootstrap (must come BEFORE your custom scripts) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+  crossorigin="anonymous"></script>
+
+<!-- 4. Your custom scripts (AFTER Bootstrap is available) -->
+<script src="js/script.js"></script>
+<script src="LogSign/project/script.js"></script>
+
 
   <script>
     const rangeInputs = document.querySelectorAll(".range-input");
@@ -843,15 +729,15 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     }
   </script>
-<!-- Centered Toast Container -->
-<div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
-  <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body" id="logoutToastBody">Logging out...</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  <!-- Centered Toast Container -->
+  <div class="position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1055">
+    <div id="logoutToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert"
+      aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="logoutToastBody">Logging out...</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
     </div>
   </div>
-</div>
 </body>
-
-</html>

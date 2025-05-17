@@ -34,7 +34,7 @@ try {
     }
 
     // Database connection
-    $conn = new mysqli('localhost', 'root', '', 'property_db');
+    $conn = new mysqli('localhost', 'root', '', 'rentup');
     if ($conn->connect_error) {
         throw new Exception("Database connection failed", 500);
     }

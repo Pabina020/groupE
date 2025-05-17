@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "property_db";
+$database = "rentup";
 
 // Connect to MySQL
 $conn = new mysqli($host, $user, $password, $database);
