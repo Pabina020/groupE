@@ -51,6 +51,8 @@ try {
             p.description,
             p.main_image,
             p.extra_images,
+            p.billing_image,
+            p.billing_status,
             p.is_booked,
             (SELECT COUNT(*) FROM bookings WHERE property_id = p.property_id) AS booking_count
         FROM properties p

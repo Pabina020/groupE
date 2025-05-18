@@ -148,6 +148,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $extra_images_serialized = json_encode($extra_images);
     }
 
+    // Process Billing Proof Upload
+$billing_image_path = '';
+if (!empty($_FILES['billing_proof']['name'])) {
+    $billing_upload_dir = "uploads/billing/";
+    if (!is_dir($billing_upload_dir)) {
+        mkdir($billing_upload_dir, 0755, true);
+    }
+    $billing_image_name = uniqid() . '_' . basename($_FILES['billing_proof']['name']);
+    $billing_image_path = $billing_upload_dir . $billing_image_name;
+    move_uploaded_file($_FILES['billing_proof']['tmp_name'], $billing_image_path);
+}
+
     // Begin database transaction
     $conn->begin_transaction();
 // Get landlord ID from session
@@ -170,7 +182,11 @@ $landlord_id = $_SESSION['user_id'];
             throw new Exception("Prepare failed: " . $conn->error);
         }
 
-        $stmt->bind_param("sssiissssssi", 
+        $stmt = $conn->prepare("INSERT INTO properties 
+    (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images, billing_image, billing_status, landlord_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Not Verified', ?)");
+
+$stmt->bind_param("sssiisssssssi", 
     $property_id, 
     $property_name, 
     $location,
@@ -182,6 +198,7 @@ $landlord_id = $_SESSION['user_id'];
     $property_description,
     $main_image_path,
     $extra_images_serialized,
+    $billing_image_path,
     $landlord_id
 );
 
@@ -447,4 +464,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'message' => 'Invalid request method'
     ]);
 }
+// Process Billing Proof Upload
+$billing_image_path = '';
+if (!empty($_FILES['billing_proof']['name'])) {
+    $billing_upload_dir = "uploads/billing/"; 
+
+    if (!file_exists($billing_upload_dir)) {
+        mkdir($billing_upload_dir, 0755, true);
+    }
+
+    $billing_image_name = uniqid() . '_' . basename($_FILES['billing_proof']['name']);
+    $billing_image_path = $billing_upload_dir . $billing_image_name;
+
+    if (!move_uploaded_file($_FILES['billing_proof']['tmp_name'], $billing_image_path)) {
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'Failed to upload billing image'
+        ]));
+    }
+}
+$stmt = $conn->prepare("INSERT INTO properties 
+    (property_id, name, location, bedrooms, bathrooms, sqft, type, price, description, main_image, extra_images, billing_image, billing_status, landlord_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Not Verified', ?)");
+
+$stmt->bind_param("sssiisssssssi", 
+    $property_id, 
+    $property_name, 
+    $location,
+    $bedrooms,
+    $bathrooms,
+    $sqft,
+    $property_type,
+    $price,
+    $property_description,
+    $main_image_path,
+    $extra_images_serialized,
+    $billing_image_path,   
+    $landlord_id
+);
+
+// Handle Billing Proof Upload
+$billingProofPath = '';
+if (!empty($_FILES['billing_proof']['name'])) {
+    $targetDir = "uploads/billing_proofs/";
+    if (!file_exists($targetDir)) {
+        mkdir($targetDir, 0777, true);
+    }
+    $billingProofPath = $targetDir . basename($_FILES['billing_proof']['name']);
+    move_uploaded_file($_FILES['billing_proof']['tmp_name'], $billingProofPath);
+}
+
+// Insert into database with billing proof path
+$sql = "INSERT INTO properties (property_id, property_name, location, bedrooms, bathrooms, sqft, type, price, property_description, main_image, billing_image, billing_status)
+        VALUES ('$property_id', '$property_name', '$location', '$bedrooms', '$bathrooms', '$sqft', '$type', '$price', '$property_description', '$mainImagePath', '$billingProofPath', 'Not Verified')";
 ?>

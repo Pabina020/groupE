@@ -163,6 +163,19 @@ $result = mysqli_query($conn, "SELECT * FROM properties");
                                                             </select>
                                                         </form>
                                                     </td>
+                                                   <td>
+  <?php if (!empty($property['billing_image'])): ?>
+    <a href="../<?= htmlspecialchars($property['billing_image']) ?>" target="_blank">View Billing</a><br>
+  <?php else: ?>
+    <em>No billing proof uploaded.</em><br>
+  <?php endif; ?>
+
+  <?php if ($property['billing_status'] == 'Not Verified'): ?>
+    <button class="btn btn-sm btn-primary" onclick="verifyBilling(<?= $property['property_id'] ?>)">Verify</button>
+  <?php else: ?>
+    <span class="badge bg-success">Verified</span>
+  <?php endif; ?>
+</td>
                                                     <td>
                                                         <a href="edit_property.php?id=<?= $property['property_id'] ?>" class="btn btn-sm btn-outline-primary">Edit</a>
                                                         <form action="properties.php" method="POST" style="display:inline;">
@@ -212,6 +225,20 @@ $result = mysqli_query($conn, "SELECT * FROM properties");
             // Store original value
             select.dataset.originalValue = select.value;
         });
+        //Billing Verification Script 
+        function verifyBilling(propertyId) {
+  fetch('verify-billing.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `id=${propertyId}`
+  })
+  .then(response => response.text())
+  .then(result => {
+    alert(result);
+    location.reload();
+  })
+  .catch(err => console.error(err));
+}
     </script>
 </body>
 </html>
