@@ -5,26 +5,6 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-// Create admin_users table if it doesn't exist
-$create_table = "CREATE TABLE IF NOT EXISTS admin_users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    phone VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-)";
-
-if (!$mysqli->query($create_table)) {
-    die("Error creating table: " . $mysqli->error);
-}
-
-// Insert default admin if none exists
-$check_admin = $mysqli->query("SELECT id FROM admin_users WHERE id = 1");
-if ($check_admin && $check_admin->num_rows === 0) {
-    $mysqli->query("INSERT INTO admin_users (id, full_name, email) VALUES (1, 'Admin User', 'admin@example.com')");
-}
-
 $success_message = '';
 $error_message = '';
 
@@ -36,20 +16,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = trim($_POST['phone'] ?? '');
     $full_name = $first_name . ' ' . $last_name;
 
-    // Validate inputs
-    if (empty($first_name) || empty($email)) {
+    if ($first_name === '' || $email === '') {
         $error_message = "First name and email cannot be empty.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_message = "Please enter a valid email address.";
     } else {
-        // Update admin user
-        $stmt = $mysqli->prepare("UPDATE admin_users SET full_name = ?, email = ?, phone = ? WHERE id = 1");
-        if (!$stmt) {
-            $error_message = "Database error: " . $mysqli->error;
+        // Check if user with id=1 exists
+        $check = $mysqli->query("SELECT id FROM admin_users WHERE id = 1");
+        if ($check && $check->num_rows === 0) {
+            // Insert if not exists
+            $stmt = $mysqli->prepare("INSERT INTO admin_users (id, full_name, email, phone) VALUES (1, ?, ?, ?)");
+            if (!$stmt) {
+                die("Prepare failed: " . $mysqli->error);
+            }
+            $stmt->bind_param("sss", $full_name, $email, $phone);
+            $stmt->execute();
+            $stmt->close();
         } else {
+            // Update existing
+            $stmt = $mysqli->prepare("UPDATE admin_users SET full_name = ?, email = ?, phone = ? WHERE id = 1");
+            if (!$stmt) {
+                die("Prepare failed: " . $mysqli->error);
+            }
             $stmt->bind_param("sss", $full_name, $email, $phone);
             if ($stmt->execute()) {
-                $success_message = "Profile updated successfully!";
+                $success_message = "Profile updated successfully.";
             } else {
                 $error_message = "Error updating profile: " . $stmt->error;
             }
@@ -58,18 +47,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch current admin data
+// Fetch current user data
 $result = $mysqli->query("SELECT * FROM admin_users WHERE id = 1");
 if (!$result) {
-    die("Error fetching admin data: " . $mysqli->error);
+    die("Fetch user failed: " . $mysqli->error);
 }
+$user = $result->fetch_assoc() ?: [];
 
-$user = $result->fetch_assoc();
-$names = explode(' ', $user['full_name'] ?? 'Admin User');
-$first_name = $names[0] ?? 'Admin';
-$last_name = $names[1] ?? '';
-$email = $user['email'] ?? 'admin@example.com';
+// Extract names and email, phone fallback
+$first_name = explode(' ', $user['full_name'] ?? 'Admin')[0] ?? 'Admin';
+$last_name = explode(' ', $user['full_name'] ?? 'Admin')[1] ?? '';
+$email = $user['email'] ?? '';
 $phone = $user['phone'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -80,41 +70,7 @@ $phone = $user['phone'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    .sidebar {
-      background-color: #f8f9fa;
-      height: 100vh;
-      position: fixed;
-      width: 250px;
-    }
-    .sidebar a {
-      display: block;
-      padding: 10px 15px;
-      color: #333;
-      text-decoration: none;
-      border-left: 3px solid transparent;
-    }
-    .sidebar a.active {
-      background-color: #e9ecef;
-      border-left: 3px solid #0d6efd;
-      font-weight: 500;
-    }
-    .sidebar a:hover {
-      background-color: #e9ecef;
-    }
-    .sidebar i {
-      margin-right: 10px;
-    }
-    main {
-      margin-left: 250px;
-      padding: 20px;
-    }
-    .dashboard-header {
-      padding: 15px 0;
-      border-bottom: 1px solid #dee2e6;
-      margin-bottom: 20px;
-    }
-  </style>
+  <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -123,11 +79,11 @@ $phone = $user['phone'] ?? '';
       <aside class="col-md-3 col-lg-2 sidebar py-4">
         <h5 class="text-center text-uppercase mb-4">RentUp Admin</h5>
         <a href="admin.html"><i class="bi bi-house-door"></i> Dashboard</a>
-        <a href="properties.php"><i class="bi bi-building"></i> Properties</a>
+        <a href="properties.php" class="active"><i class="bi bi-building"></i> Properties</a>
         <a href="bookings.php"><i class="bi bi-calendar-event"></i> Bookings</a>
         <a href="users.html"><i class="bi bi-people"></i> Users</a>
         <a href="payments.html"><i class="bi bi-currency-dollar"></i> Payments</a>
-        <a href="settings.php" class="active"><i class="bi bi-gear"></i> Settings</a>
+        <a href="settings.php"><i class="bi bi-gear"></i> Settings</a>
       </aside>
 
       <main class="col-md-9 col-lg-10">
@@ -201,28 +157,5 @@ $phone = $user['phone'] ?? '';
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Form validation
-    document.querySelector('form').addEventListener('submit', function(e) {
-      const firstName = document.getElementById('first_name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      
-      if (!firstName) {
-        alert('First name is required');
-        e.preventDefault();
-        return;
-      }
-      
-      if (!email) {
-        alert('Email is required');
-        e.preventDefault();
-        return;
-      }
-    });
-  </script>
 </body>
 </html>
-
-<?php
-$mysqli->close();
-?>

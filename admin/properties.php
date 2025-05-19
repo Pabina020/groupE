@@ -38,53 +38,10 @@ $result = mysqli_query($conn, "SELECT * FROM properties");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Rental Admin - Properties</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-    <style>
-        .sidebar {
-            background-color: #f8f9fa;
-            height: 100vh;
-            position: fixed;
-            width: 250px;
-        }
-        
-        .sidebar a {
-            display: block;
-            padding: 10px 15px;
-            color: #333;
-            text-decoration: none;
-            border-left: 3px solid transparent;
-        }
-        
-        .sidebar a.active {
-            background-color: #e9ecef;
-            border-left: 3px solid #0d6efd;
-            font-weight: 500;
-        }
-        
-        .sidebar a:hover {
-            background-color: #e9ecef;
-        }
-        
-        .sidebar i {
-            margin-right: 10px;
-        }
-        
-        main {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        
-        .dashboard-header {
-            padding: 15px 0;
-            border-bottom: 1px solid #dee2e6;
-            margin-bottom: 20px;
-        }
-        
-        .form-select-sm {
-            width: auto;
-            display: inline-block;
-        }
-    </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../style.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+ 
 </head>
 
 <body>
@@ -163,6 +120,19 @@ $result = mysqli_query($conn, "SELECT * FROM properties");
                                                             </select>
                                                         </form>
                                                     </td>
+                                                   <td>
+  <?php if (!empty($property['billing_image'])): ?>
+    <a href="../<?= htmlspecialchars($property['billing_image']) ?>" target="_blank">View Billing</a><br>
+  <?php else: ?>
+    <em>No billing proof uploaded.</em><br>
+  <?php endif; ?>
+
+  <?php if ($property['billing_status'] == 'Not Verified'): ?>
+    <button class="btn btn-sm btn-primary" onclick="verifyBilling(<?= $property['property_id'] ?>)">Verify</button>
+  <?php else: ?>
+    <span class="badge bg-success">Verified</span>
+  <?php endif; ?>
+</td>
                                                     <td>
                                                         <a href="edit_property.php?id=<?= $property['property_id'] ?>" class="btn btn-sm btn-outline-primary">Edit</a>
                                                         <form action="properties.php" method="POST" style="display:inline;">
@@ -212,6 +182,20 @@ $result = mysqli_query($conn, "SELECT * FROM properties");
             // Store original value
             select.dataset.originalValue = select.value;
         });
+        //Billing Verification Script 
+        function verifyBilling(propertyId) {
+  fetch('verify-billing.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `id=${propertyId}`
+  })
+  .then(response => response.text())
+  .then(result => {
+    alert(result);
+    location.reload();
+  })
+  .catch(err => console.error(err));
+}
     </script>
 </body>
 </html>
